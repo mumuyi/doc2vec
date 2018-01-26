@@ -1,0 +1,7 @@
+public ClickHandler(Context context) {
+		try {
+			mBrowserController = (BrowserController) context;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(context + " must implement BrowserController");
+		}
+	}

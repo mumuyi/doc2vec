@@ -1,0 +1,35 @@
+/**
+	 * This method deletes the bookmark with the given url
+	 * 
+	 * @param url
+	 */
+	public synchronized boolean deleteBookmark(String url) {
+		List<HistoryItem> list;
+		if (url == null) {
+			return false;
+		}
+		mBookmarkMap.remove(url);
+		list = getBookmarks(false);
+		File bookmarksFile = new File(mContext.getFilesDir(), FILE_BOOKMARKS);
+		boolean bookmarkDeleted = false;
+		try {
+			BufferedWriter fileWriter = new BufferedWriter(new FileWriter(bookmarksFile, false));
+			for (HistoryItem item : list) {
+				if (!item.getUrl().equalsIgnoreCase(url)) {
+					JSONObject object = new JSONObject();
+					object.put(TITLE, item.getTitle());
+					object.put(URL, item.getUrl());
+					object.put(FOLDER, item.getFolder());
+					object.put(ORDER, item.getOrder());
+					fileWriter.write(object.toString());
+					fileWriter.newLine();
+				} else {
+					bookmarkDeleted = true;
+				}
+			}
+			fileWriter.close();
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+		return bookmarkDeleted;
+	}

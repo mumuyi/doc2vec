@@ -1,0 +1,37 @@
+@Override
+	/**
+	 * obviously it shows the action bar if it's hidden
+	 */
+	public void showActionBar() {
+		if (mFullScreen) {
+			if (mBrowserFrame.findViewById(R.id.toolbar_layout) == null) {
+				mUiLayout.removeView(mToolbarLayout);
+				mBrowserFrame.addView(mToolbarLayout);
+				mToolbarLayout.bringToFront();
+				Log.d(Constants.TAG, "Move view to browser frame");
+			}
+			if (mToolbarLayout.getVisibility() != View.VISIBLE) {
+				Animation show = AnimationUtils.loadAnimation(mActivity, R.anim.slide_down);
+				show.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						mToolbarLayout.setVisibility(View.VISIBLE);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+				});
+				mToolbarLayout.startAnimation(show);
+				Log.d(Constants.TAG, "Show");
+			}
+
+		}
+
+	}

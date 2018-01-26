@@ -1,0 +1,5 @@
+@Override
+		public void onLongPress(MotionEvent e) {
+			if (mCanTriggerLongPress)
+				mBrowserController.onLongPress();
+		}

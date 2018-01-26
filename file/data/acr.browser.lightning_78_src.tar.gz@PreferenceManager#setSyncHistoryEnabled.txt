@@ -1,0 +1,3 @@
+public void setSyncHistoryEnabled(boolean enable) {
+		putBoolean(Name.SYNC_HISTORY, enable);
+	}

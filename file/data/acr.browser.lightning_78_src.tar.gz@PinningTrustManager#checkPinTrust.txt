@@ -1,0 +1,20 @@
+private void checkPinTrust(X509Certificate[] chain)
+      throws CertificateException {
+
+    if (enforceUntilTimestampMillis != 0 &&
+        System.currentTimeMillis() > enforceUntilTimestampMillis)
+    {
+      Log.w("PinningTrustManager", "Certificate pins are stale, falling back to system trust.");
+      return;
+    }
+
+    final X509Certificate[] cleanChain = CertificateChainCleaner.getCleanChain(chain, systemKeyStore);
+
+    for (X509Certificate certificate : cleanChain) {
+      if (isValidPin(certificate)) {
+        return;
+      }
+    }
+
+    throw new CertificateException("No valid pins found in chain!");
+  }

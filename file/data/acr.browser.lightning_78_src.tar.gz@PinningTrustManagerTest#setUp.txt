@@ -1,0 +1,9 @@
+@Override
+  protected void setUp() throws Exception {
+    super.setUp();
+    // Pinning GOOGLE_AUTHORITY
+    trustManager =
+        new PinningTrustManager(SystemKeyStore.getInstance(getContext()),
+                                new String[] {"40c5401d6f8cbaf08b00edefb1ee87d005b3b9cd"},
+                                0);
+  }

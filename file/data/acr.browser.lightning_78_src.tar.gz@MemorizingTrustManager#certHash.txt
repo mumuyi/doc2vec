@@ -1,0 +1,11 @@
+private static String certHash(final X509Certificate cert, String digest) {
+		try {
+			MessageDigest md = MessageDigest.getInstance(digest);
+			md.update(cert.getEncoded());
+			return hexString(md.digest());
+		} catch (java.security.cert.CertificateEncodingException e) {
+			return e.getMessage();
+		} catch (java.security.NoSuchAlgorithmException e) {
+			return e.getMessage();
+		}
+	}

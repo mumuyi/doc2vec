@@ -1,0 +1,15 @@
+private void rThirdParty(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					cbThirdParty.setChecked(!cbThirdParty.isChecked());
+				} else {
+					Utils.showToast(mContext, mContext.getString(R.string.available_lollipop));
+				}
+			}
+
+		});
+	}

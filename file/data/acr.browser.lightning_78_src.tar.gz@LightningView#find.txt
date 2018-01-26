@@ -1,0 +1,11 @@
+@SuppressWarnings("deprecation")
+	@SuppressLint("NewApi")
+	public synchronized void find(String text) {
+		if (mWebView != null) {
+			if (API > 16) {
+				mWebView.findAllAsync(text);
+			} else {
+				mWebView.findAll(text);
+			}
+		}
+	}

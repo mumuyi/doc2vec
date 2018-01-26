@@ -1,0 +1,8 @@
+public static String getUrlFromUglyFacebookRedirect(String url) {
+		if (url.startsWith("http://www.facebook.com/l.php?u=")) {
+			url = url.substring("http://www.facebook.com/l.php?u=".length());
+			return urlDecode(url);
+		}
+
+		return null;
+	}

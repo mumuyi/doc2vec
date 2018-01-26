@@ -1,0 +1,3 @@
+public ArticleTextExtractor addUnlikely(String unlikelyMatches) {
+		return setUnlikely(unlikelyStr + "|" + unlikelyMatches);
+	}

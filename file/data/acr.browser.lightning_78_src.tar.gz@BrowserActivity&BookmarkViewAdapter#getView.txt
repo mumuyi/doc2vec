@@ -1,0 +1,27 @@
+@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View row = convertView;
+			BookmarkViewHolder holder;
+
+			if (row == null) {
+				LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+				row = inflater.inflate(layoutResourceId, parent, false);
+
+				holder = new BookmarkViewHolder();
+				holder.txtTitle = (TextView) row.findViewById(R.id.textBookmark);
+				holder.favicon = (ImageView) row.findViewById(R.id.faviconBookmark);
+				row.setTag(holder);
+			} else {
+				holder = (BookmarkViewHolder) row.getTag();
+			}
+
+			HistoryItem web = data.get(position);
+			holder.txtTitle.setText(web.getTitle());
+			holder.favicon.setImageBitmap(mWebpageBitmap);
+			if (web.getBitmap() == null) {
+				getImage(holder.favicon, web);
+			} else {
+				holder.favicon.setImageBitmap(web.getBitmap());
+			}
+			return row;
+		}

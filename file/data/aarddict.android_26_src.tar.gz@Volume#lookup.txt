@@ -1,0 +1,46 @@
+Iterator<Entry> lookup(final LookupWord lookupWord, final Comparator<Entry> comparator) {
+        if (lookupWord.isEmpty()) {
+            return EMPTY_ITERATOR;
+        }
+
+        final String section = lookupWord.section;
+        final Entry lookupEntry = new Entry(this.getId(), lookupWord.word);
+        final int initialIndex = binarySearch(this, lookupEntry, comparator);
+        Iterator<Entry> iterator = new Iterator<Entry>() {
+
+            int   index = initialIndex;
+            Entry nextEntry;
+
+            {
+                prepareNext();
+            }
+
+            private void prepareNext() {
+                if (index < header.indexCount) {
+                    Entry matchedEntry = get(index);
+                    nextEntry = (0 == comparator.compare(matchedEntry, lookupEntry)) ? matchedEntry : null;
+                    index++;
+                }
+                else {
+                    nextEntry = null;
+                }
+            }
+
+            public boolean hasNext() {
+                return nextEntry != null;
+            }
+
+            public Entry next() {
+                Entry current = nextEntry;
+                current.section = section;
+                prepareNext();
+                return current;
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+
+        return iterator;
+    }

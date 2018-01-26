@@ -1,0 +1,3 @@
+static String trimLeft(String s) {
+        return s.replaceAll("^\\s+", "");
+    }

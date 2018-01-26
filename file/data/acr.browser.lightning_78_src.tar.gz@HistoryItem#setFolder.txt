@@ -1,0 +1,3 @@
+public void setFolder(String folder) {
+		mFolder = (folder == null) ? "" : folder;
+	}

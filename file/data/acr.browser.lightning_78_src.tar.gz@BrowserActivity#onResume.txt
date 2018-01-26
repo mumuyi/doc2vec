@@ -1,0 +1,29 @@
+@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d(Constants.TAG, "onResume");
+		if (mSearchAdapter != null) {
+			mSearchAdapter.refreshPreferences();
+			mSearchAdapter.refreshBookmarks();
+		}
+		if (mCurrentView != null) {
+			mCurrentView.resumeTimers();
+			mCurrentView.onResume();
+
+			mHistoryDatabase = HistoryDatabase.getInstance(getApplicationContext());
+			mBookmarkList = mBookmarkManager.getBookmarks(true);
+			notifyBookmarkDataSetChanged();
+		}
+		initializePreferences();
+		if (mWebViews != null) {
+			for (int n = 0; n < mWebViews.size(); n++) {
+				if (mWebViews.get(n) != null) {
+					mWebViews.get(n).initializePreferences(this);
+				} else {
+					mWebViews.remove(n);
+				}
+			}
+		}
+
+		supportInvalidateOptionsMenu();
+	}

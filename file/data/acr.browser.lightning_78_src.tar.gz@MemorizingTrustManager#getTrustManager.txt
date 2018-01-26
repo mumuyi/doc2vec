@@ -1,0 +1,17 @@
+X509TrustManager getTrustManager(KeyStore ks) {
+		try {
+			TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+			tmf.init(ks);
+			for (TrustManager t : tmf.getTrustManagers()) {
+				if (t instanceof X509TrustManager) {
+					return (X509TrustManager)t;
+				}
+			}
+		} catch (Exception e) {
+			// Here, we are covering up errors. It might be more useful
+			// however to throw them out of the constructor so the
+			// embedding app knows something went wrong.
+			Log.e(TAG, "getTrustManager(" + ks + ")", e);
+		}
+		return null;
+	}

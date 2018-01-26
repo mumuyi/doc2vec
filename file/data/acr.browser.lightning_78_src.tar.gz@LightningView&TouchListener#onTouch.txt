@@ -1,0 +1,25 @@
+@SuppressLint("ClickableViewAccessibility")
+		@Override
+		public boolean onTouch(View view, MotionEvent arg1) {
+			if (view != null && !view.hasFocus()) {
+				view.requestFocus();
+			}
+			mAction = arg1.getAction();
+			mY = arg1.getY();
+			if (mAction == MotionEvent.ACTION_DOWN) {
+				mLocation = mY;
+			} else if (mAction == MotionEvent.ACTION_UP) {
+				if ((mY - mLocation) > SCROLL_DOWN_THRESHOLD) {
+					if (mWebView.getScrollY() != 0) {
+						mBrowserController.showActionBar();
+					} else {
+						mBrowserController.toggleActionBar();
+					}
+				} else if ((mY - mLocation) < -SCROLL_UP_THRESHOLD) {
+					mBrowserController.hideActionBar();
+				}
+				mLocation = 0;
+			}
+			mGestureDetector.onTouchEvent(arg1);
+			return false;
+		}

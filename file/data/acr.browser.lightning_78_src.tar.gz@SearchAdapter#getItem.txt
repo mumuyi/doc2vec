@@ -1,0 +1,4 @@
+@Override
+	public Object getItem(int position) {
+		return mFilteredList.get(position);
+	}

@@ -1,0 +1,3 @@
+public void setScore(Element el, int score) {
+		el.attr("gravityScore", Integer.toString(score));
+	}

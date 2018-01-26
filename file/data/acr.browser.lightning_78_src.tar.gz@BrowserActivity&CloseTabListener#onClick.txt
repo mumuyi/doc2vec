@@ -1,0 +1,4 @@
+@Override
+		public void onClick(View v) {
+			deleteTab((int) v.getTag());
+		}

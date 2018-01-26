@@ -1,0 +1,3 @@
+public void setCharset(String charset) {
+		this.charset = charset;
+	}

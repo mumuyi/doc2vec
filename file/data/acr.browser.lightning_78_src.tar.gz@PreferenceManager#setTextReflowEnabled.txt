@@ -1,0 +1,3 @@
+public void setTextReflowEnabled(boolean enable) {
+		putBoolean(Name.TEXT_REFLOW, enable);
+	}

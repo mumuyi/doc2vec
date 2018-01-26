@@ -1,0 +1,27 @@
+private void doLookup(CharSequence word) {
+        if (dictionaryService == null)
+            return;
+        word = trimLeft(word.toString());
+        if (word.equals("")) {
+                Log.d(TAG, "Nothing to look up");
+                updateWordListUI(empty);
+                return;
+        }
+        runOnUiThread(updateProgress);
+        long t0 = System.currentTimeMillis();
+        try {
+            Iterator<Entry> results = dictionaryService.lookup(word);
+            Log.d(TAG, "Looked up " + word + " in "
+                    + (System.currentTimeMillis() - t0));
+            updateWordListUI(results);
+        } catch (Exception e) {
+            StringBuilder msgBuilder = new StringBuilder(
+                    "There was an error while looking up ").append("\"")
+                    .append(word).append("\"");
+            if (e.getMessage() != null) {
+                msgBuilder.append(": ").append(e.getMessage());
+            }
+            final String msg = msgBuilder.toString();
+            Log.e(TAG, msg, e);
+        }
+    }

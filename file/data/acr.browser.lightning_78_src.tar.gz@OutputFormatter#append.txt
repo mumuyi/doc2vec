@@ -1,0 +1,20 @@
+protected void append(Element node, StringBuilder sb, String tagName) {
+		// is select more costly then getElementsByTag?
+		MAIN: for (Element e : node.select(tagName)) {
+			Element tmpEl = e;
+			// check all elements until 'node'
+			while (tmpEl != null && !tmpEl.equals(node)) {
+				if (unlikely(tmpEl))
+					continue MAIN;
+				tmpEl = tmpEl.parent();
+			}
+
+			String text = node2Text(e);
+			if (text.isEmpty() || text.length() < minParagraphText
+					|| text.length() > SHelper.countLetters(text) * 2)
+				continue;
+
+			sb.append(text);
+			sb.append("\n\n");
+		}
+	}

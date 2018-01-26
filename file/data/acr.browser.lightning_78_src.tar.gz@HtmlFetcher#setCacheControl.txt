@@ -1,0 +1,3 @@
+public void setCacheControl(String cacheControl) {
+		this.cacheControl = cacheControl;
+	}

@@ -1,0 +1,23 @@
+@Override
+	public boolean equals(Object o) {
+
+		if (this == o) {
+			return true;
+		}
+		if (o == null || ((Object) this).getClass() != o.getClass()) {
+			return false;
+		}
+
+		HistoryItem that = (HistoryItem) o;
+
+		if (mId != that.mId) {
+			return false;
+		}
+		if (mImageId != that.mImageId) {
+			return false;
+		}
+		if (mBitmap != null ? !mBitmap.equals(that.mBitmap) : that.mBitmap != null) {
+			return false;
+		}
+		return mTitle.equals(that.mTitle) && mUrl.equals(that.mUrl);
+	}

@@ -1,0 +1,6 @@
+/**
+	 * @return get date from url or guessed from text
+	 */
+	public String getDate() {
+		return dateString;
+	}

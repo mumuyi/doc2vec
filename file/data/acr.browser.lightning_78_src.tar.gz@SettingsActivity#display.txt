@@ -1,0 +1,10 @@
+public void display(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(mContext, DisplaySettingsActivity.class));
+			}
+
+		});
+	}

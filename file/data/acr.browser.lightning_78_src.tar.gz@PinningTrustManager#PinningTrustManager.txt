@@ -1,0 +1,24 @@
+/**
+   * Constructs a PinningTrustManager with a set of valid pins.
+   *
+   * @param keyStore A SystemKeyStore that validation will be based on.
+   *
+   * @param pins An array of encoded pins to match a seen certificate
+   *             chain against. A pin is a hex-encoded hash of a X.509 certificate's
+   *             SubjectPublicKeyInfo. A pin can be generated using the provided pin.py
+   *             script: python ./tools/pin.py certificate_file.pem
+   *
+   * @param enforceUntilTimestampMillis A timestamp (in milliseconds) when pins will stop being
+   *                                    enforced.  Normal non-pinned certificate validation
+   *                                    will continue.  Set this to some period after your build
+   *                                    date, or to 0 to enforce pins forever.
+   */
+  public PinningTrustManager(SystemKeyStore keyStore, String[] pins, long enforceUntilTimestampMillis) {
+    this.systemTrustManagers         = initializeSystemTrustManagers(keyStore);
+    this.systemKeyStore              = keyStore;
+    this.enforceUntilTimestampMillis = enforceUntilTimestampMillis;
+
+    for (String pin : pins) {
+      this.pins.add(hexStringToByteArray(pin));
+    }
+  }

@@ -1,0 +1,36 @@
+public static String uploadFile(String serviceEndpoint, Properties properties,
+            String fileParam, String file) throws Exception
+    {
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPost request = new HttpPost(serviceEndpoint);
+        MultipartEntityBuilder entity = MultipartEntityBuilder.create();
+
+        Iterator<Map.Entry<Object, Object>> i = properties.entrySet().iterator();
+        while (i.hasNext())
+        {
+            Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) i.next();
+            String key = (String) entry.getKey();
+            String val = (String) entry.getValue();
+            entity.addPart(key, new StringBody(val));
+
+        }
+        File upload = new File(file);
+        Log.i("httpman", "upload file (" + upload.getAbsolutePath() + ") size=" + upload.length());
+
+        entity.addPart(fileParam, new FileBody(upload));
+        request.setEntity(entity.build());
+
+        HttpResponse response = httpClient.execute(request);
+        int status = response.getStatusLine().getStatusCode();
+
+        if (status != HttpStatus.SC_OK) {
+
+        } else {
+
+        }
+
+        return response.toString();
+
+    }

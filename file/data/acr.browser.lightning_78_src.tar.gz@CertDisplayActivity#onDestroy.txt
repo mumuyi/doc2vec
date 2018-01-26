@@ -1,0 +1,8 @@
+@Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (ad != null)
+            ad.cancel();
+
+    }

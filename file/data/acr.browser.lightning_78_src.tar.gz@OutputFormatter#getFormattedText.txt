@@ -1,0 +1,20 @@
+/**
+	 * takes an element and turns the P tags into \n\n
+	 */
+	public String getFormattedText(Element topNode) {
+		removeNodesWithNegativeScores(topNode);
+		StringBuilder sb = new StringBuilder();
+		append(topNode, sb, nodesToKeepCssSelector);
+		String str = SHelper.innerTrim(sb.toString());
+		if (str.length() > 100)
+			return str;
+
+		// no subelements
+		if (str.isEmpty() || !topNode.text().isEmpty()
+				&& str.length() <= topNode.ownText().length())
+			str = topNode.text();
+
+		// if jsoup failed to parse the whole html now parse this smaller
+		// snippet again to avoid html tags disturbing our text:
+		return Jsoup.parse(str).text();
+	}

@@ -1,0 +1,9 @@
+/**
+		 * Is called when the user is swiping after the doubletap, which in our
+		 * case means that he is zooming.
+		 */
+		@Override
+		public boolean onDoubleTapEvent(MotionEvent e) {
+			mCanTriggerLongPress = false;
+			return false;
+		}

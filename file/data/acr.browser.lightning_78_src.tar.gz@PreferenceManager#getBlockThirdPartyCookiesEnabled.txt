@@ -1,0 +1,3 @@
+public boolean getBlockThirdPartyCookiesEnabled() {
+		return mPrefs.getBoolean(Name.BLOCK_THIRD_PARTY, false);
+	}

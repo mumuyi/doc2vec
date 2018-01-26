@@ -1,0 +1,5 @@
+DeleteObserver(String dir) {
+                super(dir, DELETE);
+                dictFilesToWatch = new HashSet<String>();
+                this.dir = dir;
+            }

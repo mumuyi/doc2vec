@@ -1,0 +1,7 @@
+public String getUserAgent() {
+		if (mWebView != null) {
+			return mWebView.getSettings().getUserAgentString();
+		} else {
+			return "";
+		}
+	}

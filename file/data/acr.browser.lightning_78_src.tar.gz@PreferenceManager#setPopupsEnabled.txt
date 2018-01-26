@@ -1,0 +1,3 @@
+public void setPopupsEnabled(boolean enable) {
+		putBoolean(Name.POPUPS, enable);
+	}

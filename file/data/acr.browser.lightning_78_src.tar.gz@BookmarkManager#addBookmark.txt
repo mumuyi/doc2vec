@@ -1,0 +1,26 @@
+/**
+	 * This method adds the the HistoryItem item to permanent bookmark storage
+	 * 
+	 * @param item
+	 */
+	public synchronized boolean addBookmark(HistoryItem item) {
+		File bookmarksFile = new File(mContext.getFilesDir(), FILE_BOOKMARKS);
+		if (item.getUrl() == null || mBookmarkMap.containsKey(item.getUrl())) {
+			return false;
+		}
+		try {
+			BufferedWriter bookmarkWriter = new BufferedWriter(new FileWriter(bookmarksFile, true));
+			JSONObject object = new JSONObject();
+			object.put(TITLE, item.getTitle());
+			object.put(URL, item.getUrl());
+			object.put(FOLDER, item.getFolder());
+			object.put(ORDER, item.getOrder());
+			bookmarkWriter.write(object.toString());
+			bookmarkWriter.newLine();
+			bookmarkWriter.close();
+			mBookmarkMap.put(item.getUrl(), 1);
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}

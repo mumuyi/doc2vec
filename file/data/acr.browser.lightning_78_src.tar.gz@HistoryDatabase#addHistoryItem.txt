@@ -1,0 +1,7 @@
+public synchronized void addHistoryItem(HistoryItem item) {
+		ContentValues values = new ContentValues();
+		values.put(KEY_URL, item.getUrl());
+		values.put(KEY_TITLE, item.getTitle());
+		values.put(KEY_TIME_VISITED, System.currentTimeMillis());
+		mDatabase.insert(TABLE_HISTORY, null, values);
+	}

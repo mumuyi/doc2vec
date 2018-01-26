@@ -1,0 +1,4 @@
+private boolean isNetworkConnected(Context context) {
+		NetworkInfo networkInfo = getActiveNetworkInfo(context);
+		return networkInfo != null && networkInfo.isConnected();
+	}

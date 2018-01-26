@@ -1,0 +1,3 @@
+public void setExtractor(ArticleTextExtractor extractor) {
+		this.extractor = extractor;
+	}

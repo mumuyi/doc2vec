@@ -1,0 +1,3 @@
+public void setLocationEnabled(boolean enable) {
+		putBoolean(Name.LOCATION, enable);
+	}

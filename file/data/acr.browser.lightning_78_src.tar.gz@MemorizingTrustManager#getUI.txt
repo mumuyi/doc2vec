@@ -1,0 +1,8 @@
+/**
+	 * Returns the top-most entry of the activity stack.
+	 *
+	 * @return the Context of the currently bound UI or the master context if none is bound
+	 */
+	Context getUI() {
+		return (foregroundAct != null) ? foregroundAct : master;
+	}

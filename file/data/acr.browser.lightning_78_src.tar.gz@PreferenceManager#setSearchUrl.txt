@@ -1,0 +1,3 @@
+public void setSearchUrl(String url) {
+		putString(Name.SEARCH_URL, url);
+	}

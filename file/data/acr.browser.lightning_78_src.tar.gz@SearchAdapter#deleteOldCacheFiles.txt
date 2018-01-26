@@ -1,0 +1,11 @@
+private void deleteOldCacheFiles(Context context) {
+		File dir = new File(context.getCacheDir().toString());
+		String[] fileList = dir.list(new NameFilter());
+		long earliestTimeAllowed = System.currentTimeMillis() - INTERVAL_DAY;
+		for (String fileName : fileList) {
+			File file = new File(dir.getPath() + fileName);
+			if (earliestTimeAllowed > file.lastModified()) {
+				file.delete();
+			}
+		}
+	}

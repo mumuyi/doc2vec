@@ -1,0 +1,52 @@
+/**
+	 * On some devices we have to hack:
+	 * http://developers.sun.com/mobility/reference
+	 * /techart/design_guidelines/http_redirection.html
+	 * 
+	 * @param timeout
+	 *            Sets a specified timeout value, in milliseconds
+	 * @return the resolved url if any. Or null if it couldn't resolve the url
+	 *         (within the specified time) or the same url if response code is
+	 *         OK
+	 */
+	public String getResolvedUrl(String urlAsString, int timeout) {
+		String newUrl = null;
+		int responseCode = -1;
+		try {
+			HttpURLConnection hConn = createUrlConnection(urlAsString, timeout, true);
+			// force no follow
+			hConn.setInstanceFollowRedirects(false);
+			// the program doesn't care what the content actually is !!
+			// http://java.sun.com/developer/JDCTechTips/2003/tt0422.html
+			hConn.setRequestMethod("HEAD");
+			hConn.connect();
+			responseCode = hConn.getResponseCode();
+			hConn.getInputStream().close();
+			if (responseCode == HttpURLConnection.HTTP_OK)
+				return urlAsString;
+
+			newUrl = hConn.getHeaderField("Location");
+			if (responseCode / 100 == 3 && newUrl != null) {
+				newUrl = newUrl.replaceAll(" ", "+");
+				// some services use (none-standard) utf8 in their location
+				// header
+				if (urlAsString.startsWith("http://bit.ly")
+						|| urlAsString.startsWith("http://is.gd"))
+					newUrl = encodeUriFromHeader(newUrl);
+
+				// fix problems if shortened twice. as it is often the case
+				// after twitters' t.co bullshit
+				if (furtherResolveNecessary.contains(SHelper.extractDomain(newUrl, true)))
+					newUrl = getResolvedUrl(newUrl, timeout);
+
+				return newUrl;
+			} else
+				return urlAsString;
+
+		} catch (Exception ex) {
+			Log.e(Constants.TAG, "getResolvedUrl:" + urlAsString + " Error:" + ex.getMessage());
+			return "";
+		} finally {
+			Log.e(Constants.TAG, responseCode + " url:" + urlAsString + " resolved:" + newUrl);
+		}
+	}

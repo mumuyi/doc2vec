@@ -1,0 +1,3 @@
+public boolean getRestoreLostTabsEnabled() {
+		return mPrefs.getBoolean(Name.RESTORE_LOST_TABS, true);
+	}

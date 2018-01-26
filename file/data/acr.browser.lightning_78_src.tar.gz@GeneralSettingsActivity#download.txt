@@ -1,0 +1,49 @@
+public void download(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder picker = new AlertDialog.Builder(mActivity);
+				picker.setTitle(getResources().getString(R.string.title_download_location));
+				mDownloadLocation = mPreferences.getDownloadDirectory();
+				int n;
+				if (mDownloadLocation.contains(Environment.DIRECTORY_DOWNLOADS)) {
+					n = 1;
+				} else {
+					n = 2;
+				}
+
+				picker.setSingleChoiceItems(R.array.download_folder, n - 1,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+
+								switch (which + 1) {
+									case 1:
+										mPreferences
+												.setDownloadDirectory(Environment.DIRECTORY_DOWNLOADS);
+										mDownloadTextView.setText(Constants.EXTERNAL_STORAGE + '/'
+												+ Environment.DIRECTORY_DOWNLOADS);
+										break;
+									case 2:
+										downPicker();
+
+										break;
+								}
+							}
+						});
+				picker.setNeutralButton(getResources().getString(R.string.action_ok),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+
+							}
+						});
+				picker.show();
+			}
+
+		});
+	}

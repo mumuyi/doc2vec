@@ -1,0 +1,22 @@
+public List<HistoryItem> findItemsContaining(String search) {
+		List<HistoryItem> itemList = new ArrayList<>();
+		String selectQuery = "SELECT * FROM " + TABLE_HISTORY + " WHERE " + KEY_TITLE + " LIKE '%"
+				+ search + "%' OR " + KEY_URL + " LIKE '%" + search + "%' " + "ORDER BY "
+				+ KEY_TIME_VISITED + " DESC LIMIT 5";
+		Cursor cursor = mDatabase.rawQuery(selectQuery, null);
+
+		int n = 0;
+		if (cursor.moveToFirst()) {
+			do {
+				HistoryItem item = new HistoryItem();
+				item.setID(Integer.parseInt(cursor.getString(0)));
+				item.setUrl(cursor.getString(1));
+				item.setTitle(cursor.getString(2));
+				item.setImageId(R.drawable.ic_history);
+				itemList.add(item);
+				n++;
+			} while (cursor.moveToNext() && n < 5);
+		}
+		cursor.close();
+		return itemList;
+	}

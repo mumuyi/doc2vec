@@ -1,0 +1,3 @@
+public void setHideStatusBarEnabled(boolean enable) {
+		putBoolean(Name.HIDE_STATUS_BAR, enable);
+	}

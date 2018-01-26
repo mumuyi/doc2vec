@@ -1,0 +1,5 @@
+@Override
+  public void setHostnameVerifier(X509HostnameVerifier hostnameVerifier) {
+    throw new IllegalArgumentException("Only strict hostname verification (default)  " +
+                                       "is supported!");
+  }

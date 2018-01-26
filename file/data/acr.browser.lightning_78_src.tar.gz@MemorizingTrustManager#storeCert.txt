@@ -1,0 +1,22 @@
+void storeCert(X509Certificate[] chain) {
+		// add all certs from chain to appKeyStore
+		try {
+			for (X509Certificate c : chain)
+				appKeyStore.setCertificateEntry(c.getSubjectDN().toString(), c);
+		} catch (KeyStoreException e) {
+			Log.e(TAG, "storeCert(" + chain + ")", e);
+			return;
+		}
+		
+		// reload appTrustManager
+		appTrustManager = getTrustManager(appKeyStore);
+
+		// store KeyStore to file
+		try {
+			java.io.FileOutputStream fos = new java.io.FileOutputStream(keyStoreFile);
+			appKeyStore.store(fos, "MTM".toCharArray());
+			fos.close();
+		} catch (Exception e) {
+			Log.e(TAG, "storeCert(" + keyStoreFile + ")", e);
+		}
+	}

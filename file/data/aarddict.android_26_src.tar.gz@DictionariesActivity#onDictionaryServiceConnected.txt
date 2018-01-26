@@ -1,0 +1,48 @@
+@Override
+    void onDictionaryServiceConnected() {
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        if (action != null && action.equals(Intent.ACTION_VIEW)) {
+            final Uri data = intent.getData();
+            Log.d(TAG, "Path: " + data.getPath());
+            if (data != null && data.getPath() != null) {
+                Runnable r = new Runnable() {
+                    public void run() {
+                        final String path = data.getPath();
+                        Log.d(TAG, "opening: " + path);
+                        final Map<File, Exception> errors = dictionaryService
+                                .open(new File(path));
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (errors.size() == 0) {
+                                    Toast.makeText(
+                                            getApplicationContext(),
+                                            getString(
+                                                    R.string.toastDictFileLoaded,
+                                                    path), Toast.LENGTH_LONG)
+                                            .show();
+                                } else {
+                                    Toast.makeText(
+                                            getApplicationContext(),
+                                            getString(
+                                                    R.string.toastDictFileFailed,
+                                                    path), Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                                finish();
+                            }
+                        });
+                    }
+                };
+                new Thread(r).start();
+                Log.d(TAG, "started: " + data.getPath());
+            }
+        }
+
+        if (action != null && action.equals(ACTION_NO_DICTIONARIES)) {
+            showNoDictionariesView();
+        } else {
+            super.onDictionaryServiceConnected();
+        }
+    }

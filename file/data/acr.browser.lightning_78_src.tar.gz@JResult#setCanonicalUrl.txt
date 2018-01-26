@@ -1,0 +1,4 @@
+public JResult setCanonicalUrl(String canonicalUrl) {
+		this.canonicalUrl = canonicalUrl;
+		return this;
+	}

@@ -1,0 +1,68 @@
+public Element determineImageSource(Element el, List<ImageResult> images) {
+		int maxWeight = 0;
+		Element maxNode = null;
+		Elements els = el.select("img");
+		if (els.isEmpty())
+			els = el.parent().select("img");
+
+		double score = 1;
+		for (Element e : els) {
+			String sourceUrl = e.attr("src");
+			if (sourceUrl.isEmpty() || isAdImage(sourceUrl))
+				continue;
+
+			int weight = 0;
+			int height = 0;
+			try {
+				height = Integer.parseInt(e.attr("height"));
+				if (height >= 50)
+					weight += 20;
+				else
+					weight -= 20;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			int width = 0;
+			try {
+				width = Integer.parseInt(e.attr("width"));
+				if (width >= 50)
+					weight += 20;
+				else
+					weight -= 20;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			String alt = e.attr("alt");
+			if (alt.length() > 35)
+				weight += 20;
+
+			String title = e.attr("title");
+			if (title.length() > 35)
+				weight += 20;
+
+			String rel;
+			boolean noFollow = false;
+			if (e.parent() != null) {
+				rel = e.parent().attr("rel");
+				if (rel != null && rel.contains("nofollow")) {
+					noFollow = rel.contains("nofollow");
+					weight -= 40;
+				}
+			}
+
+			weight = (int) (weight * score);
+			if (weight > maxWeight) {
+				maxWeight = weight;
+				maxNode = e;
+				score = score / 2;
+			}
+
+			ImageResult image = new ImageResult(sourceUrl, weight, title, height, width, alt,
+					noFollow);
+			images.add(image);
+		}
+
+		Collections.sort(images, new ImageComparator());
+		return maxNode;
+	}

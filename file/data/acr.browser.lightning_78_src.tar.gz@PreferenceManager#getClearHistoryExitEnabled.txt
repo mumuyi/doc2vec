@@ -1,0 +1,3 @@
+public boolean getClearHistoryExitEnabled() {
+		return mPrefs.getBoolean(Name.CLEAR_HISTORY_EXIT, false);
+	}

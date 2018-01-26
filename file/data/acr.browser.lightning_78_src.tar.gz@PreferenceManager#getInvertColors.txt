@@ -1,0 +1,3 @@
+public boolean getInvertColors() {
+		return mPrefs.getBoolean(Name.INVERT_COLORS, false);
+	}

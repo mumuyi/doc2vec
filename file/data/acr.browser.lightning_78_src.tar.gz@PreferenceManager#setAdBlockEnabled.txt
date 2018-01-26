@@ -1,0 +1,3 @@
+public void setAdBlockEnabled(boolean enable) {
+		putBoolean(Name.BLOCK_ADS, enable);
+	}

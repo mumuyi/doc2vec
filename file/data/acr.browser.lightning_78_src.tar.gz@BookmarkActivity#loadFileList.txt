@@ -1,0 +1,30 @@
+private void loadFileList(File path) {
+		File file;
+		if (path != null) {
+			file = path;
+		} else {
+			file = mPath;
+		}
+		try {
+			file.mkdirs();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		if (file.exists()) {
+			mFileList = file.listFiles();
+		} else {
+			mFileList = new File[0];
+		}
+
+		Arrays.sort(mFileList, new SortName());
+
+		if (mFileList == null) {
+			mFileNameList = new String[0];
+			mFileList = new File[0];
+		} else {
+			mFileNameList = new String[mFileList.length];
+		}
+		for (int n = 0; n < mFileList.length; n++) {
+			mFileNameList[n] = mFileList[n].getName();
+		}
+	}

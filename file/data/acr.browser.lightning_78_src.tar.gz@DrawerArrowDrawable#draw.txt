@@ -1,0 +1,42 @@
+@Override
+	public void draw(Canvas canvas) {
+		Rect bounds = getBounds();
+		final boolean isRtl = isLayoutRtl();
+		// Interpolated widths of arrow bars
+		final float arrowSize = lerp(mBarSize, mTopBottomArrowSize, mProgress);
+		final float middleBarSize = lerp(mBarSize, mMiddleArrowSize, mProgress);
+		// Interpolated size of middle bar
+		final float middleBarCut = lerp(0, mBarThickness / 2, mProgress);
+		// The rotation of the top and bottom bars (that make the arrow head)
+		final float rotation = lerp(0, ARROW_HEAD_ANGLE, mProgress);
+		// The whole canvas rotates as the transition happens
+		final float canvasRotate = lerp(isRtl ? 0 : -180, isRtl ? 180 : 0, mProgress);
+		final float topBottomBarOffset = lerp(mBarGap + mBarThickness, 0, mProgress);
+		mPath.rewind();
+		final float arrowEdge = -middleBarSize / 2;
+		// draw middle bar
+		mPath.moveTo(arrowEdge + middleBarCut, 0);
+		mPath.rLineTo(middleBarSize - middleBarCut, 0);
+		final float arrowWidth = Math.round(arrowSize * Math.cos(rotation));
+		final float arrowHeight = Math.round(arrowSize * Math.sin(rotation));
+		// top bar
+		mPath.moveTo(arrowEdge, topBottomBarOffset);
+		mPath.rLineTo(arrowWidth, arrowHeight);
+		// bottom bar
+		mPath.moveTo(arrowEdge, -topBottomBarOffset);
+		mPath.rLineTo(arrowWidth, -arrowHeight);
+		mPath.moveTo(0, 0);
+		mPath.close();
+		canvas.save();
+		// Rotate the whole canvas if spinning, if not, rotate it 180 to get
+		// the arrow pointing the other way for RTL.
+		if (mSpin) {
+			canvas.rotate(canvasRotate * ((mVerticalMirror ^ isRtl) ? -1 : 1), bounds.centerX(),
+					bounds.centerY());
+		} else if (isRtl) {
+			canvas.rotate(180, bounds.centerX(), bounds.centerY());
+		}
+		canvas.translate(bounds.centerX(), bounds.centerY());
+		canvas.drawPath(mPath, mPaint);
+		canvas.restore();
+	}

@@ -1,0 +1,16 @@
+private void showDialog(String msg) {
+
+        ad = new AlertDialog.Builder(this).setTitle("Certificate Info").setMessage(msg).show();
+
+        ad.setOnDismissListener(new OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface arg0) {
+
+                CertDisplayActivity.this.finish();
+
+            }
+
+        });
+
+    }

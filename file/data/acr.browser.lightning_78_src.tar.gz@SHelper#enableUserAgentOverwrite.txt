@@ -1,0 +1,8 @@
+/**
+	 * @see http
+	 *      ://stackoverflow.com/questions/2529682/setting-user-agent-of-a-java
+	 *      -urlconnection
+	 */
+	public static void enableUserAgentOverwrite() {
+		System.setProperty("http.agent", "");
+	}

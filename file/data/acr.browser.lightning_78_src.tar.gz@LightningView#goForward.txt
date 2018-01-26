@@ -1,0 +1,5 @@
+public synchronized void goForward() {
+		if (mWebView != null) {
+			mWebView.goForward();
+		}
+	}

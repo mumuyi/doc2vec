@@ -1,0 +1,8 @@
+/** Reacts on the connect Button press. */
+	@Override
+	public void onClick(View view) {
+		String url = urlinput.getText().toString();
+		setText("Loading " + url, true);
+		setProgressBarIndeterminateVisibility(true);
+		connect(url);
+	}

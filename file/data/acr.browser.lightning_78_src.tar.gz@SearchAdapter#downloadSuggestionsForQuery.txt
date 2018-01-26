@@ -1,0 +1,31 @@
+private File downloadSuggestionsForQuery(String query) {
+		File cacheFile = new File(mContext.getCacheDir(), query.hashCode() + ".sgg");
+		if (System.currentTimeMillis() - INTERVAL_DAY < cacheFile.lastModified()) {
+			return cacheFile;
+		}
+		if (!isNetworkConnected(mContext)) {
+			return cacheFile;
+		}
+		try {
+			URL url = new URL("http://google.com/complete/search?q=" + query
+					+ "&output=toolbar&hl=en");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoInput(true);
+			connection.connect();
+			InputStream in = connection.getInputStream();
+
+			if (in != null) {
+				FileOutputStream fos = new FileOutputStream(cacheFile);
+				int buffer;
+				while ((buffer = in.read()) != -1) {
+					fos.write(buffer);
+				}
+				fos.flush();
+				fos.close();
+			}
+			cacheFile.setLastModified(System.currentTimeMillis());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cacheFile;
+	}

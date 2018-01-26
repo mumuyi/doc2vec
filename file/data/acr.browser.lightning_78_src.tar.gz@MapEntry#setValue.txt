@@ -1,0 +1,5 @@
+@Override
+	public V setValue(V value) {
+		this.value = value;
+		return value;
+	}

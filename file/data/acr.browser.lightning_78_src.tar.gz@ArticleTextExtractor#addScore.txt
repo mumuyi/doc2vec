@@ -1,0 +1,4 @@
+public void addScore(Element el, int score) {
+		int old = getScore(el);
+		setScore(el, score + old);
+	}

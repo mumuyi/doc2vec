@@ -1,0 +1,13 @@
+/**
+	 * Removes an Activity from the MTM display stack.
+	 *
+	 * Always call this function when the Activity added with
+	 * @see bindDisplayActivity is hidden.
+	 *
+	 * @param act Activity to be unbound
+	 */
+	public void unbindDisplayActivity(Activity act) {
+		// do not remove if it was overridden by a different activity
+		if (foregroundAct == act)
+			foregroundAct = null;
+	}

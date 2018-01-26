@@ -1,0 +1,12 @@
+private boolean restoreScrollPos() {
+        if (backItems.size() > 0) {
+            Article a = backItems.get(backItems.size() - 1).article;
+            ScrollXY s = getScrollPositions().get(a);
+            if (s == null) {
+                return false;
+            }
+            scrollTo(s);
+            return true;
+        }
+        return false;
+    }

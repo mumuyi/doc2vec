@@ -1,0 +1,13 @@
+protected String extractDescription(Document doc) {
+		String description = SHelper.innerTrim(doc.select("head meta[name=description]").attr(
+				"content"));
+		if (description.isEmpty()) {
+			description = SHelper.innerTrim(doc.select("head meta[property=og:description]").attr(
+					"content"));
+			if (description.isEmpty()) {
+				description = SHelper.innerTrim(doc.select("head meta[name=twitter:description]")
+						.attr("content"));
+			}
+		}
+		return description;
+	}

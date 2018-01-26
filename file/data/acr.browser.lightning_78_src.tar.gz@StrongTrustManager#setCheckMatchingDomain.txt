@@ -1,0 +1,3 @@
+public void setCheckMatchingDomain(boolean mCheckMatchingDomain) {
+        this.mCheckMatchingDomain = mCheckMatchingDomain;
+    }

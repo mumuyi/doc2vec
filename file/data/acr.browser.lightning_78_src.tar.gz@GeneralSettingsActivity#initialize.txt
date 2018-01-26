@@ -1,0 +1,91 @@
+private void initialize() {
+
+		mSearchText = (TextView) findViewById(R.id.searchText);
+
+		switch (mPreferences.getSearchChoice()) {
+			case 0:
+				mSearchText.setText(getResources().getString(R.string.custom_url));
+				break;
+			case 1:
+				mSearchText.setText("Google");
+				break;
+			case 2:
+				mSearchText.setText("Ask");
+				break;
+			case 3:
+				mSearchText.setText("Bing");
+				break;
+			case 4:
+				mSearchText.setText("Yahoo");
+				break;
+			case 5:
+				mSearchText.setText("StartPage");
+				break;
+			case 6:
+				mSearchText.setText("StartPage (Mobile)");
+				break;
+			case 7:
+				mSearchText.setText("DuckDuckGo");
+				break;
+			case 8:
+				mSearchText.setText("DuckDuckGo Lite");
+				break;
+			case 9:
+				mSearchText.setText("Baidu");
+				break;
+			case 10:
+				mSearchText.setText("Yandex");
+		}
+
+		mAgentTextView = (TextView) findViewById(R.id.agentText);
+		mHomepageText = (TextView) findViewById(R.id.homepageText);
+		mDownloadTextView = (TextView) findViewById(R.id.downloadText);
+		mAgentChoice = mPreferences.getUserAgentChoice();
+		mHomepage = mPreferences.getHomepage();
+		mDownloadLocation = mPreferences.getDownloadDirectory();
+
+		mDownloadTextView.setText(Constants.EXTERNAL_STORAGE + '/' + mDownloadLocation);
+
+		if (mHomepage.contains("about:home")) {
+			mHomepageText.setText(getResources().getString(R.string.action_homepage));
+		} else if (mHomepage.contains("about:blank")) {
+			mHomepageText.setText(getResources().getString(R.string.action_blank));
+		} else if (mHomepage.contains("about:bookmarks")) {
+			mHomepageText.setText(getResources().getString(R.string.action_bookmarks));
+		} else {
+			mHomepageText.setText(mHomepage);
+		}
+
+		switch (mAgentChoice) {
+			case 1:
+				mAgentTextView.setText(getResources().getString(R.string.agent_default));
+				break;
+			case 2:
+				mAgentTextView.setText(getResources().getString(R.string.agent_desktop));
+				break;
+			case 3:
+				mAgentTextView.setText(getResources().getString(R.string.agent_mobile));
+				break;
+			case 4:
+				mAgentTextView.setText(getResources().getString(R.string.agent_custom));
+		}
+
+		RelativeLayout rSearchSuggestions;
+		rSearchSuggestions = (RelativeLayout) findViewById(R.id.rGoogleSuggestions);
+
+		cbSearchSuggestions = (CheckBox) findViewById(R.id.cbGoogleSuggestions);
+
+		cbSearchSuggestions.setChecked(mPreferences.getGoogleSearchSuggestionsEnabled());
+
+		RelativeLayout agent = (RelativeLayout) findViewById(R.id.layoutUserAgent);
+		RelativeLayout download = (RelativeLayout) findViewById(R.id.layoutDownload);
+		RelativeLayout homepage = (RelativeLayout) findViewById(R.id.layoutHomepage);
+
+		agent(agent);
+		download(download);
+		homepage(homepage);
+		search();
+
+		rSearchSuggestions(rSearchSuggestions);
+		cbSearchSuggestions(cbSearchSuggestions);
+	}

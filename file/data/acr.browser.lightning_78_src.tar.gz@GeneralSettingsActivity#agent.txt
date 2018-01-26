@@ -1,0 +1,59 @@
+public void agent(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder agentPicker = new AlertDialog.Builder(mActivity);
+				agentPicker.setTitle(getResources().getString(R.string.title_user_agent));
+				mAgentChoice = mPreferences.getUserAgentChoice();
+				agentPicker.setSingleChoiceItems(R.array.user_agent, mAgentChoice - 1,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								mPreferences.setUserAgentChoice(which + 1);
+								switch (which + 1) {
+									case 1:
+										mAgentTextView.setText(getResources().getString(
+												R.string.agent_default));
+										break;
+									case 2:
+										mAgentTextView.setText(getResources().getString(
+												R.string.agent_desktop));
+										break;
+									case 3:
+										mAgentTextView.setText(getResources().getString(
+												R.string.agent_mobile));
+										break;
+									case 4:
+										mAgentTextView.setText(getResources().getString(
+												R.string.agent_custom));
+										agentPicker();
+										break;
+								}
+							}
+						});
+				agentPicker.setNeutralButton(getResources().getString(R.string.action_ok),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								// TODO Auto-generated method stub
+
+							}
+
+						});
+				agentPicker.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						// TODO Auto-generated method stub
+						Log.i("Cancelled", "");
+					}
+				});
+				agentPicker.show();
+
+			}
+
+		});
+	}

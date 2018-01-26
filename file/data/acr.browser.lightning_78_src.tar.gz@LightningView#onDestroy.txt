@@ -1,0 +1,12 @@
+public synchronized void onDestroy() {
+		if (mWebView != null) {
+			mWebView.stopLoading();
+			mWebView.onPause();
+			mWebView.clearHistory();
+			mWebView.setVisibility(View.GONE);
+			mWebView.removeAllViews();
+			mWebView.destroyDrawingCache();
+			// mWebView.destroy(); //this is causing the segfault
+			mWebView = null;
+		}
+	}

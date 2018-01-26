@@ -1,0 +1,10 @@
+public static String replaceSpaces(String url) {
+		if (!url.isEmpty()) {
+			url = url.trim();
+			if (url.contains(" ")) {
+				Matcher spaces = SPACE.matcher(url);
+				url = spaces.replaceAll("%20");
+			}
+		}
+		return url;
+	}

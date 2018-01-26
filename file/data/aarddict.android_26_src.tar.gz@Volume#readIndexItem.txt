@@ -1,0 +1,10 @@
+IndexItem readIndexItem(long i) throws IOException {
+        Header h = this.header;
+        long pos = h.index1Offset + i * h.index1ItemSize;
+        RandomAccessFile f = this.file;
+        f.seek(pos);
+        IndexItem indexItem = new IndexItem();
+        indexItem.keyPointer = f.readSpec(h.keyPointerSpec);
+        indexItem.articlePointer = f.readSpec(h.articlePointerSpec);
+        return indexItem;
+    }

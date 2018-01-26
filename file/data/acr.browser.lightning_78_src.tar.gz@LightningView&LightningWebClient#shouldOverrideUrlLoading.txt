@@ -1,0 +1,33 @@
+@Override
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			if (mBrowserController.isIncognito()) {
+				return super.shouldOverrideUrlLoading(view, url);
+			}
+			if (url.startsWith("about:")) {
+				return super.shouldOverrideUrlLoading(view, url);
+			}
+			if (url.contains("mailto:")) {
+				MailTo mailTo = MailTo.parse(url);
+				Intent i = Utils.newEmailIntent(mActivity, mailTo.getTo(), mailTo.getSubject(),
+						mailTo.getBody(), mailTo.getCc());
+				mActivity.startActivity(i);
+				view.reload();
+				return true;
+			} else if (url.startsWith("intent://")) {
+				Intent intent;
+				try {
+					intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+				} catch (URISyntaxException ex) {
+					return false;
+				}
+				if (intent != null) {
+					try {
+						mActivity.startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Log.e(Constants.TAG, "ActivityNotFoundException");
+					}
+					return true;
+				}
+			}
+			return mIntentUtils.startActivityForUrl(mWebView, url);
+		}

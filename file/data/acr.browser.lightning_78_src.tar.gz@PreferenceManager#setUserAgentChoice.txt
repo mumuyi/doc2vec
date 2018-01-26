@@ -1,0 +1,3 @@
+public void setUserAgentChoice(int choice) {
+		putInt(Name.USER_AGENT, choice);
+	}

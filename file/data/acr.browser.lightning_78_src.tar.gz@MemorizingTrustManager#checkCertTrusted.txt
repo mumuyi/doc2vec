@@ -1,0 +1,35 @@
+public void checkCertTrusted(X509Certificate[] chain, String authType, boolean isServer)
+		throws CertificateException
+	{
+		Log.d(TAG, "checkCertTrusted(" + chain + ", " + authType + ", " + isServer + ")");
+		try {
+			Log.d(TAG, "checkCertTrusted: trying appTrustManager");
+			if (isServer)
+				appTrustManager.checkServerTrusted(chain, authType);
+			else
+				appTrustManager.checkClientTrusted(chain, authType);
+		} catch (CertificateException ae) {
+			// if the cert is stored in our appTrustManager, we ignore expiredness
+			ae.printStackTrace();
+			if (isExpiredException(ae)) {
+				Log.i(TAG, "checkCertTrusted: accepting expired certificate from keystore");
+				return;
+			}
+			if (isCertKnown(chain[0])) {
+				Log.i(TAG, "checkCertTrusted: accepting cert already stored in keystore");
+				return;
+			}
+			try {
+				if (defaultTrustManager == null)
+					throw new CertificateException();
+				Log.d(TAG, "checkCertTrusted: trying defaultTrustManager");
+				if (isServer)
+					defaultTrustManager.checkServerTrusted(chain, authType);
+				else
+					defaultTrustManager.checkClientTrusted(chain, authType);
+			} catch (CertificateException e) {
+				e.printStackTrace();
+				interact(chain, authType, e);
+			}
+		}
+	}

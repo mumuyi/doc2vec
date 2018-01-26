@@ -1,0 +1,3 @@
+protected String extractVideoUrl(Document doc) {
+		return SHelper.replaceSpaces(doc.select("head meta[property=og:video]").attr("content"));
+	}

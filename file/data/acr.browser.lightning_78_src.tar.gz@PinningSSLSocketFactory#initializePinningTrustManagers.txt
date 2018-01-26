@@ -1,0 +1,9 @@
+private TrustManager[] initializePinningTrustManagers(SystemKeyStore keyStore,
+                                                        String[] pins,
+                                                        long enforceUntilTimestampMillis)
+  {
+    final TrustManager[] trustManagers = new TrustManager[1];
+    trustManagers[0] = new PinningTrustManager(keyStore, pins, enforceUntilTimestampMillis);
+
+    return trustManagers;
+  }

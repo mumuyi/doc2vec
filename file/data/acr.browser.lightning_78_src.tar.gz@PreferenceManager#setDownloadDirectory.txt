@@ -1,0 +1,3 @@
+public void setDownloadDirectory(String directory) {
+		putString(Name.DOWNLOAD_DIRECTORY, directory);
+	}

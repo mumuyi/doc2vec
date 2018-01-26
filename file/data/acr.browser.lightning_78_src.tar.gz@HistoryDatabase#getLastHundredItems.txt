@@ -1,0 +1,21 @@
+public List<HistoryItem> getLastHundredItems() {
+		List<HistoryItem> itemList = new ArrayList<>();
+		String selectQuery = "SELECT * FROM " + TABLE_HISTORY + " ORDER BY " + KEY_TIME_VISITED
+				+ " DESC";
+
+		Cursor cursor = mDatabase.rawQuery(selectQuery, null);
+		int counter = 0;
+		if (cursor.moveToFirst()) {
+			do {
+				HistoryItem item = new HistoryItem();
+				item.setID(Integer.parseInt(cursor.getString(0)));
+				item.setUrl(cursor.getString(1));
+				item.setTitle(cursor.getString(2));
+				item.setImageId(R.drawable.ic_history);
+				itemList.add(item);
+				counter++;
+			} while (cursor.moveToNext() && counter < 100);
+		}
+		cursor.close();
+		return itemList;
+	}

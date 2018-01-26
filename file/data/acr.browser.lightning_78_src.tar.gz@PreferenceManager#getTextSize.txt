@@ -1,0 +1,3 @@
+public int getTextSize() {
+		return mPrefs.getInt(Name.TEXT_SIZE, 3);
+	}

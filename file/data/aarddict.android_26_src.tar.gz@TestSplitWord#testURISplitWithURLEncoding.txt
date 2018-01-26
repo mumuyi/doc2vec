@@ -1,0 +1,6 @@
+public void testURISplitWithURLEncoding() throws URISyntaxException {
+		LookupWord result = LookupWord.splitWordAsURI("w:abc%20123%2F456#def%20ghi");
+		assertEquals("abc 123/456", result.word);
+		assertEquals("def ghi", result.section);
+		assertEquals("w", result.nameSpace);
+	}

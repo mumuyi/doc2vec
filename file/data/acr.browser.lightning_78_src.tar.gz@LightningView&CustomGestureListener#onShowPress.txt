@@ -1,0 +1,8 @@
+/**
+		 * Is called when something is starting being pressed, always before
+		 * onLongPress.
+		 */
+		@Override
+		public void onShowPress(MotionEvent e) {
+			mCanTriggerLongPress = true;
+		}

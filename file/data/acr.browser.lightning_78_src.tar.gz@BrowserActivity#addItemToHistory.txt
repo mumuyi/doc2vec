@@ -1,0 +1,28 @@
+public void addItemToHistory(final String title, final String url) {
+		Runnable update = new Runnable() {
+			@Override
+			public void run() {
+				if (isSystemBrowserAvailable() && mPreferences.getSyncHistoryEnabled()) {
+					try {
+						Browser.updateVisitedHistory(getContentResolver(), url, true);
+					} catch (NullPointerException ignored) {
+					}
+				}
+				try {
+					if (mHistoryDatabase == null) {
+						mHistoryDatabase = HistoryDatabase.getInstance(mActivity);
+					}
+					mHistoryDatabase.visitHistoryItem(url, title);
+				} catch (IllegalStateException e) {
+					Log.e(Constants.TAG, "IllegalStateException in updateHistory");
+				} catch (NullPointerException e) {
+					Log.e(Constants.TAG, "NullPointerException in updateHistory");
+				} catch (SQLiteException e) {
+					Log.e(Constants.TAG, "SQLiteException in updateHistory");
+				}
+			}
+		};
+		if (url != null && !url.startsWith(Constants.FILE)) {
+			new Thread(update).start();
+		}
+	}

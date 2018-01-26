@@ -1,0 +1,5 @@
+public String getFaviconUrl() {
+		if (faviconUrl == null)
+			return "";
+		return faviconUrl;
+	}

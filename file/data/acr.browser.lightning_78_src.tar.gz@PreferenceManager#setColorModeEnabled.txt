@@ -1,0 +1,3 @@
+public void setColorModeEnabled(boolean enable) {
+		putBoolean(Name.ENABLE_COLOR_MODE, enable);
+	}

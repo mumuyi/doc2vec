@@ -1,0 +1,5 @@
+@Override
+	protected void onNewIntent(Intent intent) {
+		handleNewIntent(intent);
+		super.onNewIntent(intent);
+	}

@@ -1,0 +1,15 @@
+protected static void interactResult(int decisionId, int choice) {
+		MTMDecision d;
+		synchronized(openDecisions) {
+			 d = openDecisions.get(decisionId);
+			 openDecisions.remove(decisionId);
+		}
+		if (d == null) {
+			Log.e(TAG, "interactResult: aborting due to stale decision reference!");
+			return;
+		}
+		synchronized(d) {
+			d.state = choice;
+			d.notify();
+		}
+	}

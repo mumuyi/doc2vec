@@ -1,0 +1,11 @@
+/**
+	 * This method lets the search bar know that the page is currently loading
+	 * and that it should display the stop icon to indicate to the user that
+	 * pressing it stops the page from loading
+	 */
+	public void setIsLoading() {
+		if (!mSearch.hasFocus()) {
+			mIcon = mDeleteIcon;
+			mSearch.setCompoundDrawables(null, null, mDeleteIcon, null);
+		}
+	}

@@ -1,0 +1,9 @@
+public int getScore(Element el) {
+		int old = 0;
+		try {
+			old = Integer.parseInt(el.attr("gravityScore"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return old;
+	}

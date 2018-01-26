@@ -1,0 +1,3 @@
+public void setID(int id) {
+		this.mId = id;
+	}

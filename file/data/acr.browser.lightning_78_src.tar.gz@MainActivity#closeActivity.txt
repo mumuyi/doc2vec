@@ -1,0 +1,5 @@
+@Override
+	public void closeActivity() {
+		closeDrawers();
+		moveTaskToBack(true);
+	}

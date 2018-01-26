@@ -1,0 +1,4 @@
+@JavascriptInterface
+    public int getNumberOfComparators() {
+        return EntryComparators.ALL.length;
+    }

@@ -1,0 +1,21 @@
+public void handleNewIntent(Intent intent) {
+
+		String url = null;
+		if (intent != null) {
+			url = intent.getDataString();
+		}
+		int num = 0;
+		if (intent != null && intent.getExtras() != null) {
+			num = intent.getExtras().getInt(getPackageName() + ".Origin");
+		}
+		if (num == 1) {
+			mCurrentView.loadUrl(url);
+		} else if (url != null) {
+			if (url.startsWith(Constants.FILE)) {
+				Utils.showToast(this, getResources().getString(R.string.message_blocked_local));
+				url = null;
+			}
+			newTab(url, true);
+			mIsNewIntent = true;
+		}
+	}

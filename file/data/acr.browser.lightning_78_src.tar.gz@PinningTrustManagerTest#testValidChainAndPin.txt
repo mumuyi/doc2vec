@@ -1,0 +1,13 @@
+public void testValidChainAndPin() throws CertificateException, NoSuchAlgorithmException, KeyStoreException {
+    CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+    X509Certificate googleWildcard  = (X509Certificate)certificateFactory.generateCertificate(new ByteArrayInputStream(GOOGLE_WILDCARD.getBytes()));
+    X509Certificate googleAuthority = (X509Certificate)certificateFactory.generateCertificate(new ByteArrayInputStream(GOOGLE_AUTHORITY.getBytes()));
+    X509Certificate equifaxRoot     = (X509Certificate)certificateFactory.generateCertificate(new ByteArrayInputStream(EQUIFAX_ROOT.getBytes()));
+
+    X509Certificate[] chain = makeChain(googleWildcard, googleAuthority, equifaxRoot);
+    trustManager.clearCache();
+    trustManager.checkServerTrusted(chain, googleWildcard.getPublicKey().getAlgorithm());
+
+    // Test cache
+    trustManager.checkServerTrusted(chain, googleWildcard.getPublicKey().getAlgorithm());
+  }

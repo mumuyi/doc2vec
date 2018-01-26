@@ -1,0 +1,3 @@
+public boolean getAdBlockEnabled() {
+		return mPrefs.getBoolean(Name.BLOCK_ADS, false);
+	}

@@ -1,0 +1,14 @@
+private int calcWeightForChild(Element child, String ownText) {
+		int c = SHelper.count(ownText, "&quot;");
+		c += SHelper.count(ownText, "&lt;");
+		c += SHelper.count(ownText, "&gt;");
+		c += SHelper.count(ownText, "px");
+		int val;
+		if (c > 5)
+			val = -30;
+		else
+			val = (int) Math.round(ownText.length() / 25.0);
+
+		addScore(child, val);
+		return val;
+	}

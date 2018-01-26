@@ -1,0 +1,3 @@
+private PreferenceManager() {
+		mPrefs = BrowserApp.getAppContext().getSharedPreferences(PREFERENCES, 0);
+	}

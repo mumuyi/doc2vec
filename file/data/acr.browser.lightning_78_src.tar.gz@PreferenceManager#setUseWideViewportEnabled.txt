@@ -1,0 +1,3 @@
+public void setUseWideViewportEnabled(boolean enable) {
+		putBoolean(Name.USE_WIDE_VIEWPORT, enable);
+	}

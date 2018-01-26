@@ -1,0 +1,6 @@
+public void refreshPreferences() {
+		mUseGoogle = PreferenceManager.getInstance().getGoogleSearchSuggestionsEnabled();
+		if (!mUseGoogle && mSuggestions != null) {
+			mSuggestions.clear();
+		}
+	}

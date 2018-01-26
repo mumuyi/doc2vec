@@ -1,0 +1,15 @@
+/**
+	 * Weights current element. By matching it with positive candidates and
+	 * weighting child nodes. Since it's impossible to predict which exactly
+	 * names, ids or class names will be used in HTML, major role is played by
+	 * child nodes
+	 * 
+	 * @param e
+	 *            Element to weight, along with child nodes
+	 */
+	protected int getWeight(Element e) {
+		int weight = calcWeight(e);
+		weight += (int) Math.round(e.ownText().length() / 100.0 * 10);
+		weight += weightChildNodes(e);
+		return weight;
+	}

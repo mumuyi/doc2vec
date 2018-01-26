@@ -1,0 +1,3 @@
+public void setReadingTextSize(int size) {
+		putInt(Name.READING_TEXT_SIZE, 2);
+	}

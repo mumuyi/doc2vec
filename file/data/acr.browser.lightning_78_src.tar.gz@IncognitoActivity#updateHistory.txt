@@ -1,0 +1,5 @@
+@Override
+	public void updateHistory(String title, String url) {
+		super.updateHistory(title, url);
+		// addItemToHistory(title, url);
+	}

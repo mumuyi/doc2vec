@@ -1,0 +1,3 @@
+public boolean getJavaScriptEnabled() {
+		return mPrefs.getBoolean(Name.JAVASCRIPT, true);
+	}

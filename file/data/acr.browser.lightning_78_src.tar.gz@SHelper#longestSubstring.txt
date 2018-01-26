@@ -1,0 +1,32 @@
+public static int[] longestSubstring(String str1, String str2) {
+		if (str1 == null || str1.isEmpty() || str2 == null || str2.isEmpty())
+			return null;
+
+		// dynamic programming => save already identical length into array
+		// to understand this algo simply print identical length in every entry
+		// of the array
+		// i+1, j+1 then reuses information from i,j
+		// java initializes them already with 0
+		int[][] num = new int[str1.length()][str2.length()];
+		int maxlen = 0;
+		int lastSubstrBegin = 0;
+		int endIndex = 0;
+		for (int i = 0; i < str1.length(); i++) {
+			for (int j = 0; j < str2.length(); j++) {
+				if (str1.charAt(i) == str2.charAt(j)) {
+					if ((i == 0) || (j == 0))
+						num[i][j] = 1;
+					else
+						num[i][j] = 1 + num[i - 1][j - 1];
+
+					if (num[i][j] > maxlen) {
+						maxlen = num[i][j];
+						// generate substring from str1 => i
+						lastSubstrBegin = i - num[i][j] + 1;
+						endIndex = i + 1;
+					}
+				}
+			}
+		}
+		return new int[] { lastSubstrBegin, endIndex };
+	}

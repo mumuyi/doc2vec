@@ -1,0 +1,8 @@
+/**
+	 * @return images count
+	 */
+	public int getImagesCount() {
+		if (images == null)
+			return 0;
+		return images.size();
+	}

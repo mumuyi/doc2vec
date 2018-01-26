@@ -1,0 +1,18 @@
+private Document removeScriptsAndStyles(Document doc) {
+		Elements scripts = doc.getElementsByTag("script");
+		for (Element item : scripts) {
+			item.remove();
+		}
+
+		Elements noscripts = doc.getElementsByTag("noscript");
+		for (Element item : noscripts) {
+			item.remove();
+		}
+
+		Elements styles = doc.getElementsByTag("style");
+		for (Element style : styles) {
+			style.remove();
+		}
+
+		return doc;
+	}

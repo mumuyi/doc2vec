@@ -1,0 +1,5 @@
+@Override
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+			mFilteredList = getSuggestions();
+			notifyDataSetChanged();
+		}

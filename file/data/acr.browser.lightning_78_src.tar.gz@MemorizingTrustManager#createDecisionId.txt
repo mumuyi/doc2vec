@@ -1,0 +1,9 @@
+private int createDecisionId(MTMDecision d) {
+		int myId;
+		synchronized(openDecisions) {
+			myId = decisionId;
+			openDecisions.put(myId, d);
+			decisionId += 1;
+		}
+		return myId;
+	}

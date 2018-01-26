@@ -1,0 +1,3 @@
+DictionaryService getService() {
+            return DictionaryService.this;
+        }

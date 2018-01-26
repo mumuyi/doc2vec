@@ -1,0 +1,6 @@
+@Override
+		public void onProgressChanged(WebView view, int newProgress) {
+			if (isShown()) {
+				mBrowserController.updateProgress(newProgress);
+			}
+		}

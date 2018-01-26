@@ -1,0 +1,3 @@
+public void setDomain(String domain) {
+        this.mDomain = domain;
+    }

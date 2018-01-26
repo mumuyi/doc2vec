@@ -1,0 +1,24 @@
+protected HttpURLConnection createUrlConnection(String urlAsStr, int timeout,
+			boolean includeSomeGooseOptions) throws IOException {
+		URL url = new URL(urlAsStr);
+		// using proxy may increase latency
+		HttpURLConnection hConn = (HttpURLConnection) url.openConnection(Proxy.NO_PROXY);
+		hConn.setRequestProperty("User-Agent", userAgent);
+		hConn.setRequestProperty("Accept", accept);
+
+		if (includeSomeGooseOptions) {
+			hConn.setRequestProperty("Accept-Language", language);
+			hConn.setRequestProperty("content-charset", charset);
+			hConn.addRequestProperty("Referer", referrer);
+			// avoid the cache for testing purposes only?
+			hConn.setRequestProperty("Cache-Control", cacheControl);
+		}
+
+		// suggest respond to be gzipped or deflated (which is just another
+		// compression)
+		// http://stackoverflow.com/q/3932117
+		hConn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		hConn.setConnectTimeout(timeout);
+		hConn.setReadTimeout(timeout);
+		return hConn;
+	}

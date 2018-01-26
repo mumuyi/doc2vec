@@ -1,0 +1,60 @@
+@SuppressWarnings("deprecation")
+	@SuppressLint("NewApi")
+	public LightningView(Activity activity, String url, boolean darkTheme) {
+
+		mActivity = activity;
+		mWebView = new WebView(activity);
+		mTitle = new Title(activity, darkTheme);
+		mAdBlock = AdBlock.getInstance(activity.getApplicationContext());
+
+		mWebpageBitmap = Utils.getWebpageBitmap(activity.getResources(), darkTheme);
+
+		try {
+			mBrowserController = (BrowserController) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity + " must implement BrowserController");
+		}
+		mIntentUtils = new IntentUtils(mBrowserController);
+		mWebView.setDrawingCacheBackgroundColor(0x00000000);
+		mWebView.setFocusableInTouchMode(true);
+		mWebView.setFocusable(true);
+		mWebView.setAnimationCacheEnabled(false);
+		mWebView.setDrawingCacheEnabled(false);
+		mWebView.setWillNotCacheDrawing(true);
+		mWebView.setAlwaysDrawnWithCacheEnabled(false);
+		mWebView.setBackgroundColor(activity.getResources().getColor(android.R.color.white));
+
+		if (API > 15) {
+			mWebView.setBackground(null);
+			mWebView.getRootView().setBackground(null);
+		} else if (mWebView.getRootView() != null) {
+			mWebView.getRootView().setBackgroundDrawable(null);
+		}
+		mWebView.setScrollbarFadingEnabled(true);
+		mWebView.setSaveEnabled(true);
+		mWebView.setWebChromeClient(new LightningChromeClient(activity));
+		mWebView.setWebViewClient(new LightningWebClient(activity));
+		mWebView.setDownloadListener(new LightningDownloadListener(activity));
+		mGestureDetector = new GestureDetector(activity, new CustomGestureListener());
+		mWebView.setOnTouchListener(new TouchListener());
+		mDefaultUserAgent = mWebView.getSettings().getUserAgentString();
+		mSettings = mWebView.getSettings();
+		initializeSettings(mWebView.getSettings(), activity);
+		initializePreferences(activity);
+
+		if (url != null) {
+			if (!url.trim().isEmpty()) {
+				mWebView.loadUrl(url);
+			} else {
+				// don't load anything, the user is looking for a blank tab
+			}
+		} else {
+			if (mHomepage.startsWith("about:home")) {
+				mWebView.loadUrl(getHomepage());
+			} else if (mHomepage.startsWith("about:bookmarks")) {
+				mBrowserController.openBookmarkPage(mWebView);
+			} else {
+				mWebView.loadUrl(mHomepage);
+			}
+		}
+	}

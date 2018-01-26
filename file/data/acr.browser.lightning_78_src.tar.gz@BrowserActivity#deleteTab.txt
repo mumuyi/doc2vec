@@ -1,0 +1,80 @@
+private synchronized void deleteTab(int position) {
+		if (position >= mWebViews.size()) {
+			return;
+		}
+
+		int current = mDrawerListLeft.getCheckedItemPosition();
+		LightningView reference = mWebViews.get(position);
+		if (reference == null) {
+			return;
+		}
+		if (reference.getUrl() != null && !reference.getUrl().startsWith(Constants.FILE)
+				&& !isIncognito()) {
+			mPreferences.setSavedUrl(reference.getUrl());
+		}
+		boolean isShown = reference.isShown();
+		if (isShown) {
+			mBrowserFrame.setBackgroundColor(mBackgroundColor);
+		}
+		if (current > position) {
+			mWebViews.remove(position);
+			mDrawerListLeft.setItemChecked(current - 1, true);
+			reference.onDestroy();
+		} else if (mWebViews.size() > position + 1) {
+			if (current == position) {
+				showTab(mWebViews.get(position + 1));
+				mWebViews.remove(position);
+				mDrawerListLeft.setItemChecked(position, true);
+			} else {
+				mWebViews.remove(position);
+			}
+
+			reference.onDestroy();
+		} else if (mWebViews.size() > 1) {
+			if (current == position) {
+				showTab(mWebViews.get(position - 1));
+				mWebViews.remove(position);
+				mDrawerListLeft.setItemChecked(position - 1, true);
+			} else {
+				mWebViews.remove(position);
+			}
+
+			reference.onDestroy();
+		} else {
+			if (mCurrentView.getUrl() == null || mCurrentView.getUrl().startsWith(Constants.FILE)
+					|| mCurrentView.getUrl().equals(mHomepage)) {
+				closeActivity();
+			} else {
+				mWebViews.remove(position);
+				if (mPreferences.getClearCacheExit() && mCurrentView != null && !isIncognito()) {
+					mCurrentView.clearCache(true);
+					Log.d(Constants.TAG, "Cache Cleared");
+
+				}
+				if (mPreferences.getClearHistoryExitEnabled() && !isIncognito()) {
+					clearHistory();
+					Log.d(Constants.TAG, "History Cleared");
+
+				}
+				if (mPreferences.getClearCookiesExitEnabled() && !isIncognito()) {
+					clearCookies();
+					Log.d(Constants.TAG, "Cookies Cleared");
+
+				}
+				reference.pauseTimers();
+				reference.onDestroy();
+				mCurrentView = null;
+				mTitleAdapter.notifyDataSetChanged();
+				finish();
+
+			}
+		}
+		mTitleAdapter.notifyDataSetChanged();
+
+		if (mIsNewIntent && isShown) {
+			mIsNewIntent = false;
+			closeActivity();
+		}
+
+		Log.d(Constants.TAG, "deleted tab");
+	}

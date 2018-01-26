@@ -1,0 +1,22 @@
+public void searchUrlPicker() {
+		final AlertDialog.Builder urlPicker = new AlertDialog.Builder(this);
+
+		urlPicker.setTitle(getResources().getString(R.string.custom_url));
+		final EditText getSearchUrl = new EditText(this);
+
+		String mSearchUrl = mPreferences.getSearchUrl();
+		getSearchUrl.setText(mSearchUrl);
+		urlPicker.setView(getSearchUrl);
+		urlPicker.setPositiveButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String text = getSearchUrl.getText().toString();
+						mPreferences.setSearchUrl(text);
+						mSearchText.setText(getResources().getString(R.string.custom_url) + ": "
+								+ text);
+					}
+				});
+		urlPicker.show();
+	}

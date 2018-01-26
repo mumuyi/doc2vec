@@ -1,0 +1,60 @@
+synchronized private Map<File, Exception> open(List<File> files) {
+        Map<File, Exception> errors = new HashMap<File, Exception>();
+        if (files.size() == 0) {
+            return errors;
+        }
+        Intent notifyOpenStarted = new Intent(OPEN_STARTED);
+        notifyOpenStarted.putExtra("count", files.size());
+        sendBroadcast(notifyOpenStarted);
+        Thread.yield();
+
+        File cacheDir = getCacheDir();
+        File metaCacheDir = new File(cacheDir, "metadata");
+        if (!metaCacheDir.exists()) {
+                if (!metaCacheDir.mkdir()) {
+                        Log.w(TAG, "Failed to create metadata cache directory");
+                }
+        }
+
+        Map<UUID, Metadata> knownMeta = new HashMap<UUID, Metadata>();
+        for (int i = 0;  i < files.size(); i++) {
+                File file = files.get(i);
+                Volume d = null;
+            try {
+                Log.d(TAG, "Opening " + file.getName());
+                d = new Volume(file, metaCacheDir, knownMeta);
+                Volume existing = library.getVolume(d.getId());
+                if (existing == null) {
+                        Log.d(TAG, "Dictionary " + d.getId() + " is not in current collection");
+                        library.add(d);
+                        DeleteObserver observer = getDeleteObserver(file);
+                        observer.add(file.getName());
+                }
+                else {
+                        Log.d(TAG, "Dictionary " + d.getId() + " is already open");
+                }
+                Intent notifyOpened = new Intent(OPENED_DICT);
+                notifyOpened.putExtra("title", d.getDisplayTitle());
+                notifyOpened.putExtra("count", files.size());
+                notifyOpened.putExtra("i", i);
+                sendBroadcast(notifyOpened);
+                Thread.yield();
+            }
+            catch (Exception e) {
+                Log.e(TAG, "Failed to open " + file, e);
+                boolean displayErrorMessage =  !(e instanceof java.io.FileNotFoundException);
+                Intent notifyFailed = new Intent(DICT_OPEN_FAILED);
+                notifyFailed.putExtra("file", file.getAbsolutePath());
+                notifyFailed.putExtra("count", files.size());
+                notifyFailed.putExtra("reason", e.getMessage());
+                notifyFailed.putExtra("displayErrorMessage", displayErrorMessage);
+                notifyFailed.putExtra("i", i);
+                sendBroadcast(notifyFailed);
+                Thread.yield();
+                errors.put(file, e);
+            }
+        }
+        sendBroadcast(new Intent(OPEN_FINISHED));
+        Thread.yield();
+        return errors;
+    }

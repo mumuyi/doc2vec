@@ -1,0 +1,3 @@
+PreferredDictionaryComparator(UUID preferred) {
+        this.preferred = preferred;
+    }

@@ -1,0 +1,3 @@
+public int getSearchChoice() {
+		return mPrefs.getInt(Name.SEARCH, 1);
+	}

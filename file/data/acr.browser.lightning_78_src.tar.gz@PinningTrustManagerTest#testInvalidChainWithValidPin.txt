@@ -1,0 +1,17 @@
+public void testInvalidChainWithValidPin() throws CertificateException, NoSuchAlgorithmException, KeyStoreException {
+    CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+    X509Certificate verisignEv      = (X509Certificate)certificateFactory.generateCertificate(new ByteArrayInputStream(VERISIGN_CLASS_3_EV.getBytes()));
+    X509Certificate googleAuthority = (X509Certificate)certificateFactory.generateCertificate(new ByteArrayInputStream(GOOGLE_AUTHORITY.getBytes()));
+
+    X509Certificate[] chain = makeChain(verisignEv, googleAuthority);
+    trustManager.clearCache();
+
+    try {
+      trustManager.checkServerTrusted(chain,  verisignEv.getPublicKey().getAlgorithm());
+    } catch (CertificateException ce) {
+      Log.w("PinningTrustManagerTest", ce);
+      return;
+    }
+
+    fail("Trust manager didn't throw error on invalid but pinned chain!");
+  }

@@ -1,0 +1,3 @@
+public void setRenderingMode(int mode) {
+		putInt(Name.RENDERING_MODE, mode);
+	}

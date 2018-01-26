@@ -1,0 +1,4 @@
+public JResult setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+		return this;
+	}

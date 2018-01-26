@@ -1,0 +1,13 @@
+private static boolean isValidLink(X509Certificate parent, X509Certificate child) {
+    if (!parent.getSubjectX500Principal().equals(child.getIssuerX500Principal())) {
+      return false;
+    }
+
+    try {
+      child.verify(parent.getPublicKey());
+    } catch (GeneralSecurityException gse) {
+      return false;
+    }
+
+    return true;
+  }

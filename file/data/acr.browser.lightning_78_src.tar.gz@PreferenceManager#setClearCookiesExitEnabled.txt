@@ -1,0 +1,3 @@
+public void setClearCookiesExitEnabled(boolean enable) {
+		putBoolean(Name.CLEAR_COOKIES_EXIT, enable);
+	}

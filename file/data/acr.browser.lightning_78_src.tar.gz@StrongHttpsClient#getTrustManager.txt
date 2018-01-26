@@ -1,0 +1,4 @@
+public TrustManager getTrustManager()
+    {
+        return mTrustManager;
+    }

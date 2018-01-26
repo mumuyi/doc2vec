@@ -1,0 +1,13 @@
+public synchronized void visitHistoryItem(String url, String title) {
+		ContentValues values = new ContentValues();
+		values.put(KEY_TITLE, title);
+		values.put(KEY_TIME_VISITED, System.currentTimeMillis());
+		Cursor q = mDatabase.query(false, TABLE_HISTORY, new String[] { KEY_URL },
+				KEY_URL + " = ?", new String[] { url }, null, null, null, "1");
+		if (q.getCount() > 0) {
+			mDatabase.update(TABLE_HISTORY, values, KEY_URL + " = ?", new String[] { url });
+		} else {
+			addHistoryItem(new HistoryItem(url, title));
+		}
+		q.close();
+	}

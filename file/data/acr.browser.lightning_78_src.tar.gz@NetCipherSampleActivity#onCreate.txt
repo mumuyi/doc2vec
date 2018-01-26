@@ -1,0 +1,46 @@
+/** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        txtUrl = (EditText) findViewById(R.id.txtUrl);
+        txtView = (TextView) findViewById(R.id.WizardTextBody);
+
+        Button btn;
+
+        btn = ((Button) findViewById(R.id.btnWizard1));
+
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mProxyType = null;
+                new Thread(runnableNet).start();
+            }
+        });
+
+        btn = ((Button) findViewById(R.id.btnWizard2));
+
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mProxyType = Proxy.Type.HTTP;
+                new Thread(runnableNet).start();
+            }
+        });
+
+        btn = ((Button) findViewById(R.id.btnWizard3));
+
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mProxyType = Proxy.Type.SOCKS;
+
+                new Thread(runnableNet).start();
+            }
+        });
+
+    }

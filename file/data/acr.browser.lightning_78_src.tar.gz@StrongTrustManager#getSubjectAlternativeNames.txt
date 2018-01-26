@@ -1,0 +1,44 @@
+/**
+     * Returns the JID representation of an XMPP entity contained as a
+     * SubjectAltName extension in the certificate. If none was found then
+     * return <tt>null</tt>.
+     *
+     * @param certificate the certificate presented by the remote entity.
+     * @return the JID representation of an XMPP entity contained as a
+     *         SubjectAltName extension in the certificate. If none was found
+     *         then return <tt>null</tt>.
+     */
+    static Collection<String> getSubjectAlternativeNames(X509Certificate certificate) {
+        List<String> identities = new ArrayList<String>();
+        try {
+            byte[] extVal = certificate.getExtensionValue(X509Extensions.SubjectAlternativeName
+                    .getId());
+            // Check that the certificate includes the SubjectAltName extension
+            if (extVal == null) {
+                return Collections.emptyList();
+            }
+
+            ASN1OctetString octs = (ASN1OctetString) ASN1Primitive.fromByteArray(extVal);
+
+            @SuppressWarnings("rawtypes")
+            Enumeration it = DERSequence.getInstance(ASN1Primitive.fromByteArray(octs.getOctets()))
+                    .getObjects();
+
+            while (it.hasMoreElements())
+            {
+                GeneralName genName = GeneralName.getInstance(it.nextElement());
+                switch (genName.getTagNo())
+                {
+                    case GeneralName.dNSName:
+                        identities.add(((ASN1String) genName.getName()).getString());
+                        break;
+                }
+            }
+            return Collections.unmodifiableCollection(identities);
+
+        } catch (Exception e) {
+            Log.e(TAG, "getSubjectAlternativeNames()", e);
+        }
+
+        return identities;
+    }

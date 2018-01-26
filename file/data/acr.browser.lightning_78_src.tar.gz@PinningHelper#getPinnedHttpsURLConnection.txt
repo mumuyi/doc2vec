@@ -1,0 +1,35 @@
+/**
+   * Constructs an HttpsURLConnection that will validate HTTPS connections against a set of
+   * specified pins.
+   *
+   * @param pins An array of encoded pins to match a seen certificate
+   *             chain against. A pin is a hex-encoded hash of a X.509 certificate's
+   *             SubjectPublicKeyInfo. A pin can be generated using the provided pin.py
+   *             script: python ./tools/pin.py certificate_file.pem
+   *
+   */
+
+  public static HttpsURLConnection getPinnedHttpsURLConnection(Context context, String[] pins, URL url)
+      throws IOException
+  {
+    try {
+      if (!url.getProtocol().equals("https")) {
+        throw new IllegalArgumentException("Attempt to construct pinned non-https connection!");
+      }
+
+      TrustManager[] trustManagers = new TrustManager[1];
+      trustManagers[0]             = new PinningTrustManager(SystemKeyStore.getInstance(context), pins, 0);
+
+      SSLContext sslContext = SSLContext.getInstance("TLS");
+      sslContext.init(null, trustManagers, null);
+
+      HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();
+      urlConnection.setSSLSocketFactory(sslContext.getSocketFactory());
+
+      return urlConnection;
+    } catch (NoSuchAlgorithmException nsae) {
+      throw new AssertionError(nsae);
+    } catch (KeyManagementException e) {
+      throw new AssertionError(e);
+    }
+  }

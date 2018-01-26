@@ -1,0 +1,12 @@
+private KeyManager[] createKeyManagers(final KeyStore keystore,
+			final String password) throws KeyStoreException,
+			NoSuchAlgorithmException, UnrecoverableKeyException {
+		if (keystore == null) {
+			throw new IllegalArgumentException("Keystore may not be null");
+		}
+		KeyManagerFactory kmfactory = KeyManagerFactory
+				.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+		kmfactory.init(keystore, password != null ? password.toCharArray()
+				: null);
+		return kmfactory.getKeyManagers();
+	}

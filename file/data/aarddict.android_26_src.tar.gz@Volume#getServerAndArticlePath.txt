@@ -1,0 +1,16 @@
+@SuppressWarnings("unchecked")
+    private String[] getServerAndArticlePath() {
+        String[] result = new String[]{null, null};
+        if (metadata.siteinfo != null){
+                Map <String, Object> general = (Map <String, Object>)this.metadata.siteinfo.get("general");
+                if (general != null) {
+                        Object server = general.get("server");
+                        Object articlePath = general.get("articlepath");
+                        if (server != null)
+                                result[0] = server.toString();
+                        if (articlePath != null)
+                                result[1] = articlePath.toString();
+                }
+        }
+        return result;
+    }

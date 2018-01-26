@@ -1,0 +1,24 @@
+@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			switch (buttonView.getId()) {
+				case R.id.cbHideStatusBar:
+					mPreferences.setHideStatusBarEnabled(isChecked);
+					break;
+				case R.id.cbFullScreen:
+					mPreferences.setFullScreenEnabled(isChecked);
+					break;
+				case R.id.cbWideViewPort:
+					mPreferences.setUseWideViewportEnabled(isChecked);
+					break;
+				case R.id.cbOverView:
+					mPreferences.setOverviewModeEnabled(isChecked);
+					break;
+				case R.id.cbTextReflow:
+					mPreferences.setTextReflowEnabled(isChecked);
+					break;
+				case R.id.cbDarkTheme:
+					mPreferences.setUseDarkTheme(isChecked);
+					restart();
+					break;
+			}
+		}

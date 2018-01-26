@@ -1,0 +1,13 @@
+private void cacheFavicon(Bitmap icon) {
+		String hash = String.valueOf(Utils.getDomainName(getUrl()).hashCode());
+		Log.d(Constants.TAG, "Caching icon for " + Utils.getDomainName(getUrl()));
+		File image = new File(mActivity.getCacheDir(), hash + ".png");
+		try {
+			FileOutputStream fos = new FileOutputStream(image);
+			icon.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}

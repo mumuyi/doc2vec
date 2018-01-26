@@ -1,0 +1,19 @@
+private static AlertDialog showDownloadDialog(final Activity activity,
+            CharSequence stringTitle, CharSequence stringMessage, CharSequence stringButtonYes,
+            CharSequence stringButtonNo, final String uriString) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(activity);
+        downloadDialog.setTitle(stringTitle);
+        downloadDialog.setMessage(stringMessage);
+        downloadDialog.setPositiveButton(stringButtonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                activity.startActivity(intent);
+            }
+        });
+        downloadDialog.setNegativeButton(stringButtonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        return downloadDialog.show();
+    }

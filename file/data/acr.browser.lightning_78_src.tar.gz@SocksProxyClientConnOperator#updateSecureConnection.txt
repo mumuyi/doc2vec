@@ -1,0 +1,8 @@
+@Override
+    public void updateSecureConnection(
+            final OperatedClientConnection conn,
+            final HttpHost target,
+            final HttpContext context,
+            final HttpParams params) throws IOException {
+        throw new RuntimeException("operation not supported");
+    }

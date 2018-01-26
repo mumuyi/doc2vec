@@ -1,0 +1,72 @@
+@SuppressLint("NewApi")
+	public void init() {
+		// set up ActionBar
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		// mPreferences storage
+		mPreferences = PreferenceManager.getInstance();
+
+		// initialize UI
+		RelativeLayout layoutFlash = (RelativeLayout) findViewById(R.id.layoutFlash);
+		RelativeLayout layoutBlockAds = (RelativeLayout) findViewById(R.id.layoutAdBlock);
+		layoutBlockAds.setEnabled(Constants.FULL_VERSION);
+		RelativeLayout layoutImages = (RelativeLayout) findViewById(R.id.layoutImages);
+		RelativeLayout layoutEnableJS = (RelativeLayout) findViewById(R.id.layoutEnableJS);
+		RelativeLayout layoutOrbot = (RelativeLayout) findViewById(R.id.layoutUseOrbot);
+		RelativeLayout layoutColor = (RelativeLayout) findViewById(R.id.layoutColorMode);
+		RelativeLayout layoutBookmarks = (RelativeLayout) findViewById(R.id.layoutBookmarks);
+
+		layoutBookmarks.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(mContext, BookmarkActivity.class));
+			}
+
+		});
+
+		if (API >= 19) {
+			mPreferences.setFlashSupport(0);
+		}
+		int flashNum = mPreferences.getFlashSupport();
+		boolean imagesBool = mPreferences.getBlockImagesEnabled();
+		boolean enableJSBool = mPreferences.getJavaScriptEnabled();
+
+		CheckBox flash = (CheckBox) findViewById(R.id.cbFlash);
+		CheckBox adblock = (CheckBox) findViewById(R.id.cbAdblock);
+		adblock.setEnabled(Constants.FULL_VERSION);
+		CheckBox images = (CheckBox) findViewById(R.id.cbImageBlock);
+		CheckBox enablejs = (CheckBox) findViewById(R.id.cbJavascript);
+		CheckBox orbot = (CheckBox) findViewById(R.id.cbOrbot);
+		CheckBox color = (CheckBox) findViewById(R.id.cbColorMode);
+
+		images.setChecked(imagesBool);
+		enablejs.setChecked(enableJSBool);
+		if (flashNum > 0) {
+			flash.setChecked(true);
+		} else {
+			flash.setChecked(false);
+		}
+		adblock.setChecked(mPreferences.getAdBlockEnabled());
+		orbot.setChecked(mPreferences.getUseProxy());
+		color.setChecked(mPreferences.getColorModeEnabled());
+
+		initCheckBox(flash, adblock, images, enablejs, orbot, color);
+		clickListenerForCheckBoxes(layoutFlash, layoutBlockAds, layoutImages, layoutEnableJS,
+				layoutOrbot, layoutColor, flash, adblock, images, enablejs, orbot, color);
+
+		RelativeLayout general = (RelativeLayout) findViewById(R.id.layoutGeneral);
+		RelativeLayout display = (RelativeLayout) findViewById(R.id.layoutDisplay);
+		RelativeLayout privacy = (RelativeLayout) findViewById(R.id.layoutPrivacy);
+		RelativeLayout advanced = (RelativeLayout) findViewById(R.id.layoutAdvanced);
+		RelativeLayout about = (RelativeLayout) findViewById(R.id.layoutAbout);
+
+		general(general);
+		display(display);
+		privacy(privacy);
+		advanced(advanced);
+		about(about);
+	}

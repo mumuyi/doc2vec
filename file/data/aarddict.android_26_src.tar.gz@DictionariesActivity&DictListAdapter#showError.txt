@@ -1,0 +1,20 @@
+private void showError(final CharSequence message) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
+                            DictionariesActivity.this);
+                    dialogBuilder
+                            .setTitle(R.string.titleError)
+                            .setMessage(message)
+                            .setNeutralButton(R.string.btnDismiss,
+                                    new OnClickListener() {
+                                        public void onClick(
+                                                DialogInterface dialog,
+                                                int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                    dialogBuilder.show();
+                }
+            });
+        }

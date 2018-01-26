@@ -1,0 +1,25 @@
+private int calcWeight(Element e) {
+		int weight = 0;
+		if (POSITIVE.matcher(e.className()).find())
+			weight += 35;
+
+		if (POSITIVE.matcher(e.id()).find())
+			weight += 40;
+
+		if (UNLIKELY.matcher(e.className()).find())
+			weight -= 20;
+
+		if (UNLIKELY.matcher(e.id()).find())
+			weight -= 20;
+
+		if (NEGATIVE.matcher(e.className()).find())
+			weight -= 50;
+
+		if (NEGATIVE.matcher(e.id()).find())
+			weight -= 50;
+
+		String style = e.attr("style");
+		if (style != null && !style.isEmpty() && NEGATIVE_STYLE.matcher(style).find())
+			weight -= 50;
+		return weight;
+	}

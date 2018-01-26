@@ -1,0 +1,3 @@
+public void setUserAgentString(String agent) {
+		putString(Name.USER_AGENT_STRING, agent);
+	}

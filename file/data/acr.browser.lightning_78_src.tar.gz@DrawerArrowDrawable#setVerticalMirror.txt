@@ -1,0 +1,7 @@
+/**
+	 * If set, canvas is flipped when progress reached to end and going back to
+	 * start.
+	 */
+	protected void setVerticalMirror(boolean verticalMirror) {
+		mVerticalMirror = verticalMirror;
+	}

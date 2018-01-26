@@ -1,0 +1,8 @@
+public void requestHiddenServiceOnPort(Activity activity, int port)
+    {
+        Intent intent = new Intent(URI_ORBOT);
+        intent.setAction(ACTION_REQUEST_HS);
+        intent.putExtra("hs_port", port);
+
+        activity.startActivityForResult(intent, HS_REQUEST_CODE);
+    }

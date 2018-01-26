@@ -1,0 +1,3 @@
+public boolean getHideStatusBarEnabled() {
+		return mPrefs.getBoolean(Name.HIDE_STATUS_BAR, false);
+	}

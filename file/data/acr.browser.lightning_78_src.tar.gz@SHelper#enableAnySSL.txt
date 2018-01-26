@@ -1,0 +1,10 @@
+public static void enableAnySSL() {
+		try {
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			ctx.init(new KeyManager[0], new TrustManager[] { new DefaultTrustManager() },
+					new SecureRandom());
+			SSLContext.setDefault(ctx);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}

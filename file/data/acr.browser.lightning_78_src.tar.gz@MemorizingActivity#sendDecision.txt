@@ -1,0 +1,5 @@
+void sendDecision(int decision) {
+		Log.d(TAG, "Sending decision: " + decision);
+		MemorizingTrustManager.interactResult(decisionId, decision);
+		finish();
+	}

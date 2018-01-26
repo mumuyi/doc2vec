@@ -1,0 +1,6 @@
+@Override
+    public X509Certificate[] getAcceptedIssuers() {
+        return new X509Certificate[0]; // we accept anyone now, but this should
+                                       // return the list from our trust Root CA
+                                       // Store
+    }

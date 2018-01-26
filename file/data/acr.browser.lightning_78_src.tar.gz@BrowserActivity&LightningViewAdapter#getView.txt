@@ -1,0 +1,55 @@
+@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			View row = convertView;
+			LightningViewHolder holder;
+			if (row == null) {
+				LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+				row = inflater.inflate(layoutResourceId, parent, false);
+
+				holder = new LightningViewHolder();
+				holder.txtTitle = (TextView) row.findViewById(R.id.textTab);
+				holder.favicon = (ImageView) row.findViewById(R.id.faviconTab);
+				holder.exit = (ImageView) row.findViewById(R.id.deleteButton);
+				holder.exit.setTag(position);
+				row.setTag(holder);
+			} else {
+				holder = (LightningViewHolder) row.getTag();
+			}
+
+			holder.exit.setTag(position);
+			holder.exit.setOnClickListener(mExitListener);
+
+			ViewCompat.jumpDrawablesToCurrentState(holder.exit);
+
+			LightningView web = data.get(position);
+			holder.txtTitle.setText(web.getTitle());
+			if (web.isForegroundTab()) {
+				holder.txtTitle.setTextAppearance(context, R.style.boldText);
+			} else {
+				holder.txtTitle.setTextAppearance(context, R.style.normalText);
+			}
+
+			Bitmap favicon = web.getFavicon();
+			if (web.isForegroundTab()) {
+
+				holder.favicon.setImageBitmap(favicon);
+				if (!isIncognito() && mColorMode)
+					changeToolbarBackground(favicon);
+			} else {
+				Bitmap grayscaleBitmap = Bitmap.createBitmap(favicon.getWidth(),
+						favicon.getHeight(), Bitmap.Config.ARGB_8888);
+
+				Canvas c = new Canvas(grayscaleBitmap);
+				if (colorMatrix == null || filter == null || paint == null) {
+					paint = new Paint();
+					colorMatrix = new ColorMatrix();
+					colorMatrix.setSaturation(0);
+					filter = new ColorMatrixColorFilter(colorMatrix);
+					paint.setColorFilter(filter);
+				}
+
+				c.drawBitmap(favicon, 0, 0, paint);
+				holder.favicon.setImageBitmap(grayscaleBitmap);
+			}
+			return row;
+		}

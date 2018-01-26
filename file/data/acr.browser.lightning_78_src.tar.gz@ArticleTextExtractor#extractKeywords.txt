@@ -1,0 +1,13 @@
+protected Collection<String> extractKeywords(Document doc) {
+		String content = SHelper.innerTrim(doc.select("head meta[name=keywords]").attr("content"));
+
+		if (content != null) {
+			if (content.startsWith("[") && content.endsWith("]"))
+				content = content.substring(1, content.length() - 1);
+
+			String[] split = content.split("\\s*,\\s*");
+			if (split.length > 1 || (split.length > 0 && !"".equals(split[0])))
+				return Arrays.asList(split);
+		}
+		return Collections.emptyList();
+	}

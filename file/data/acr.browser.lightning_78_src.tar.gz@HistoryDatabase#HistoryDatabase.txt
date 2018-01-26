@@ -1,0 +1,4 @@
+private HistoryDatabase(Context context) {
+		super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+		mDatabase = this.getWritableDatabase();
+	}

@@ -1,0 +1,3 @@
+public void setMemoryUrl(String url) {
+		putString(Name.URL_MEMORY, url);
+	}

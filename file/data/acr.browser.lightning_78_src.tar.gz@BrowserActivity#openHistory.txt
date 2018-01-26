@@ -1,0 +1,16 @@
+/**
+	 * function that opens the HTML history page in the browser
+	 */
+	private void openHistory() {
+		// use a thread so that history retrieval doesn't block the UI
+		Thread history = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				mCurrentView.loadUrl(HistoryPage.getHistoryPage(mActivity));
+				mSearch.setText("");
+			}
+
+		});
+		history.run();
+	}

@@ -1,0 +1,8 @@
+@Override
+		public void onDrawerClosed(View v) {
+			if (v == mDrawerRight) {
+				mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mDrawerLeft);
+			} else {
+				mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mDrawerRight);
+			}
+		}

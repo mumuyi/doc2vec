@@ -1,0 +1,30 @@
+@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		mPreferences = PreferenceManager.getInstance();
+		mInvert = mPreferences.getInvertColors();
+		if (mInvert) {
+			this.setTheme(R.style.Theme_SettingsTheme_Dark);
+		}
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.reading_view);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		mTitle = (TextView) findViewById(R.id.textViewTitle);
+		mBody = (TextView) findViewById(R.id.textViewBody);
+
+		mTextSize = mPreferences.getReadingTextSize();
+		mBody.setTextSize(getTextSize(mTextSize));
+		mTitle.setText(getString(R.string.untitled));
+		mBody.setText(getString(R.string.loading));
+
+		mTitle.setVisibility(View.INVISIBLE);
+		mBody.setVisibility(View.INVISIBLE);
+
+		Intent intent = getIntent();
+		if (!loadPage(intent)) {
+			setText(getString(R.string.untitled), getString(R.string.loading_failed));
+		}
+	}

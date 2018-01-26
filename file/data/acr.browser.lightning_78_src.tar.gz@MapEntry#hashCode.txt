@@ -1,0 +1,7 @@
+@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 19 * hash + (this.key != null ? this.key.hashCode() : 0);
+		hash = 19 * hash + (this.value != null ? this.value.hashCode() : 0);
+		return hash;
+	}

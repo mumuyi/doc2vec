@@ -1,0 +1,19 @@
+@SuppressWarnings("deprecation")
+	public void clearHistory() {
+		deleteDatabase(HistoryDatabase.DATABASE_NAME);
+		WebViewDatabase m = WebViewDatabase.getInstance(this);
+		m.clearFormData();
+		m.clearHttpAuthUsernamePassword();
+		if (API < 18) {
+			m.clearUsernamePassword();
+			WebIconDatabase.getInstance().removeAllIcons();
+		}
+		if (mSystemBrowser) {
+			try {
+				Browser.clearHistory(getContentResolver());
+			} catch (Exception ignored) {
+			}
+		}
+		Utils.trimCache(this);
+		messageHandler.sendEmptyMessage(1);
+	}

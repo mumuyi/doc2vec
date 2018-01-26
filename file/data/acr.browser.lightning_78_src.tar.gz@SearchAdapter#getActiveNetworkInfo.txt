@@ -1,0 +1,8 @@
+private NetworkInfo getActiveNetworkInfo(Context context) {
+		ConnectivityManager connectivity = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connectivity == null) {
+			return null;
+		}
+		return connectivity.getActiveNetworkInfo();
+	}

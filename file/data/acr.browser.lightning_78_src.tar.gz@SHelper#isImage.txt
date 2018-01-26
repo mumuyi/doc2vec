@@ -1,0 +1,5 @@
+public static boolean isImage(String url) {
+		return url.endsWith(".png") || url.endsWith(".jpeg") || url.endsWith(".gif")
+				|| url.endsWith(".jpg") || url.endsWith(".bmp") || url.endsWith(".ico")
+				|| url.endsWith(".eps");
+	}

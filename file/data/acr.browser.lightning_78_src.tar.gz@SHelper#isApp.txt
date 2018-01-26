@@ -1,0 +1,4 @@
+public static boolean isApp(String url) {
+		return url.endsWith(".exe") || url.endsWith(".bin") || url.endsWith(".bat")
+				|| url.endsWith(".dmg");
+	}

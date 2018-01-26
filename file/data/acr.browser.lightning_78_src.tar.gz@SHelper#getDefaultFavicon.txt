@@ -1,0 +1,3 @@
+public static String getDefaultFavicon(String url) {
+		return useDomainOfFirstArg4Second(url, "/favicon.ico");
+	}

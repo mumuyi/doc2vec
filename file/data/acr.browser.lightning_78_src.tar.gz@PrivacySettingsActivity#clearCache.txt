@@ -1,0 +1,6 @@
+public void clearCache() {
+		WebView webView = new WebView(this);
+		webView.clearCache(true);
+		webView.destroy();
+		Utils.showToast(mContext, getResources().getString(R.string.message_cache_cleared));
+	}

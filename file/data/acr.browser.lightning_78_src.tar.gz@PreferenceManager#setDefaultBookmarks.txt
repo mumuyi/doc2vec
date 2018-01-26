@@ -1,0 +1,3 @@
+public void setDefaultBookmarks(boolean show) {
+		putBoolean(Name.DEFAULT_BOOKMARKS, show);
+	}

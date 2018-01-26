@@ -1,0 +1,3 @@
+public boolean getClearCookiesExitEnabled() {
+		return mPrefs.getBoolean(Name.CLEAR_COOKIES_EXIT, false);
+	}

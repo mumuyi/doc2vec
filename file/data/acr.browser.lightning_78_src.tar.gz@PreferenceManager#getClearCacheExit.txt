@@ -1,0 +1,3 @@
+public boolean getClearCacheExit() {
+		return mPrefs.getBoolean(Name.CLEAR_CACHE_EXIT, false);
+	}

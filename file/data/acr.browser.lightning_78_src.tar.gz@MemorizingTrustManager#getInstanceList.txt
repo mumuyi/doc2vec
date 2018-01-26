@@ -1,0 +1,18 @@
+/**
+	 * Returns a X509TrustManager list containing a new instance of
+	 * TrustManagerFactory.
+	 *
+	 * This function is meant for convenience only. You can use it
+	 * as follows to integrate TrustManagerFactory for HTTPS sockets:
+	 *
+	 * <pre>
+	 *     SSLContext sc = SSLContext.getInstance("TLS");
+	 *     sc.init(null, MemorizingTrustManager.getInstanceList(this),
+	 *         new java.security.SecureRandom());
+	 *     HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	 * </pre>
+	 * @param c Activity or Service to show the Dialog / Notification
+	 */
+	public static X509TrustManager[] getInstanceList(Context c) {
+		return new X509TrustManager[] { new MemorizingTrustManager(c) };
+	}

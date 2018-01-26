@@ -1,0 +1,30 @@
+/**
+	 * Search for intent handlers that are specific to this URL aka, specialized
+	 * apps like google maps or youtube
+	 */
+	private boolean isSpecializedHandlerAvailable(Intent intent) {
+		PackageManager pm = mActivity.getPackageManager();
+		List<ResolveInfo> handlers = pm.queryIntentActivities(intent,
+				PackageManager.GET_RESOLVED_FILTER);
+		if (handlers == null || handlers.isEmpty()) {
+			return false;
+		}
+		for (ResolveInfo resolveInfo : handlers) {
+			IntentFilter filter = resolveInfo.filter;
+			if (filter == null) {
+				// No intent filter matches this intent?
+				// Error on the side of staying in the browser, ignore
+				continue;
+			}
+			// NOTICE: Use of && instead of || will cause the browser
+			// to launch a new intent for every URL, using OR only
+			// launches a new one if there is a non-browser app that
+			// can handle it.
+			if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0) {
+				// Generic handler, skip
+				continue;
+			}
+			return true;
+		}
+		return false;
+	}

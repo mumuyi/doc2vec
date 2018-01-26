@@ -1,0 +1,4 @@
+public ArticleTextExtractor addNegative(String neg) {
+		setNegative(negativeStr + "|" + neg);
+		return this;
+	}

@@ -1,0 +1,23 @@
+@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.browserLicense:
+				actionView("http://www.mozilla.org/MPL/2.0/");
+				break;
+			case R.id.licenseAOSP:
+				actionView("http://www.apache.org/licenses/LICENSE-2.0");
+				break;
+			case R.id.licenseHosts:
+				actionView("http://hosts-file.net/");
+				break;
+			case R.id.licenseOrbot:
+				actionView("http://www.gnu.org/licenses/lgpl.html");
+				break;
+			case R.id.licenseSnactory:
+				actionView("http://www.apache.org/licenses/LICENSE-2.0");
+				break;
+			case R.id.licenseJsoup:
+				actionView("http://jsoup.org/license");
+				break;
+		}
+	}

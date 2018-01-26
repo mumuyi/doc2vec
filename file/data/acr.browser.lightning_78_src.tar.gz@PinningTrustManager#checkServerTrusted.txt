@@ -1,0 +1,14 @@
+public void checkServerTrusted(X509Certificate[] chain, String authType)
+      throws CertificateException
+  {
+    if (cache.contains(chain[0])) {
+      return;
+    }
+
+    // Note: We do this so that we'll never be doing worse than the default
+    // system validation.  It's duplicate work, however, and can be factored
+    // out if we make the verification below more complete.
+    checkSystemTrust(chain, authType);
+    checkPinTrust(chain);
+    cache.add(chain[0]);
+  }

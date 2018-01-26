@@ -1,0 +1,16 @@
+@Override
+    protected void onResume() {
+        super.onResume();
+
+        OrbotHelper oc = new OrbotHelper(this);
+
+        if (!oc.isOrbotInstalled())
+        {
+            oc.promptToInstall(this);
+        }
+        else if (!oc.isOrbotRunning())
+        {
+            oc.requestOrbotStart(this);
+        }
+
+    }

@@ -1,0 +1,10 @@
+/**
+	 * @return the longest substring as str1.substring(result[0], result[1]);
+	 */
+	public static String getLongestSubstring(String str1, String str2) {
+		int res[] = longestSubstring(str1, str2);
+		if (res == null || res[0] >= res[1])
+			return "";
+
+		return str1.substring(res[0], res[1]);
+	}

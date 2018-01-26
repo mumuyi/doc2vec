@@ -1,0 +1,31 @@
+@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.bookmark_settings);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		LinearLayout exportBackup = (LinearLayout) findViewById(R.id.exportBackup);
+		LinearLayout importBackup = (LinearLayout) findViewById(R.id.importBackup);
+		LinearLayout importFromBrowser = (LinearLayout) findViewById(R.id.importFromBrowser);
+
+		TextView importBookmarks = (TextView) findViewById(R.id.isImportBrowserAvailable);
+
+		mBookmarkManager = BookmarkManager.getInstance(getApplicationContext());
+		PreferenceManager mPreferences = PreferenceManager.getInstance();
+
+		boolean systemBrowser = mPreferences.getSystemBrowserPresent();
+
+		exportBackup.setOnClickListener(this);
+		importBackup.setOnClickListener(this);
+		importFromBrowser.setOnClickListener(this);
+
+		if (systemBrowser) {
+			importBookmarks.setText(getResources().getString(R.string.stock_browser_available));
+		} else {
+			importBookmarks.setText(getResources().getString(R.string.stock_browser_unavailable));
+		}
+	}

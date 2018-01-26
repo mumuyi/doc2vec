@@ -1,0 +1,35 @@
+@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			FilterResults results = new FilterResults();
+			if (constraint == null) {
+				return results;
+			}
+			String query = constraint.toString().toLowerCase(Locale.getDefault());
+			if (mUseGoogle && !mIncognito && !mIsExecuting) {
+				new RetrieveSearchSuggestions().execute(query);
+			}
+
+			int counter = 0;
+			mBookmarks = new ArrayList<>();
+			for (int n = 0; n < mAllBookmarks.size(); n++) {
+				if (counter >= 5) {
+					break;
+				}
+				if (mAllBookmarks.get(n).getTitle().toLowerCase(Locale.getDefault())
+						.startsWith(query)) {
+					mBookmarks.add(mAllBookmarks.get(n));
+					counter++;
+				} else if (mAllBookmarks.get(n).getUrl().contains(query)) {
+					mBookmarks.add(mAllBookmarks.get(n));
+					counter++;
+				}
+
+			}
+			if (mDatabaseHandler == null) {
+				mDatabaseHandler = HistoryDatabase.getInstance(mContext.getApplicationContext());
+			}
+			mHistory = mDatabaseHandler.findItemsContaining(constraint.toString());
+
+			results.count = 1;
+			return results;
+		}

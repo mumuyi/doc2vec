@@ -1,0 +1,45 @@
+/**
+	 * searches the web for the query fixing any and all problems with the input
+	 * checks if it is a search, url, etc.
+	 */
+	void searchTheWeb(String query) {
+		if (query.equals("")) {
+			return;
+		}
+		String SEARCH = mSearchText;
+		query = query.trim();
+		mCurrentView.stopLoading();
+
+		if (query.startsWith("www.")) {
+			query = Constants.HTTP + query;
+		} else if (query.startsWith("ftp.")) {
+			query = "ftp://" + query;
+		}
+
+		boolean containsPeriod = query.contains(".");
+		boolean isIPAddress = (TextUtils.isDigitsOnly(query.replace(".", ""))
+				&& (query.replace(".", "").length() >= 4) && query.contains("."));
+		boolean aboutScheme = query.contains("about:");
+		boolean validURL = (query.startsWith("ftp://") || query.startsWith(Constants.HTTP)
+				|| query.startsWith(Constants.FILE) || query.startsWith(Constants.HTTPS))
+				|| isIPAddress;
+		boolean isSearch = ((query.contains(" ") || !containsPeriod) && !aboutScheme);
+
+		if (isIPAddress
+				&& (!query.startsWith(Constants.HTTP) || !query.startsWith(Constants.HTTPS))) {
+			query = Constants.HTTP + query;
+		}
+
+		if (isSearch) {
+			try {
+				query = URLEncoder.encode(query, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			mCurrentView.loadUrl(SEARCH + query);
+		} else if (!validURL) {
+			mCurrentView.loadUrl(Constants.HTTP + query);
+		} else {
+			mCurrentView.loadUrl(query);
+		}
+	}

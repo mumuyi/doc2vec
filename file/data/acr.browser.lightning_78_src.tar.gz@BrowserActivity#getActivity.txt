@@ -1,0 +1,8 @@
+@Override
+	/**
+	 * returns the Activity instance for this activity,
+	 * very helpful when creating things in other classes... I think
+	 */
+	public Activity getActivity() {
+		return mActivity;
+	}

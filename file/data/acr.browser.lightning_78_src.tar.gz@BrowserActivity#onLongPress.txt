@@ -1,0 +1,16 @@
+@Override
+	/**
+	 * handles long presses for the browser, tries to get the
+	 * url of the item that was clicked and sends it (it can be null)
+	 * to the click handler that does cool stuff with it
+	 */
+	public void onLongPress() {
+		if (mClickHandler == null) {
+			mClickHandler = new ClickHandler(mActivity);
+		}
+		Message click = mClickHandler.obtainMessage();
+		if (click != null) {
+			click.setTarget(mClickHandler);
+			mCurrentView.getWebView().requestFocusNodeHref(click);
+		}
+	}

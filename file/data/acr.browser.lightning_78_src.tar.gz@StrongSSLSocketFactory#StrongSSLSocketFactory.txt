@@ -1,0 +1,19 @@
+public StrongSSLSocketFactory(Context context,
+			TrustManager trustManager, KeyStore keyStore, String keyStorePassword)
+			throws KeyManagementException, UnrecoverableKeyException,
+			NoSuchAlgorithmException, KeyStoreException, CertificateException,
+			IOException {
+		super(keyStore);
+
+		mTrustManager = trustManager;
+
+		SSLContext sslContext = SSLContext.getInstance("TLS");
+		TrustManager[] tm = new TrustManager[] { mTrustManager };
+		KeyManager[] km = createKeyManagers(
+				keyStore,
+				keyStorePassword);
+		sslContext.init(km, tm, new SecureRandom());
+
+		mFactory = sslContext.getSocketFactory();
+
+	}

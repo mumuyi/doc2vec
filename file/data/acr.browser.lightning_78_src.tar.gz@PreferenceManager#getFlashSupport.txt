@@ -1,0 +1,3 @@
+public int getFlashSupport() {
+		return mPrefs.getInt(Name.ADOBE_FLASH_SUPPORT, 0);
+	}

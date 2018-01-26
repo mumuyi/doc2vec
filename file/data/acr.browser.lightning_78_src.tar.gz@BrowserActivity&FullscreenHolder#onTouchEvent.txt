@@ -1,0 +1,5 @@
+@SuppressLint("ClickableViewAccessibility")
+		@Override
+		public boolean onTouchEvent(MotionEvent evt) {
+			return true;
+		}

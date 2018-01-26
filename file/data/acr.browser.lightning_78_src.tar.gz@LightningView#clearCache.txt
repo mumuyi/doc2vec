@@ -1,0 +1,5 @@
+public void clearCache(boolean disk) {
+		if (mWebView != null) {
+			mWebView.clearCache(disk);
+		}
+	}

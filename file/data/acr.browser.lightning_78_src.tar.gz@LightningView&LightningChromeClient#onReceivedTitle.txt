@@ -1,0 +1,10 @@
+@Override
+		public void onReceivedTitle(WebView view, String title) {
+			if (!title.isEmpty()) {
+				mTitle.setTitle(title);
+			} else {
+				mTitle.setTitle(mActivity.getString(R.string.untitled));
+			}
+			mBrowserController.update();
+			mBrowserController.updateHistory(title, view.getUrl());
+		}

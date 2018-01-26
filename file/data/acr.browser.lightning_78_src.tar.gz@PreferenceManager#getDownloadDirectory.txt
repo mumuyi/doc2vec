@@ -1,0 +1,3 @@
+public String getDownloadDirectory() {
+		return mPrefs.getString(Name.DOWNLOAD_DIRECTORY, Environment.DIRECTORY_DOWNLOADS);
+	}

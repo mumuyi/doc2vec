@@ -1,0 +1,3 @@
+public void setOutputFormatter(OutputFormatter formatter) {
+		this.formatter = formatter;
+	}

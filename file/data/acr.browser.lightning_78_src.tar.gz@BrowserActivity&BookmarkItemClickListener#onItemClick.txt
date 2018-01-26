@@ -1,0 +1,15 @@
+@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			if (mCurrentView != null) {
+				mCurrentView.loadUrl(mBookmarkList.get(position).getUrl());
+			}
+			// keep any jank from happening when the drawer is closed after the
+			// URL starts to load
+			final Handler handler = new Handler();
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mDrawerLayout.closeDrawer(mDrawerRight);
+				}
+			}, 150);
+		}

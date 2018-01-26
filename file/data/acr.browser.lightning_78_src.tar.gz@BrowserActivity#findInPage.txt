@@ -1,0 +1,22 @@
+/**
+	 * method that shows a dialog asking what string the user wishes to search
+	 * for. It highlights the text entered.
+	 */
+	private void findInPage() {
+		final AlertDialog.Builder finder = new AlertDialog.Builder(mActivity);
+		finder.setTitle(getResources().getString(R.string.action_find));
+		final EditText getHome = new EditText(this);
+		getHome.setHint(getResources().getString(R.string.search_hint));
+		finder.setView(getHome);
+		finder.setPositiveButton(getResources().getString(R.string.search_hint),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String query = getHome.getText().toString();
+						if (query.length() > 0)
+							showSearchInterfaceBar(query);
+					}
+				});
+		finder.show();
+	}

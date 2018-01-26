@@ -1,0 +1,6 @@
+@Override
+		public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture,
+				Message resultMsg) {
+			mBrowserController.onCreateWindow(isUserGesture, resultMsg);
+			return true;
+		}

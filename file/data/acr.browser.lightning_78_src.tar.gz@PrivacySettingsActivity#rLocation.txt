@@ -1,0 +1,11 @@
+private void rLocation(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				cbLocation.setChecked(!cbLocation.isChecked());
+			}
+
+		});
+	}

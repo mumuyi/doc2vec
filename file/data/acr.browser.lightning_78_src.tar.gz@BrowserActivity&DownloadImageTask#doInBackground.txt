@@ -1,0 +1,73 @@
+protected Bitmap doInBackground(String... urls) {
+			String url = urls[0];
+			Bitmap mIcon = null;
+			// unique path for each url that is bookmarked.
+			String hash = String.valueOf(Utils.getDomainName(url).hashCode());
+			File image = new File(mActivity.getCacheDir(), hash + ".png");
+			String urldisplay;
+			try {
+				urldisplay = Utils.getProtocol(url) + getDomainName(url) + "/favicon.ico";
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+				urldisplay = "https://www.google.com/s2/favicons?domain_url=" + url;
+			}
+			// checks to see if the image exists
+			if (!image.exists()) {
+				try {
+					// if not, download it...
+					URL urlDownload = new URL(urldisplay);
+					HttpURLConnection connection = (HttpURLConnection) urlDownload.openConnection();
+					connection.setDoInput(true);
+					connection.connect();
+					InputStream in = connection.getInputStream();
+
+					if (in != null) {
+						mIcon = BitmapFactory.decodeStream(in);
+					}
+					// ...and cache it
+					if (mIcon != null) {
+						FileOutputStream fos = new FileOutputStream(image);
+						mIcon.compress(Bitmap.CompressFormat.PNG, 100, fos);
+						fos.flush();
+						fos.close();
+						Log.d(Constants.TAG, "Downloaded: " + urldisplay);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				// if it exists, retrieve it from the cache
+				mIcon = BitmapFactory.decodeFile(image.getPath());
+			}
+			if (mIcon == null) {
+				try {
+					// if not, download it...
+					URL urlDownload = new URL("https://www.google.com/s2/favicons?domain_url="
+							+ url);
+					HttpURLConnection connection = (HttpURLConnection) urlDownload.openConnection();
+					connection.setDoInput(true);
+					connection.connect();
+					InputStream in = connection.getInputStream();
+
+					if (in != null) {
+						mIcon = BitmapFactory.decodeStream(in);
+					}
+					// ...and cache it
+					if (mIcon != null) {
+						FileOutputStream fos = new FileOutputStream(image);
+						mIcon.compress(Bitmap.CompressFormat.PNG, 100, fos);
+						fos.flush();
+						fos.close();
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (mIcon == null) {
+				return mWebpageBitmap;
+			} else {
+				return mIcon;
+			}
+		}

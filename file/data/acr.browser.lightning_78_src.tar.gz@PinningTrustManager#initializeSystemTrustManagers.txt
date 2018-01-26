@@ -1,0 +1,12 @@
+private TrustManager[] initializeSystemTrustManagers(SystemKeyStore keyStore) {
+    try {
+      final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+      tmf.init(keyStore.trustStore);
+
+      return tmf.getTrustManagers();
+    } catch (NoSuchAlgorithmException nsae) {
+      throw new AssertionError(nsae);
+    } catch (KeyStoreException e) {
+      throw new AssertionError(e);
+    }
+  }

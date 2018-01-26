@@ -1,0 +1,4 @@
+public JResult setRssUrl(String rssUrl) {
+		this.rssUrl = rssUrl;
+		return this;
+	}

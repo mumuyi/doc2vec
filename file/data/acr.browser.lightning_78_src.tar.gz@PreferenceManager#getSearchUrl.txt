@@ -1,0 +1,3 @@
+public String getSearchUrl() {
+		return mPrefs.getString(Name.SEARCH_URL, Constants.GOOGLE_SEARCH);
+	}

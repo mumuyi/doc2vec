@@ -1,0 +1,31 @@
+/**
+	 * @param urlForDomain
+	 *            extract the domain from this url
+	 * @param path
+	 *            this url does not have a domain
+	 * @return
+	 */
+	public static String useDomainOfFirstArg4Second(String urlForDomain, String path) {
+		if (path.startsWith("http"))
+			return path;
+
+		if ("favicon.ico".equals(path))
+			path = "/favicon.ico";
+
+		if (path.startsWith("//")) {
+			// wikipedia special case, see tests
+			if (urlForDomain.startsWith("https:"))
+				return "https:" + path;
+
+			return "http:" + path;
+		} else if (path.startsWith("/"))
+			return "http://" + extractHost(urlForDomain) + path;
+		else if (path.startsWith("../")) {
+			int slashIndex = urlForDomain.lastIndexOf("/");
+			if (slashIndex > 0 && slashIndex + 1 < urlForDomain.length())
+				urlForDomain = urlForDomain.substring(0, slashIndex + 1);
+
+			return urlForDomain + path;
+		}
+		return path;
+	}

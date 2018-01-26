@@ -1,0 +1,9 @@
+@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+			if (isShown()) {
+				mBrowserController.updateUrl(url, false);
+				mBrowserController.showActionBar();
+			}
+			mTitle.setFavicon(mWebpageBitmap);
+			mBrowserController.update();
+		}

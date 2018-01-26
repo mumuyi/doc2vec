@@ -1,0 +1,4 @@
+public JResult setTitle(String title) {
+		this.title = title;
+		return this;
+	}

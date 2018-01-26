@@ -1,0 +1,4 @@
+public HtmlFetcher setMaxTextLength(int maxTextLength) {
+		this.maxTextLength = maxTextLength;
+		return this;
+	}

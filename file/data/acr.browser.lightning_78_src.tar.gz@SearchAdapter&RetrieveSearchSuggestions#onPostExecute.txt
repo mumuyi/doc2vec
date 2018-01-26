@@ -1,0 +1,7 @@
+@Override
+		protected void onPostExecute(List<HistoryItem> result) {
+			mSuggestions = result;
+			mFilteredList = getSuggestions();
+			notifyDataSetChanged();
+			mIsExecuting = false;
+		}

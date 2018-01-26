@@ -1,0 +1,4 @@
+public HtmlFetcher clearCacheCounter() {
+		cacheCounter.set(0);
+		return this;
+	}

@@ -1,0 +1,43 @@
+public void setColorMode(int mode) {
+		mInvertPage = false;
+		switch (mode) {
+			case 0:
+				mPaint.setColorFilter(null);
+				// setSoftwareRendering(); // Some devices get segfaults
+				// in the WebView with Hardware Acceleration enabled,
+				// the only fix is to disable hardware rendering
+				setNormalRendering();
+				mInvertPage = false;
+				break;
+			case 1:
+				ColorMatrixColorFilter filterInvert = new ColorMatrixColorFilter(
+						mNegativeColorArray);
+				mPaint.setColorFilter(filterInvert);
+				setHardwareRendering();
+
+				mInvertPage = true;
+				break;
+			case 2:
+				ColorMatrix cm = new ColorMatrix();
+				cm.setSaturation(0);
+				ColorMatrixColorFilter filterGray = new ColorMatrixColorFilter(cm);
+				mPaint.setColorFilter(filterGray);
+				setHardwareRendering();
+				break;
+			case 3:
+				ColorMatrix matrix = new ColorMatrix();
+				matrix.set(mNegativeColorArray);
+				ColorMatrix matrixGray = new ColorMatrix();
+				matrixGray.setSaturation(0);
+				ColorMatrix concat = new ColorMatrix();
+				concat.setConcat(matrix, matrixGray);
+				ColorMatrixColorFilter filterInvertGray = new ColorMatrixColorFilter(concat);
+				mPaint.setColorFilter(filterInvertGray);
+				setHardwareRendering();
+
+				mInvertPage = true;
+				break;
+
+		}
+
+	}

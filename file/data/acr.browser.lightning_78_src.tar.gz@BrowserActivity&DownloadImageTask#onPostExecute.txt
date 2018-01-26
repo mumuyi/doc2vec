@@ -1,0 +1,6 @@
+protected void onPostExecute(Bitmap result) {
+			Bitmap fav = Utils.padFavicon(result);
+			bmImage.setImageBitmap(fav);
+			mWeb.setBitmap(fav);
+			notifyBookmarkDataSetChanged();
+		}

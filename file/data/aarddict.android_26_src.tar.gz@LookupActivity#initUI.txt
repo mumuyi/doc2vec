@@ -1,0 +1,80 @@
+@Override
+    void initUI() {
+        getWindow().requestFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
+        if (DeviceInfo.EINK_SCREEN)
+        {
+                setContentView(R.layout.eink_lookup);
+            listView = (ListView)findViewById(R.id.einkLookupResult);
+        }
+        else
+        {
+                setContentView(R.layout.lookup);
+            listView = (ListView)findViewById(R.id.lookupResult);
+        }
+
+        timer = new Timer();
+
+        editText = (EditText)findViewById(R.id.wordInput);
+
+        textWatcher = new TextWatcher() {
+
+            TimerTask currentLookupTask;
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                if (currentLookupTask != null) {
+                    currentLookupTask.cancel();
+                }
+
+                final Editable textToLookup = s;
+                currentLookupTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "running lookup task for " + textToLookup + " in " + Thread.currentThread());
+                        if (textToLookup.toString().equals(editText.getText().toString())) {
+                            doLookup(textToLookup);
+                        }
+                    }
+                };
+                try {
+                        timer.schedule(currentLookupTask, 600);
+                }
+                catch(IllegalStateException e) {
+                        //this may happen if orientation changes while loading
+                        Log.d(TAG, "Failed to schedule lookup task", e);
+                }
+            }
+        };
+        editText.addTextChangedListener(textWatcher);
+
+        editText.setOnKeyListener(new OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                         inputManager.hideSoftInputFromWindow(editText.getApplicationWindowToken(), 0);
+                         return true;
+                 }
+                 return false;
+            }
+        });
+
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        Button btnClear = (Button)findViewById(R.id.clearButton);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                editText.setText("");
+                editText.requestFocus();
+                InputMethodManager inputMgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMgr.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+    }

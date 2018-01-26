@@ -1,0 +1,3 @@
+public void setOverviewModeEnabled(boolean enable) {
+		putBoolean(Name.OVERVIEW_MODE, enable);
+	}

@@ -1,0 +1,31 @@
+@Override
+	/**
+	 * open the HTML bookmarks page, parameter view is the WebView that should show the page
+	 */
+	public void openBookmarkPage(WebView view) {
+		StringBuilder bookmarkBuilder = new StringBuilder();
+		bookmarkBuilder.append(BookmarkPage.HEADING);
+		Iterator<HistoryItem> iter = mBookmarkList.iterator();
+		HistoryItem helper;
+		while (iter.hasNext()) {
+			helper = iter.next();
+			bookmarkBuilder.append(BookmarkPage.PART1);
+			bookmarkBuilder.append(helper.getUrl());
+			bookmarkBuilder.append(BookmarkPage.PART2);
+			bookmarkBuilder.append(helper.getUrl());
+			bookmarkBuilder.append(BookmarkPage.PART3);
+			bookmarkBuilder.append(helper.getTitle());
+			bookmarkBuilder.append(BookmarkPage.PART4);
+		}
+		bookmarkBuilder.append(BookmarkPage.END);
+		File bookmarkWebPage = new File(mActivity.getFilesDir(), BookmarkPage.FILENAME);
+		try {
+			FileWriter bookWriter = new FileWriter(bookmarkWebPage, false);
+			bookWriter.write(bookmarkBuilder.toString());
+			bookWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		view.loadUrl(Constants.FILE + bookmarkWebPage);
+	}

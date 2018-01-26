@@ -1,0 +1,87 @@
+public void initCheckBox(CheckBox flash, CheckBox adblock, CheckBox images, CheckBox enablejs,
+			CheckBox orbot, CheckBox color) {
+		flash.setEnabled(API < 19);
+		flash.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked) {
+					getFlashChoice();
+				} else {
+					mPreferences.setFlashSupport(0);
+				}
+
+				boolean flashInstalled = false;
+				try {
+					PackageManager pm = getPackageManager();
+					ApplicationInfo ai = pm.getApplicationInfo("com.adobe.flashplayer", 0);
+					if (ai != null) {
+						flashInstalled = true;
+					}
+				} catch (NameNotFoundException e) {
+					flashInstalled = false;
+				}
+				if (!flashInstalled && isChecked) {
+					Utils.createInformativeDialog(SettingsActivity.this,
+							getResources().getString(R.string.title_warning), getResources()
+									.getString(R.string.dialog_adobe_not_installed));
+					buttonView.setChecked(false);
+					mPreferences.setFlashSupport(0);
+
+				} else if ((API >= 17) && isChecked) {
+					Utils.createInformativeDialog(SettingsActivity.this,
+							getResources().getString(R.string.title_warning), getResources()
+									.getString(R.string.dialog_adobe_unsupported));
+				}
+			}
+
+		});
+		adblock.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setAdBlockEnabled(isChecked);
+			}
+
+		});
+		images.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setBlockImagesEnabled(isChecked);
+
+			}
+
+		});
+		enablejs.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setJavaScriptEnabled(isChecked);
+			}
+
+		});
+		OrbotHelper oh = new OrbotHelper(this);
+		if (!oh.isOrbotInstalled()) {
+			orbot.setEnabled(false);
+		}
+
+		orbot.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setUseProxy(isChecked);
+
+			}
+
+		});
+		color.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setColorModeEnabled(isChecked);
+
+			}
+
+		});
+	}

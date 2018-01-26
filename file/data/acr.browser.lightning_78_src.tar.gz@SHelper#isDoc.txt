@@ -1,0 +1,4 @@
+public static boolean isDoc(String url) {
+		return url.endsWith(".pdf") || url.endsWith(".ppt") || url.endsWith(".doc")
+				|| url.endsWith(".swf") || url.endsWith(".rtf") || url.endsWith(".xls");
+	}

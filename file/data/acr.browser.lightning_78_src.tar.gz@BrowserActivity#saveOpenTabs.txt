@@ -1,0 +1,11 @@
+public void saveOpenTabs() {
+		if (mPreferences.getRestoreLostTabsEnabled()) {
+			String s = "";
+			for (int n = 0; n < mWebViews.size(); n++) {
+				if (mWebViews.get(n).getUrl() != null) {
+					s = s + mWebViews.get(n).getUrl() + "|$|SEPARATOR|$|";
+				}
+			}
+			mPreferences.setMemoryUrl(s);
+		}
+	}

@@ -1,0 +1,17 @@
+private boolean isValidPin(X509Certificate certificate) throws CertificateException {
+    try {
+      final MessageDigest digest = MessageDigest.getInstance("SHA1");
+      final byte[] spki          = certificate.getPublicKey().getEncoded();
+      final byte[] pin           = digest.digest(spki);
+
+      for (byte[] validPin : this.pins) {
+        if (Arrays.equals(validPin, pin)) {
+          return true;
+        }
+      }
+
+      return false;
+    } catch (NoSuchAlgorithmException nsae) {
+      throw new CertificateException(nsae);
+    }
+  }

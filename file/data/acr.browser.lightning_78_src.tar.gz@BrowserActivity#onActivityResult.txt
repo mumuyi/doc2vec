@@ -1,0 +1,42 @@
+@Override
+	/**
+	 * used to allow uploading into the browser
+	 */
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (API < Build.VERSION_CODES.LOLLIPOP) {
+			if (requestCode == 1) {
+				if (null == mUploadMessage) {
+					return;
+				}
+				Uri result = intent == null || resultCode != RESULT_OK ? null : intent.getData();
+				mUploadMessage.onReceiveValue(result);
+				mUploadMessage = null;
+
+			}
+		}
+
+		if (requestCode != 1 || mFilePathCallback == null) {
+			super.onActivityResult(requestCode, resultCode, intent);
+			return;
+		}
+
+		Uri[] results = null;
+
+		// Check that the response is a good one
+		if (resultCode == Activity.RESULT_OK) {
+			if (intent == null) {
+				// If there is not data, then we may have taken a photo
+				if (mCameraPhotoPath != null) {
+					results = new Uri[] { Uri.parse(mCameraPhotoPath) };
+				}
+			} else {
+				String dataString = intent.getDataString();
+				if (dataString != null) {
+					results = new Uri[] { Uri.parse(dataString) };
+				}
+			}
+		}
+
+		mFilePathCallback.onReceiveValue(results);
+		mFilePathCallback = null;
+	}

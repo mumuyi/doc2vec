@@ -1,0 +1,4 @@
+Entry next() {
+        entryIndex ++;
+        return current();
+    }

@@ -1,0 +1,26 @@
+@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+				case R.id.rHideStatusBar:
+					cbHideStatusBar.setChecked(!cbHideStatusBar.isChecked());
+					break;
+				case R.id.rFullScreen:
+					cbFullScreen.setChecked(!cbFullScreen.isChecked());
+					break;
+				case R.id.rWideViewPort:
+					cbWideViewPort.setChecked(!cbWideViewPort.isChecked());
+					break;
+				case R.id.rOverView:
+					cbOverView.setChecked(!cbOverView.isChecked());
+					break;
+				case R.id.rTextReflow:
+					cbTextReflow.setChecked(!cbTextReflow.isChecked());
+					break;
+				case R.id.rTextSize:
+					textSizePicker();
+					break;
+				case R.id.rDarkTheme:
+					cbDarkTheme.setChecked(!cbDarkTheme.isChecked());
+					break;
+			}
+		}

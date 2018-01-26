@@ -1,0 +1,114 @@
+@SuppressWarnings("deprecation")
+	@SuppressLint({ "NewApi", "SetJavaScriptEnabled" })
+	public synchronized void initializePreferences(Context context) {
+		mPreferences = PreferenceManager.getInstance();
+		mHomepage = mPreferences.getHomepage();
+		mAdBlock.updatePreference();
+		if (mSettings == null && mWebView != null) {
+			mSettings = mWebView.getSettings();
+		} else if (mSettings == null) {
+			return;
+		}
+
+		setColorMode(mPreferences.getRenderingMode());
+
+		if (!mBrowserController.isIncognito()) {
+			mSettings.setGeolocationEnabled(mPreferences.getLocationEnabled());
+		} else {
+			mSettings.setGeolocationEnabled(false);
+		}
+		if (API < 19) {
+			switch (mPreferences.getFlashSupport()) {
+				case 0:
+					mSettings.setPluginState(PluginState.OFF);
+					break;
+				case 1:
+					mSettings.setPluginState(PluginState.ON_DEMAND);
+					break;
+				case 2:
+					mSettings.setPluginState(PluginState.ON);
+					break;
+				default:
+					break;
+			}
+		}
+
+		switch (mPreferences.getUserAgentChoice()) {
+			case 1:
+				if (API > 16) {
+					mSettings.setUserAgentString(WebSettings.getDefaultUserAgent(context));
+				} else {
+					mSettings.setUserAgentString(mDefaultUserAgent);
+				}
+				break;
+			case 2:
+				mSettings.setUserAgentString(Constants.DESKTOP_USER_AGENT);
+				break;
+			case 3:
+				mSettings.setUserAgentString(Constants.MOBILE_USER_AGENT);
+				break;
+			case 4:
+				mSettings.setUserAgentString(mPreferences.getUserAgentString(mDefaultUserAgent));
+				break;
+		}
+
+		if (mPreferences.getSavePasswordsEnabled() && !mBrowserController.isIncognito()) {
+			if (API < 18) {
+				mSettings.setSavePassword(true);
+			}
+			mSettings.setSaveFormData(true);
+		} else {
+			if (API < 18) {
+				mSettings.setSavePassword(false);
+			}
+			mSettings.setSaveFormData(false);
+		}
+
+		if (mPreferences.getJavaScriptEnabled()) {
+			mSettings.setJavaScriptEnabled(true);
+			mSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+		}
+
+		if (mPreferences.getTextReflowEnabled()) {
+			mTextReflow = true;
+			mSettings.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
+			if (API >= android.os.Build.VERSION_CODES.KITKAT) {
+				try {
+					mSettings.setLayoutAlgorithm(LayoutAlgorithm.TEXT_AUTOSIZING);
+				} catch (Exception e) {
+					// This shouldn't be necessary, but there are a number
+					// of KitKat devices that crash trying to set this
+					Log.e(Constants.TAG, "Problem setting LayoutAlgorithm to TEXT_AUTOSIZING");
+				}
+			}
+		} else {
+			mTextReflow = false;
+			mSettings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
+		}
+
+		mSettings.setBlockNetworkImage(mPreferences.getBlockImagesEnabled());
+		mSettings.setSupportMultipleWindows(mPreferences.getPopupsEnabled());
+		mSettings.setUseWideViewPort(mPreferences.getUseWideViewportEnabled());
+		mSettings.setLoadWithOverviewMode(mPreferences.getOverviewModeEnabled());
+		switch (mPreferences.getTextSize()) {
+			case 1:
+				mSettings.setTextZoom(200);
+				break;
+			case 2:
+				mSettings.setTextZoom(150);
+				break;
+			case 3:
+				mSettings.setTextZoom(100);
+				break;
+			case 4:
+				mSettings.setTextZoom(75);
+				break;
+			case 5:
+				mSettings.setTextZoom(50);
+				break;
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView,
+					!mPreferences.getBlockThirdPartyCookiesEnabled());
+		}
+	}

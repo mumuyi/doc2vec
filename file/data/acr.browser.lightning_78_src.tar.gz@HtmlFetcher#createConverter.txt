@@ -1,0 +1,3 @@
+public Converter createConverter(String url) {
+		return new Converter(url);
+	}

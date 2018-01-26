@@ -1,0 +1,81 @@
+public void initializePreferences() {
+		if (mPreferences == null) {
+			mPreferences = PreferenceManager.getInstance();
+		}
+		mFullScreen = mPreferences.getFullScreenEnabled();
+		mColorMode = mPreferences.getColorModeEnabled();
+		mColorMode &= !mDarkTheme;
+		if (!isIncognito() && !mColorMode && !mDarkTheme && mWebpageBitmap != null) {
+			changeToolbarBackground(mWebpageBitmap);
+		} else if (!isIncognito() && mCurrentView != null && !mDarkTheme
+				&& mCurrentView.getFavicon() != null) {
+			changeToolbarBackground(mCurrentView.getFavicon());
+		}
+
+		if (mFullScreen && mBrowserFrame.findViewById(R.id.toolbar_layout) == null) {
+			mUiLayout.removeView(mToolbarLayout);
+			mBrowserFrame.addView(mToolbarLayout);
+			mToolbarLayout.bringToFront();
+		} else if (mBrowserFrame.findViewById(R.id.toolbar_layout) != null) {
+			mBrowserFrame.removeView(mToolbarLayout);
+			mUiLayout.addView(mToolbarLayout, 0);
+		}
+		if (mPreferences.getHideStatusBarEnabled()) {
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		} else {
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		}
+
+		switch (mPreferences.getSearchChoice()) {
+			case 0:
+				mSearchText = mPreferences.getSearchUrl();
+				if (!mSearchText.startsWith(Constants.HTTP)
+						&& !mSearchText.startsWith(Constants.HTTPS)) {
+					mSearchText = Constants.GOOGLE_SEARCH;
+				}
+				break;
+			case 1:
+				mSearchText = Constants.GOOGLE_SEARCH;
+				break;
+			case 2:
+				mSearchText = Constants.ASK_SEARCH;
+				break;
+			case 3:
+				mSearchText = Constants.BING_SEARCH;
+				break;
+			case 4:
+				mSearchText = Constants.YAHOO_SEARCH;
+				break;
+			case 5:
+				mSearchText = Constants.STARTPAGE_SEARCH;
+				break;
+			case 6:
+				mSearchText = Constants.STARTPAGE_MOBILE_SEARCH;
+				break;
+			case 7:
+				mSearchText = Constants.DUCK_SEARCH;
+				break;
+			case 8:
+				mSearchText = Constants.DUCK_LITE_SEARCH;
+				break;
+			case 9:
+				mSearchText = Constants.BAIDU_SEARCH;
+				break;
+			case 10:
+				mSearchText = Constants.YANDEX_SEARCH;
+				break;
+		}
+
+		updateCookiePreference();
+		if (mPreferences.getUseProxy()) {
+			initializeTor();
+		} else {
+			try {
+				WebkitProxy.resetProxy(BrowserApp.class.getName(),
+						getApplicationContext());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}

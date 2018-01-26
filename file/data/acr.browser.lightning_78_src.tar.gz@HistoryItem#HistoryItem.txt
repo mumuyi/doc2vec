@@ -1,0 +1,6 @@
+public HistoryItem(String url, String title, int imageId) {
+		this.mUrl = url;
+		this.mTitle = title;
+		this.mBitmap = null;
+		this.mImageId = imageId;
+	}

@@ -1,0 +1,4 @@
+public boolean isOrbotInstalled()
+    {
+        return isAppInstalled(URI_ORBOT);
+    }

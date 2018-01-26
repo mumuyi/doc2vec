@@ -1,0 +1,9 @@
+boolean unlikely(Node e) {
+		if (e.attr("class") != null
+				&& e.attr("class").toLowerCase(Locale.getDefault()).contains("caption"))
+			return true;
+
+		String style = e.attr("style");
+		String clazz = e.attr("class");
+		return unlikelyPattern.matcher(style).find() || unlikelyPattern.matcher(clazz).find();
+	}

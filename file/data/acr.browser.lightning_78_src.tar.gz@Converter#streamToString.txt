@@ -1,0 +1,82 @@
+/**
+	 * reads bytes off the string and returns a string
+	 * 
+	 * @param is
+	 * @param maxBytes
+	 *            The max bytes that we want to read from the input stream
+	 * @return String
+	 */
+	public String streamToString(InputStream is, int maxBytes, String enc) {
+		encoding = enc;
+		// Http 1.1. standard is iso-8859-1 not utf8 :(
+		// but we force utf-8 as youtube assumes it ;)
+		if (encoding == null || encoding.isEmpty())
+			encoding = UTF8;
+
+		BufferedInputStream in = null;
+		try {
+			in = new BufferedInputStream(is, K2);
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+			// detect encoding with the help of meta tag
+			try {
+				in.mark(K2 * 2);
+				String tmpEnc = detectCharset("charset=", output, in, encoding);
+				if (tmpEnc != null)
+					encoding = tmpEnc;
+				else {
+					Log.d(Constants.TAG, "no charset found in first stage");
+					// detect with the help of xml beginning ala
+					// encoding="charset"
+					tmpEnc = detectCharset("encoding=", output, in, encoding);
+					if (tmpEnc != null)
+						encoding = tmpEnc;
+					else
+						Log.d(Constants.TAG, "no charset found in second stage");
+				}
+
+				if (!Charset.isSupported(encoding))
+					throw new UnsupportedEncodingException(encoding);
+			} catch (UnsupportedEncodingException e) {
+				Log.d(Constants.TAG,
+						"Using default encoding:" + UTF8 + " problem:" + e.getMessage()
+								+ " encoding:" + encoding + " " + url);
+				encoding = UTF8;
+			}
+
+			// SocketException: Connection reset
+			// IOException: missing CR => problem on server (probably some xml
+			// character thing?)
+			// IOException: Premature EOF => socket unexpectly closed from
+			// server
+			int bytesRead = output.size();
+			byte[] arr = new byte[K2];
+			while (true) {
+				if (bytesRead >= maxBytes) {
+					Log.d(Constants.TAG, "Maxbyte of " + maxBytes
+							+ " exceeded! Maybe html is now broken but try it nevertheless. Url: "
+							+ url);
+					break;
+				}
+
+				int n = in.read(arr);
+				if (n < 0)
+					break;
+				bytesRead += n;
+				output.write(arr, 0, n);
+			}
+
+			return output.toString(encoding);
+		} catch (IOException e) {
+			Log.e(Constants.TAG, e.toString() + " url:" + url);
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return "";
+	}

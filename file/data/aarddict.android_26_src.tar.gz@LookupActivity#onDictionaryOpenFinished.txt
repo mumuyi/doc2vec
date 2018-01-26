@@ -1,0 +1,4 @@
+@Override
+    void onDictionaryOpenFinished() {
+        onDictionaryServiceReady();
+    }

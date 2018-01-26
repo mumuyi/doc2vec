@@ -1,0 +1,3 @@
+public void onCancel(DialogInterface dialog) {
+		sendDecision(MTMDecision.DECISION_ABORT);
+	}

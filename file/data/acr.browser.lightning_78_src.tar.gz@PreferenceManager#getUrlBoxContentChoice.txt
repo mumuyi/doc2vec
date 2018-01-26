@@ -1,0 +1,3 @@
+public int getUrlBoxContentChoice() {
+		return mPrefs.getInt(Name.URL_BOX_CONTENTS, 0);
+	}

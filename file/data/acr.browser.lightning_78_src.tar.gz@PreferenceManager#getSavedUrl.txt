@@ -1,0 +1,3 @@
+public String getSavedUrl() {
+		return mPrefs.getString(Name.SAVE_URL, null);
+	}

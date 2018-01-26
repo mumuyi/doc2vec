@@ -1,0 +1,3 @@
+public void setSoftwareRendering() {
+		mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+	}

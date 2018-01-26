@@ -1,0 +1,27 @@
+private void closeBrowser() {
+		mBrowserFrame.setBackgroundColor(mBackgroundColor);
+		if (mPreferences.getClearCacheExit() && mCurrentView != null && !isIncognito()) {
+			mCurrentView.clearCache(true);
+			Log.d(Constants.TAG, "Cache Cleared");
+
+		}
+		if (mPreferences.getClearHistoryExitEnabled() && !isIncognito()) {
+			clearHistory();
+			Log.d(Constants.TAG, "History Cleared");
+
+		}
+		if (mPreferences.getClearCookiesExitEnabled() && !isIncognito()) {
+			clearCookies();
+			Log.d(Constants.TAG, "Cookies Cleared");
+
+		}
+		mCurrentView = null;
+		for (int n = 0; n < mWebViews.size(); n++) {
+			if (mWebViews.get(n) != null) {
+				mWebViews.get(n).onDestroy();
+			}
+		}
+		mWebViews.clear();
+		mTitleAdapter.notifyDataSetChanged();
+		finish();
+	}

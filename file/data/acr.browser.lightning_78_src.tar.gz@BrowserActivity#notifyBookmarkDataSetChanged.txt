@@ -1,0 +1,9 @@
+/**
+	 * refreshes the underlying list of the Bookmark adapter since the bookmark
+	 * adapter doesn't always change when notifyDataChanged gets called.
+	 */
+	private void notifyBookmarkDataSetChanged() {
+		mBookmarkAdapter.clear();
+		mBookmarkAdapter.addAll(mBookmarkList);
+		mBookmarkAdapter.notifyDataSetChanged();
+	}

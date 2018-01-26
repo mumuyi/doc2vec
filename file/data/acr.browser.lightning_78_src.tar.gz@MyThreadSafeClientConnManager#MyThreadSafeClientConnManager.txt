@@ -1,0 +1,3 @@
+public MyThreadSafeClientConnManager(HttpParams params, SchemeRegistry schreg) {
+        super(params, schreg);
+    }

@@ -1,0 +1,3 @@
+public void setSavedUrl(String url) {
+		putString(Name.SAVE_URL, url);
+	}

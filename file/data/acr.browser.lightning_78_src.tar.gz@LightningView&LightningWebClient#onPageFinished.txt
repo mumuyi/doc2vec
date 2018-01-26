@@ -1,0 +1,16 @@
+@Override
+		public void onPageFinished(WebView view, String url) {
+			if (view.isShown()) {
+				mBrowserController.updateUrl(url, true);
+				view.postInvalidate();
+			}
+			if (view.getTitle() == null || view.getTitle().isEmpty()) {
+				mTitle.setTitle(mActivity.getString(R.string.untitled));
+			} else {
+				mTitle.setTitle(view.getTitle());
+			}
+			if (API >= android.os.Build.VERSION_CODES.KITKAT && mInvertPage) {
+				view.evaluateJavascript(Constants.JAVASCRIPT_INVERT_PAGE, null);
+			}
+			mBrowserController.update();
+		}

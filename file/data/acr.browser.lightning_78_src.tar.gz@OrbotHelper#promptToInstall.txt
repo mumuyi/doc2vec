@@ -1,0 +1,8 @@
+public void promptToInstall(Activity activity)
+    {
+        String uriMarket = activity.getString(R.string.market_orbot);
+        // show dialog - install from market, f-droid or direct APK
+        showDownloadDialog(activity, activity.getString(R.string.install_orbot_),
+                activity.getString(R.string.you_must_have_orbot),
+                activity.getString(R.string.yes), activity.getString(R.string.no), uriMarket);
+    }

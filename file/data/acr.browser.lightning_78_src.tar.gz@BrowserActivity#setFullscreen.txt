@@ -1,0 +1,22 @@
+/**
+	 * turns on fullscreen mode in the app
+	 *
+	 * @param enabled
+	 *            whether to enable fullscreen or not
+	 */
+	public void setFullscreen(boolean enabled) {
+		Window win = getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+		if (enabled) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+			if (mCustomView != null) {
+				mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+			} else {
+				mBrowserFrame.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+			}
+		}
+		win.setAttributes(winParams);
+	}

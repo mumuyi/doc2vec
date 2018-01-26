@@ -1,0 +1,19 @@
+private void initialize() {
+		String code = "1.0";
+		try {
+			PackageInfo p = getPackageManager().getPackageInfo(getPackageName(), 0);
+			code = p.versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		TextView versionCode = (TextView) findViewById(R.id.versionCode);
+		versionCode.setText(code);
+
+		RelativeLayout licenses = (RelativeLayout) findViewById(R.id.layoutLicense);
+		RelativeLayout source = (RelativeLayout) findViewById(R.id.layoutSource);
+		RelativeLayout version = (RelativeLayout) findViewById(R.id.layoutVersion);
+		licenses.setOnClickListener(this);
+		source.setOnClickListener(this);
+		version.setOnClickListener(this);
+	}

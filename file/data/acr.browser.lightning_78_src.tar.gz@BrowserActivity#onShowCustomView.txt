@@ -1,0 +1,31 @@
+@Override
+	public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
+		if (view == null) {
+			return;
+		}
+		if (mCustomView != null && callback != null) {
+			callback.onCustomViewHidden();
+			return;
+		}
+		try {
+			view.setKeepScreenOn(true);
+		} catch (SecurityException e) {
+			Log.e(Constants.TAG, "WebView is not allowed to keep the screen on");
+		}
+		mOriginalOrientation = getRequestedOrientation();
+		FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+		mFullscreenContainer = new FullscreenHolder(this);
+		mCustomView = view;
+		mFullscreenContainer.addView(mCustomView, COVER_SCREEN_PARAMS);
+		decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS);
+		setFullscreen(true);
+		mCurrentView.setVisibility(View.GONE);
+		if (view instanceof FrameLayout) {
+			if (((FrameLayout) view).getFocusedChild() instanceof VideoView) {
+				mVideoView = (VideoView) ((FrameLayout) view).getFocusedChild();
+				mVideoView.setOnErrorListener(new VideoCompletionListener());
+				mVideoView.setOnCompletionListener(new VideoCompletionListener());
+			}
+		}
+		mCustomViewCallback = callback;
+	}

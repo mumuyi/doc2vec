@@ -1,0 +1,21 @@
+private String certChainMessage(final X509Certificate[] chain, CertificateException cause) {
+		Throwable e = cause;
+		Log.d(TAG, "certChainMessage for " + e);
+		StringBuffer si = new StringBuffer();
+		if (e.getCause() != null) {
+			e = e.getCause();
+			si.append(e.getLocalizedMessage());
+			//si.append("\n");
+		}
+		for (X509Certificate c : chain) {
+			si.append("\n\n");
+			si.append(c.getSubjectDN().toString());
+			si.append("\nMD5: ");
+			si.append(certHash(c, "MD5"));
+			si.append("\nSHA1: ");
+			si.append(certHash(c, "SHA-1"));
+			si.append("\nSigned by: ");
+			si.append(c.getIssuerDN().toString());
+		}
+		return si.toString();
+	}

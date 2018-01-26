@@ -1,0 +1,5 @@
+public final UUID readUUID() throws IOException {
+        byte[] s = new byte[16];
+        this.read(s);
+        return Volume.uuid(s);
+    }

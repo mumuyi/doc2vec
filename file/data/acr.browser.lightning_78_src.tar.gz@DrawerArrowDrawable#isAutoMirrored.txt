@@ -1,0 +1,4 @@
+public boolean isAutoMirrored() {
+		// Draws rotated 180 degrees in RTL mode.
+		return true;
+	}

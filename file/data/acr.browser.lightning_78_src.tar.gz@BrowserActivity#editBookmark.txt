@@ -1,0 +1,43 @@
+/**
+	 * Takes in the id of which bookmark was selected and shows a dialog that
+	 * allows the user to rename and change the url of the bookmark
+	 *
+	 * @param id
+	 *            which id in the list was chosen
+	 */
+	public synchronized void editBookmark(final int id) {
+		final AlertDialog.Builder homePicker = new AlertDialog.Builder(mActivity);
+		homePicker.setTitle(getResources().getString(R.string.title_edit_bookmark));
+		final EditText getTitle = new EditText(mActivity);
+		getTitle.setHint(getResources().getString(R.string.hint_title));
+		getTitle.setText(mBookmarkList.get(id).getTitle());
+		getTitle.setSingleLine();
+		final EditText getUrl = new EditText(mActivity);
+		getUrl.setHint(getResources().getString(R.string.hint_url));
+		getUrl.setText(mBookmarkList.get(id).getUrl());
+		getUrl.setSingleLine();
+		LinearLayout layout = new LinearLayout(mActivity);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		layout.addView(getTitle);
+		layout.addView(getUrl);
+		homePicker.setView(layout);
+		homePicker.setPositiveButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mBookmarkList.get(id).setTitle(getTitle.getText().toString());
+						mBookmarkList.get(id).setUrl(getUrl.getText().toString());
+						mBookmarkManager.overwriteBookmarks(mBookmarkList);
+						Collections.sort(mBookmarkList, new SortIgnoreCase());
+						notifyBookmarkDataSetChanged();
+						if (mCurrentView != null) {
+							if (mCurrentView.getUrl().startsWith(Constants.FILE)
+									&& mCurrentView.getUrl().endsWith("bookmarks.html")) {
+								openBookmarkPage(mCurrentView.getWebView());
+							}
+						}
+					}
+				});
+		homePicker.show();
+	}

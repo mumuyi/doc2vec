@@ -1,0 +1,7 @@
+public String getUrl() {
+		if (mWebView != null) {
+			return mWebView.getUrl();
+		} else {
+			return "";
+		}
+	}

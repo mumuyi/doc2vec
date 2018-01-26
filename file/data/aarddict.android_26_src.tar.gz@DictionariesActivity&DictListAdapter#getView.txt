@@ -1,0 +1,35 @@
+public View getView(int position, View convertView, ViewGroup parent) {
+            List<Volume> allDictVols = volumes.get(position);
+            int volCount = allDictVols.size();
+            Volume d = allDictVols.get(0);
+
+            TwoLineListItem view = (convertView != null) ? (TwoLineListItem) convertView
+                    : createView(parent);
+
+            view.getText1().setText(getTitle(d, false));
+
+            Resources r = getResources();
+            String articleStr = r.getQuantityString(R.plurals.articles,
+                    d.metadata.article_count, d.metadata.article_count);
+            String totalVolumesStr = r.getQuantityString(R.plurals.volumes,
+                    d.header.of, d.header.of);
+            String volumesStr = r.getQuantityString(R.plurals.volumes,
+                    volCount, volCount);
+            String shortInfo = r.getString(R.string.shortDictInfo, articleStr,
+                    totalVolumesStr, volumesStr);
+            if (verifyData.containsKey(d.getDictionaryId())) {
+                VerifyRecord record = verifyData.get(d.getDictionaryId());
+                CharSequence dateStr = DateUtils
+                        .getRelativeTimeSpanString(record.date.getTime());
+                String resultStr = getString(record.ok ? R.string.verifyOk
+                        : R.string.verifyCorrupted);
+                view.getText2().setText(
+                        getString(R.string.msgDataIntegrityVerified, shortInfo,
+                                dateStr, resultStr));
+            } else {
+                view.getText2().setText(
+                        getString(R.string.msgDataIntegrityNotVerified,
+                                shortInfo));
+            }
+            return view;
+        }

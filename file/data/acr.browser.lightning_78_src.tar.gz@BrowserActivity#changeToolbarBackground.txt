@@ -1,0 +1,40 @@
+private void changeToolbarBackground(Bitmap favicon) {
+		Palette.from(favicon).generate(new Palette.PaletteAsyncListener() {
+			@Override
+			public void onGenerated(Palette palette) {
+
+				// OR with opaque black to remove transparency glitches
+				int color = 0xff000000 | palette.getVibrantColor(mActivity.getResources()
+						.getColor(R.color.primary_color));
+
+				int finalColor; // Lighten up the dark color if it is
+				// too dark
+				if (isColorTooDark(color)) {
+					finalColor = mixTwoColors(
+							mActivity.getResources().getColor(R.color.primary_color),
+							color, 0.25f);
+				} else {
+					finalColor = color;
+				}
+
+				ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(),
+						mBackground.getColor(), finalColor);
+
+				anim.addUpdateListener(new AnimatorUpdateListener() {
+
+					@Override
+					public void onAnimationUpdate(ValueAnimator animation) {
+						int color = (Integer) animation.getAnimatedValue();
+						mBackground.setColor(color);
+						getWindow().setBackgroundDrawable(mBackground);
+						mToolbarLayout.setBackgroundColor(color);
+					}
+
+				});
+
+				anim.setDuration(300);
+				anim.start();
+
+			}
+		});
+	}

@@ -1,0 +1,6 @@
+@Override
+	public void handleMessage(Message msg) {
+		super.handleMessage(msg);
+		String url = msg.getData().getString("url");
+		mBrowserController.longClickPage(url);
+	}

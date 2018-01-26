@@ -1,0 +1,4 @@
+public Converter setMaxBytes(int maxBytes) {
+		this.maxBytes = maxBytes;
+		return this;
+	}

@@ -1,0 +1,37 @@
+/**
+	 * This method imports the bookmarks from a backup file that is located on
+	 * external storage
+	 * 
+	 * @param dir
+	 * @param file
+	 */
+	public synchronized void importBookmarksFromFile(File file, Context context) {
+		if (file == null) {
+			return;
+		}
+		List<HistoryItem> list = new ArrayList<>();
+		try {
+			BufferedReader bookmarksReader = new BufferedReader(new FileReader(file));
+			String line;
+			int number = 0;
+			while ((line = bookmarksReader.readLine()) != null) {
+				JSONObject object = new JSONObject(line);
+				HistoryItem item = new HistoryItem();
+				item.setTitle(object.getString(TITLE));
+				item.setUrl(object.getString(URL));
+				item.setFolder(object.getString(FOLDER));
+				item.setOrder(object.getInt(ORDER));
+				list.add(item);
+				number++;
+			}
+			bookmarksReader.close();
+			addBookmarkList(list);
+			Utils.showToast(mContext,
+					number + " " + mContext.getResources().getString(R.string.message_import));
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+			Utils.createInformativeDialog(context,
+					mContext.getResources().getString(R.string.title_error), mContext
+							.getResources().getString(R.string.import_bookmark_error));
+		}
+	}

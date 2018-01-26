@@ -1,0 +1,7 @@
+public void setFavicon(Bitmap favicon) {
+			if (favicon == null) {
+				mFavicon = mDefaultIcon;
+			} else {
+				mFavicon = Utils.padFavicon(favicon);
+			}
+		}

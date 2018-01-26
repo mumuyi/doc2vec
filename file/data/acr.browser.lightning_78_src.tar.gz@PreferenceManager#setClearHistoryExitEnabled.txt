@@ -1,0 +1,3 @@
+public void setClearHistoryExitEnabled(boolean enable) {
+		putBoolean(Name.CLEAR_HISTORY_EXIT, enable);
+	}

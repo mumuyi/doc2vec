@@ -1,0 +1,4 @@
+@Override
+	public boolean isSecure(Socket sock) throws IllegalArgumentException {
+		return (sock instanceof SSLSocket);
+	}

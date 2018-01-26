@@ -1,0 +1,10 @@
+@SuppressWarnings("deprecation")
+	@Override
+	public void onTrimMemory(int level) {
+		if (level > TRIM_MEMORY_MODERATE && Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+			Log.d(Constants.TAG, "Low Memory, Free Memory");
+			for (LightningView view : mWebViews) {
+				view.getWebView().freeMemory();
+			}
+		}
+	}

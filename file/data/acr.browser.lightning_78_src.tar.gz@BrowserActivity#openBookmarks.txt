@@ -1,0 +1,9 @@
+/**
+	 * helper function that opens the bookmark drawer
+	 */
+	private void openBookmarks() {
+		if (mDrawerLayout.isDrawerOpen(mDrawerLeft)) {
+			mDrawerLayout.closeDrawers();
+		}
+		mDrawerLayout.openDrawer(mDrawerRight);
+	}

@@ -1,0 +1,4 @@
+public void setProgress(float progress) {
+		mProgress = progress;
+		invalidateSelf();
+	}

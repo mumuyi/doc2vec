@@ -1,0 +1,5 @@
+@Override
+	public void connectFailed(URI uri, SocketAddress address,
+			IOException failure) {
+		Log.w("ProxySelector","could not connect to " + address.toString() + ": " + failure.getMessage());
+	}

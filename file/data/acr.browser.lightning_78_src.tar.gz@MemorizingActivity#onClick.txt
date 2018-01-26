@@ -1,0 +1,15 @@
+public void onClick(DialogInterface dialog, int btnId) {
+		int decision;
+		dialog.dismiss();
+		switch (btnId) {
+		case DialogInterface.BUTTON_POSITIVE:
+			decision = MTMDecision.DECISION_ALWAYS;
+			break;
+		case DialogInterface.BUTTON_NEUTRAL:
+			decision = MTMDecision.DECISION_ONCE;
+			break;
+		default:
+			decision = MTMDecision.DECISION_ABORT;
+		}
+		sendDecision(decision);
+	}

@@ -1,0 +1,12 @@
+protected boolean loadPage(Intent intent) {
+		if (intent == null) {
+			return false;
+		}
+		mUrl = intent.getStringExtra(Constants.LOAD_READING_URL);
+		if (mUrl == null) {
+			return false;
+		}
+		getSupportActionBar().setTitle(Utils.getDomainName(mUrl));
+		new PageLoader(this).execute(mUrl);
+		return true;
+	}

@@ -1,0 +1,3 @@
+LightningWebClient(Context context) {
+			mActivity = context;
+		}

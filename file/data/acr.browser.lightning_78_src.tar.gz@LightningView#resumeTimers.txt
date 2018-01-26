@@ -1,0 +1,5 @@
+public synchronized void resumeTimers() {
+		if (mWebView != null) {
+			mWebView.resumeTimers();
+		}
+	}

@@ -1,0 +1,3 @@
+public void setKeywords(Collection<String> keywords) {
+		this.keywords = keywords;
+	}

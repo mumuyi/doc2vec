@@ -1,0 +1,9 @@
+@Override
+	public Socket createSocket(HttpParams httpParams) throws IOException {
+		Socket newSocket = mFactory.createSocket();
+
+		enableStrongerDefaults(newSocket);
+
+		return newSocket;
+
+	}

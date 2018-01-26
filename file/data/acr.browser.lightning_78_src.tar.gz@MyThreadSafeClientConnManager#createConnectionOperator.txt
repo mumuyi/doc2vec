@@ -1,0 +1,5 @@
+@Override
+    protected ClientConnectionOperator createConnectionOperator(
+            SchemeRegistry schreg) {
+        return new MyDefaultClientConnectionOperator(schreg);
+    }

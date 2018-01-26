@@ -1,0 +1,18 @@
+/**
+	 * Removes unlikely candidates from HTML. Currently takes id and class name
+	 * and matches them against list of patterns
+	 * 
+	 * @param doc
+	 *            document to strip unlikely candidates from
+	 */
+	protected void stripUnlikelyCandidates(Document doc) {
+		for (Element child : doc.select("body").select("*")) {
+			String className = child.className().toLowerCase(Locale.getDefault());
+			String id = child.id().toLowerCase(Locale.getDefault());
+
+			if (NEGATIVE.matcher(className).find() || NEGATIVE.matcher(id).find()) {
+				// print("REMOVE:", child);
+				child.remove();
+			}
+		}
+	}

@@ -1,0 +1,27 @@
+private void urlBoxPicker() {
+
+		AlertDialog.Builder picker = new AlertDialog.Builder(mContext);
+		picker.setTitle(getResources().getString(R.string.url_contents));
+
+		int n = mPreferences.getUrlBoxContentChoice();
+
+		picker.setSingleChoiceItems(mUrlOptions, n, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				mPreferences.setUrlBoxContentChoice(which);
+				if (which < mUrlOptions.length) {
+					mUrlText.setText(mUrlOptions[which]);
+				}
+			}
+		});
+		picker.setNeutralButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+		picker.show();
+	}

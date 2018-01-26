@@ -1,0 +1,3 @@
+public synchronized void deleteHistoryItem(String url) {
+		mDatabase.delete(TABLE_HISTORY, KEY_URL + " = ?", new String[] { url });
+	}

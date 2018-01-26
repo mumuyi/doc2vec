@@ -1,0 +1,13 @@
+/**
+	 * Prepares document. Currently only stipping unlikely candidates, since
+	 * from time to time they're getting more score than good ones especially in
+	 * cases when major text is short.
+	 * 
+	 * @param doc
+	 *            document to prepare. Passed as reference, and changed inside
+	 *            of function
+	 */
+	protected void prepareDocument(Document doc) {
+		// stripUnlikelyCandidates(doc);
+		removeScriptsAndStyles(doc);
+	}

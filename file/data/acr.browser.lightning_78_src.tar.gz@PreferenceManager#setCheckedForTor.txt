@@ -1,0 +1,3 @@
+public void setCheckedForTor(boolean check) {
+		putBoolean(Name.INITIAL_CHECK_FOR_TOR, check);
+	}

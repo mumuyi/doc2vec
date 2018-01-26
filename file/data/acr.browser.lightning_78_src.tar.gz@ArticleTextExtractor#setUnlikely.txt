@@ -1,0 +1,5 @@
+public ArticleTextExtractor setUnlikely(String unlikelyStr) {
+		this.unlikelyStr = unlikelyStr;
+		UNLIKELY = Pattern.compile(unlikelyStr);
+		return this;
+	}

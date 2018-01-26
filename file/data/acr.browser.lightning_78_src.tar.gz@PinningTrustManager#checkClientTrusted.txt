@@ -1,0 +1,4 @@
+public void checkClientTrusted(X509Certificate[] chain, String authType)
+      throws CertificateException {
+    throw new CertificateException("Client certificates not supported!");
+  }

@@ -1,0 +1,3 @@
+public int getProxyPort() {
+		return mPrefs.getInt(Name.USE_PROXY_PORT, 8118);
+	}

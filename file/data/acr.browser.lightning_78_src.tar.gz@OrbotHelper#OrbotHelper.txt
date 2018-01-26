@@ -1,0 +1,4 @@
+public OrbotHelper(Context context)
+    {
+        mContext = context;
+    }

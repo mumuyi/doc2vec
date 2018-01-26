@@ -1,0 +1,64 @@
+public void clickListenerForCheckBoxes(RelativeLayout layoutFlash,
+			RelativeLayout layoutBlockAds, RelativeLayout layoutImages,
+			RelativeLayout layoutEnableJS, RelativeLayout layoutOrbot, RelativeLayout layoutColor,
+			final CheckBox flash, final CheckBox adblock, final CheckBox images,
+			final CheckBox enablejs, final CheckBox orbot, final CheckBox color) {
+		layoutFlash.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (API < 19) {
+					flash.setChecked(!flash.isChecked());
+				} else {
+					Utils.createInformativeDialog(mContext,
+							getResources().getString(R.string.title_warning), getResources()
+									.getString(R.string.dialog_adobe_dead));
+				}
+			}
+
+		});
+		layoutBlockAds.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				adblock.setChecked(!adblock.isChecked());
+			}
+
+		});
+		layoutImages.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				images.setChecked(!images.isChecked());
+			}
+
+		});
+		layoutEnableJS.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				enablejs.setChecked(!enablejs.isChecked());
+			}
+
+		});
+		layoutOrbot.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (orbot.isEnabled()) {
+					orbot.setChecked(!orbot.isChecked());
+				} else {
+					Utils.showToast(mContext, getResources().getString(R.string.install_orbot));
+				}
+			}
+
+		});
+		layoutColor.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				color.setChecked(!color.isChecked());
+			}
+
+		});
+	}

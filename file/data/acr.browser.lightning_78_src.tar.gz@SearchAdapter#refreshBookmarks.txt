@@ -1,0 +1,3 @@
+public void refreshBookmarks() {
+		mAllBookmarks = mBookmarkManager.getBookmarks(true);
+	}

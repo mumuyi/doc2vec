@@ -1,0 +1,44 @@
+void interact(final X509Certificate[] chain, String authType, CertificateException cause)
+		throws CertificateException
+	{
+		/* prepare the MTMDecision blocker object */
+		MTMDecision choice = new MTMDecision();
+		final int myId = createDecisionId(choice);
+		final String certMessage = certChainMessage(chain, cause);
+
+		masterHandler.post(new Runnable() {
+			public void run() {
+				Intent ni = new Intent(master, MemorizingActivity.class);
+				ni.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				ni.setData(Uri.parse(MemorizingTrustManager.class.getName() + "/" + myId));
+				ni.putExtra(DECISION_INTENT_ID, myId);
+				ni.putExtra(DECISION_INTENT_CERT, certMessage);
+
+				// we try to directly start the activity and fall back to
+				// making a notification
+				try {
+					getUI().startActivity(ni);
+				} catch (Exception e) {
+					Log.e(TAG, "startActivity: " + e);
+					startActivityNotification(ni, certMessage);
+				}
+			}
+		});
+
+		Log.d(TAG, "openDecisions: " + openDecisions);
+		Log.d(TAG, "waiting on " + myId);
+		try {
+			synchronized(choice) { choice.wait(); }
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Log.d(TAG, "finished wait on " + myId + ": " + choice.state);
+		switch (choice.state) {
+		case MTMDecision.DECISION_ALWAYS:
+			storeCert(chain);
+		case MTMDecision.DECISION_ONCE:
+			break;
+		default:
+			throw (cause);
+		}
+	}

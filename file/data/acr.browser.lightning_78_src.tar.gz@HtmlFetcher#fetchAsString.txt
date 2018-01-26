@@ -1,0 +1,19 @@
+public String fetchAsString(String urlAsString, int timeout, boolean includeSomeGooseOptions)
+			throws IOException {
+		HttpURLConnection hConn = createUrlConnection(urlAsString, timeout, includeSomeGooseOptions);
+		hConn.setInstanceFollowRedirects(true);
+		String encoding = hConn.getContentEncoding();
+		InputStream is;
+		if (encoding != null && encoding.equalsIgnoreCase("gzip")) {
+			is = new GZIPInputStream(hConn.getInputStream());
+		} else if (encoding != null && encoding.equalsIgnoreCase("deflate")) {
+			is = new InflaterInputStream(hConn.getInputStream(), new Inflater(true));
+		} else {
+			is = hConn.getInputStream();
+		}
+
+		String enc = Converter.extractEncoding(hConn.getContentType());
+		String res = createConverter(urlAsString).streamToString(is, enc);
+		Log.d(Constants.TAG, res.length() + " FetchAsString:" + urlAsString);
+		return res;
+	}

@@ -1,0 +1,23 @@
+@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+				case R.id.rAllowPopups:
+					cbAllowPopups.setChecked(!cbAllowPopups.isChecked());
+					break;
+				case R.id.rAllowIncognitoCookies:
+					cbAllowIncognitoCookies.setChecked(!cbAllowIncognitoCookies.isChecked());
+					break;
+				case R.id.rAllowCookies:
+					cbAllowCookies.setChecked(!cbAllowCookies.isChecked());
+					break;
+				case R.id.rRestoreTabs:
+					cbRestoreTabs.setChecked(!cbRestoreTabs.isChecked());
+					break;
+				case R.id.layoutRendering:
+					renderPicker();
+					break;
+				case R.id.rUrlBarContents:
+					urlBoxPicker();
+					break;
+			}
+		}

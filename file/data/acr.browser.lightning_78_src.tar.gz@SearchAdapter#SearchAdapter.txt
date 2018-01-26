@@ -1,0 +1,24 @@
+public SearchAdapter(Context context, boolean dark, boolean incognito) {
+		mDatabaseHandler = HistoryDatabase.getInstance(context.getApplicationContext());
+		mTheme = context.getTheme();
+		mFilteredList = new ArrayList<>();
+		mHistory = new ArrayList<>();
+		mBookmarks = new ArrayList<>();
+		mSuggestions = new ArrayList<>();
+		mBookmarkManager = BookmarkManager.getInstance(context.getApplicationContext());
+		mAllBookmarks = mBookmarkManager.getBookmarks(true);
+		mUseGoogle = PreferenceManager.getInstance().getGoogleSearchSuggestionsEnabled();
+		mContext = context;
+		mSearchSubtitle = mContext.getString(R.string.suggestion);
+		mDarkTheme = dark || incognito;
+		mIncognito = incognito;
+		Thread delete = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				deleteOldCacheFiles(mContext);
+			}
+
+		});
+		delete.start();
+	}

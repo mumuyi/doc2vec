@@ -1,0 +1,21 @@
+/**
+	 * Method is used internally for searching the bookmarks
+	 * 
+	 * @return
+	 */
+	private synchronized SortedMap<String, Integer> getBookmarkUrls() {
+		SortedMap<String, Integer> map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		File bookmarksFile = new File(mContext.getFilesDir(), FILE_BOOKMARKS);
+		try {
+			BufferedReader bookmarksReader = new BufferedReader(new FileReader(bookmarksFile));
+			String line;
+			while ((line = bookmarksReader.readLine()) != null) {
+				JSONObject object = new JSONObject(line);
+				map.put(object.getString(URL), 1);
+			}
+			bookmarksReader.close();
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}

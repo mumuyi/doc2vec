@@ -1,0 +1,34 @@
+/**
+     * private method used to create and run the animation used to change the progress
+     *
+     * @param initialWidth is the width at which the progress starts at
+     * @param maxWidth     is the maximum width (total width of the view)
+     * @param deltaWidth   is the amount by which the width of the progress view will change
+     */
+    private void animateView(final int initialWidth, final int maxWidth, final int deltaWidth) {
+        Animation fill = new Animation() {
+
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                int width = initialWidth + (int) (deltaWidth * interpolatedTime);
+                if (width <= maxWidth) {
+                    mDrawWidth = width;
+                    invalidate();
+                }
+                if ((1.0f - interpolatedTime) < 0.0005) {
+                    if (mProgress >= 100) {
+                        fadeOut();
+                    }
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return false;
+            }
+        };
+
+        fill.setDuration(500);
+        fill.setInterpolator(new DecelerateInterpolator());
+        this.startAnimation(fill);
+    }

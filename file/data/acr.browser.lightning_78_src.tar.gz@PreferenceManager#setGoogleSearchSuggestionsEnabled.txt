@@ -1,0 +1,3 @@
+public void setGoogleSearchSuggestionsEnabled(boolean enabled) {
+		putBoolean(Name.GOOGLE_SEARCH_SUGGESTIONS, enabled);
+	}

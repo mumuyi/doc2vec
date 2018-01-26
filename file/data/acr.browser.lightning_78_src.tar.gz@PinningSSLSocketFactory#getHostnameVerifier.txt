@@ -1,0 +1,4 @@
+@Override
+  public X509HostnameVerifier getHostnameVerifier() {
+    return SSLSocketFactory.STRICT_HOSTNAME_VERIFIER;
+  }

@@ -1,0 +1,3 @@
+public String getOriginalUrl() {
+		return originalUrl;
+	}

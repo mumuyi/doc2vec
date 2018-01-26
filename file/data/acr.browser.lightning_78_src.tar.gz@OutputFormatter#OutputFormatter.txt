@@ -1,0 +1,4 @@
+public OutputFormatter(int minParagraphText, List<String> nodesToReplace) {
+		this.minParagraphText = minParagraphText;
+		this.nodesToReplace = nodesToReplace;
+	}

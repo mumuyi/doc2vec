@@ -1,0 +1,16 @@
+@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.general_settings);
+
+		// set up ActionBar
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		mPreferences = PreferenceManager.getInstance();
+
+		mActivity = this;
+		initialize();
+	}

@@ -1,0 +1,26 @@
+@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.layoutLicense:
+				// NOTE: In order to comply legally with open source licenses,
+				// it is advised that you leave this code so that the License
+				// Activity may be viewed by the user.
+				startActivity(new Intent(this, LicenseActivity.class));
+				break;
+			case R.id.layoutSource:
+				startActivity(new Intent(Intent.ACTION_VIEW,
+						Uri.parse("http://twitter.com/RestainoAnthony"), this, MainActivity.class));
+				finish();
+				break;
+			case R.id.layoutVersion:
+				mEasterEggCounter++;
+				if (mEasterEggCounter == 10) {
+					startActivity(new Intent(Intent.ACTION_VIEW,
+							Uri.parse("http://imgs.xkcd.com/comics/compiling.png"), this,
+							MainActivity.class));
+					finish();
+					mEasterEggCounter = 0;
+				}
+				break;
+		}
+	}

@@ -1,0 +1,26 @@
+@Override
+    void initUI() {
+
+        setContentView(R.layout.dictionaries);
+
+        listView = (ListView) findViewById(R.id.dictionariesList);
+
+        Button scanSDButton = (Button) findViewById(R.id.scanSDButton);
+        scanSDButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                scandSDCard();
+            }
+        });
+
+        TextView messageView = (TextView) findViewById(R.id.dictionariesMessageView);
+        messageView.setMovementMethod(LinkMovementMethod.getInstance());
+        messageView.setText(Html.fromHtml(getString(R.string.noDictionaries)));
+
+        String appName = getString(R.string.appName);
+        setTitle(getString(R.string.titleDictionariesActivity, appName));
+        try {
+            loadVerifyData();
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load verify data", e);
+        }
+    }

@@ -1,0 +1,3 @@
+private static String fixUrl(String url, String urlOrPath) {
+		return SHelper.useDomainOfFirstArg4Second(url, urlOrPath);
+	}

@@ -1,0 +1,5 @@
+@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			mIsNewIntent = false;
+			showTab(mWebViews.get(position));
+		}

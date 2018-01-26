@@ -1,0 +1,5 @@
+public void addProxy (Proxy.Type type,String host, int port)
+	{
+		Proxy proxy = new Proxy(type,new InetSocketAddress(host, port));
+		listProxies.add(proxy);
+	}

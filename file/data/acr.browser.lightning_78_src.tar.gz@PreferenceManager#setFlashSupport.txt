@@ -1,0 +1,3 @@
+public void setFlashSupport(int n) {
+		putInt(Name.ADOBE_FLASH_SUPPORT, n);
+	}

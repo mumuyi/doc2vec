@@ -1,0 +1,3 @@
+public void setVerifyChain(boolean mVerifyChain) {
+        this.mVerifyChain = mVerifyChain;
+    }

@@ -1,0 +1,4 @@
+public FullscreenHolder(Context ctx) {
+			super(ctx);
+			setBackgroundColor(ctx.getResources().getColor(android.R.color.black));
+		}

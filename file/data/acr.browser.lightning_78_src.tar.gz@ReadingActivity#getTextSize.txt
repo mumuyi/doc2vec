@@ -1,0 +1,18 @@
+private float getTextSize(int size) {
+		switch (size) {
+			case 0:
+				return XSMALL;
+			case 1:
+				return SMALL;
+			case 2:
+				return MEDIUM;
+			case 3:
+				return LARGE;
+			case 4:
+				return XLARGE;
+			case 5:
+				return XXLARGE;
+			default:
+				return MEDIUM;
+		}
+	}

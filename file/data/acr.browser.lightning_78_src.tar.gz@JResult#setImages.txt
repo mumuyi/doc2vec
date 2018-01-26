@@ -1,0 +1,6 @@
+/**
+	 * set images list
+	 */
+	public void setImages(List<ImageResult> images) {
+		this.images = images;
+	}

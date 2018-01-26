@@ -1,0 +1,3 @@
+boolean lastCharIsWhitespace(StringBuilder accum) {
+		return (accum.length() != 0) && Character.isWhitespace(accum.charAt(accum.length() - 1));
+	}

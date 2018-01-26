@@ -1,0 +1,3 @@
+public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+			mBrowserController.openFileChooser(uploadMsg);
+		}

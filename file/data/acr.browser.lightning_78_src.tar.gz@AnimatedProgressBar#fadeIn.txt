@@ -1,0 +1,9 @@
+/**
+     * fades in the progress bar
+     */
+    private void fadeIn() {
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(this, "alpha", 1.0f);
+        fadeIn.setDuration(200);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.start();
+    }

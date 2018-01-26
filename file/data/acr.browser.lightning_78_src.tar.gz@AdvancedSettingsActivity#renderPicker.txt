@@ -1,0 +1,42 @@
+private void renderPicker() {
+
+		AlertDialog.Builder picker = new AlertDialog.Builder(mContext);
+		picker.setTitle(getResources().getString(R.string.rendering_mode));
+		CharSequence[] chars = { mContext.getString(R.string.name_normal),
+				mContext.getString(R.string.name_inverted),
+				mContext.getString(R.string.name_grayscale),
+				mContext.getString(R.string.name_inverted_grayscale) };
+
+		int n = mPreferences.getRenderingMode();
+
+		picker.setSingleChoiceItems(chars, n, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				mPreferences.setRenderingMode(which);
+				switch (which) {
+					case 0:
+						mRenderText.setText(mContext.getString(R.string.name_normal));
+						break;
+					case 1:
+						mRenderText.setText(mContext.getString(R.string.name_inverted));
+						break;
+					case 2:
+						mRenderText.setText(mContext.getString(R.string.name_grayscale));
+						break;
+					case 3:
+						mRenderText.setText(mContext.getString(R.string.name_inverted_grayscale));
+						break;
+				}
+			}
+		});
+		picker.setNeutralButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+		picker.show();
+	}

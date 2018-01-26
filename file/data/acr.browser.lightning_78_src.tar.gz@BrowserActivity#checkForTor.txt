@@ -1,0 +1,34 @@
+private boolean checkForTor() {
+		boolean useProxy = mPreferences.getUseProxy();
+
+		OrbotHelper oh = new OrbotHelper(this);
+		if (oh.isOrbotInstalled() && !mPreferences.getCheckedForTor()) {
+			mPreferences.setCheckedForTor(true);
+			DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					switch (which) {
+						case DialogInterface.BUTTON_POSITIVE:
+							mPreferences.setUseProxy(true);
+							initializeTor();
+							break;
+						case DialogInterface.BUTTON_NEGATIVE:
+							mPreferences.setUseProxy(false);
+							break;
+					}
+				}
+			};
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.use_tor_prompt)
+					.setPositiveButton(R.string.yes, dialogClickListener)
+					.setNegativeButton(R.string.no, dialogClickListener).show();
+
+			return true;
+		} else if (oh.isOrbotInstalled() & useProxy) {
+			return true;
+		} else {
+			mPreferences.setUseProxy(false);
+			return false;
+		}
+	}

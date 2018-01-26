@@ -1,0 +1,12 @@
+/**
+     * This method is deprecated! Use
+     * {@link StrongTrustManager#StrongTrustManager(Context)},
+     * {@link StrongTrustManager#StrongTrustManager(Context, KeyStore)}, or
+     * {@link StrongTrustManager#StrongTrustManager(Context, String, int)} instead.
+     */
+    @Deprecated
+    public StrongTrustManager(Context mContext, String appName, int appIcon)
+            throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException
+    {
+        this(mContext);
+    }

@@ -1,0 +1,3 @@
+public void setEnableStongerDefaultProtocalVersion(boolean enable) {
+		this.mEnableStongerDefaultProtocalVersion = enable;
+	}

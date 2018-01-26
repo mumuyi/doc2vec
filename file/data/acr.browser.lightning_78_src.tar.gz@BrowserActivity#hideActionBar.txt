@@ -1,0 +1,36 @@
+/**
+	 * it hides the action bar, seriously what else were you expecting
+	 */
+	@Override
+	public void hideActionBar() {
+		if (mFullScreen) {
+			if (mBrowserFrame.findViewById(R.id.toolbar_layout) == null) {
+				mUiLayout.removeView(mToolbarLayout);
+				mBrowserFrame.addView(mToolbarLayout);
+				mToolbarLayout.bringToFront();
+				Log.d(Constants.TAG, "Move view to browser frame");
+			}
+			if (mToolbarLayout.getVisibility() != View.GONE) {
+
+				Animation hide = AnimationUtils.loadAnimation(mActivity, R.anim.slide_up);
+				hide.setAnimationListener(new AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						mToolbarLayout.setVisibility(View.GONE);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+				});
+				mToolbarLayout.startAnimation(hide);
+				Log.d(Constants.TAG, "Hide");
+			}
+		}
+	}

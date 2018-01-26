@@ -1,0 +1,32 @@
+public List<HistoryItem> getSuggestions() {
+		List<HistoryItem> filteredList = new ArrayList<>();
+
+		int suggestionsSize = (mSuggestions == null) ? 0 : mSuggestions.size();
+		int historySize = (mHistory == null) ? 0 : mHistory.size();
+		int bookmarkSize = (mBookmarks == null) ? 0 : mBookmarks.size();
+
+		int maxSuggestions = (bookmarkSize + historySize < 3) ? (5 - bookmarkSize - historySize)
+				: (bookmarkSize < 2) ? (4 - bookmarkSize) : (historySize < 1) ? 3 : 2;
+		int maxHistory = (suggestionsSize + bookmarkSize < 4) ? (5 - suggestionsSize - bookmarkSize)
+				: 1;
+		int maxBookmarks = (suggestionsSize + historySize < 3) ? (5 - suggestionsSize - historySize)
+				: 2;
+
+		if (!mUseGoogle || mIncognito) {
+			maxHistory++;
+			maxBookmarks++;
+		}
+
+		for (int n = 0; n < bookmarkSize && n < maxBookmarks; n++) {
+			filteredList.add(mBookmarks.get(n));
+		}
+
+		for (int n = 0; n < historySize && n < maxHistory; n++) {
+			filteredList.add(mHistory.get(n));
+		}
+
+		for (int n = 0; n < suggestionsSize && n < maxSuggestions; n++) {
+			filteredList.add(mSuggestions.get(n));
+		}
+		return filteredList;
+	}

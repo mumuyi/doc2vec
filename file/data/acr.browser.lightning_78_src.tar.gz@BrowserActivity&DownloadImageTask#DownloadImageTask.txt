@@ -1,0 +1,4 @@
+public DownloadImageTask(ImageView bmImage, HistoryItem web) {
+			this.bmImage = bmImage;
+			this.mWeb = web;
+		}

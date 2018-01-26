@@ -1,0 +1,13 @@
+public static boolean isColorTooDark(int color) {
+		final byte RED_CHANNEL = 16;
+		final byte GREEN_CHANNEL = 8;
+		//final byte BLUE_CHANNEL = 0;
+
+		int r = ((int) ((float) (color >> RED_CHANNEL & 0xff) * 0.3f)) & 0xff;
+		int g = ((int) ((float) (color >> GREEN_CHANNEL & 0xff) * 0.59)) & 0xff;
+		int b = ((int) ((float) (color & 0xff) * 0.11)) & 0xff;
+		int gr = (r + g + b) & 0xff;
+		int gray = gr + (gr << GREEN_CHANNEL) + (gr << RED_CHANNEL);
+
+		return gray < 0x727272;
+	}

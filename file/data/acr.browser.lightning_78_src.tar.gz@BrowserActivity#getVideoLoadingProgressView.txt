@@ -1,0 +1,12 @@
+@SuppressLint("InflateParams")
+	@Override
+	/**
+	 * dumb method that returns the loading progress for a video
+	 */
+	public View getVideoLoadingProgressView() {
+		if (mVideoProgressView == null) {
+			LayoutInflater inflater = LayoutInflater.from(this);
+			mVideoProgressView = inflater.inflate(R.layout.video_loading_progress, null);
+		}
+		return mVideoProgressView;
+	}

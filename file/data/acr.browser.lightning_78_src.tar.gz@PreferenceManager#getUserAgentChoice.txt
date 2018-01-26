@@ -1,0 +1,3 @@
+public int getUserAgentChoice() {
+		return mPrefs.getInt(Name.USER_AGENT, 1);
+	}

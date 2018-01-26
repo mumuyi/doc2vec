@@ -1,0 +1,13 @@
+@Override
+    protected void onRestoreInstanceState(Parcelable state) {
+
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            this.mProgress = bundle.getInt("progressState");
+            state = bundle.getParcelable("instanceState");
+
+
+        }
+
+        super.onRestoreInstanceState(state);
+    }

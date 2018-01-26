@@ -1,0 +1,19 @@
+public boolean isAd(String url) {
+		if (!mBlockAds || url == null) {
+			return false;
+		}
+
+		String domain;
+		try {
+			domain = getDomainName(url);
+		} catch (URISyntaxException e) {
+			Log.d(TAG, "URL '" + url + "' is invalid", e);
+			return false;
+		}
+
+		boolean isOnBlacklist = mBlockedDomainsList.contains(domain.toLowerCase(mLocale));
+		if (isOnBlacklist) {
+			Log.d(TAG, "URL '" + url + "' is an ad");
+		}
+		return isOnBlacklist;
+	}

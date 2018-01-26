@@ -1,0 +1,3 @@
+public boolean getUseDarkTheme() {
+		return mPrefs.getBoolean(Name.DARK_THEME, false);
+	}

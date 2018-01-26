@@ -1,0 +1,4 @@
+public OutputFormatter setUnlikelyPattern(String unlikelyPattern) {
+		this.unlikelyPattern = Pattern.compile(unlikelyPattern);
+		return this;
+	}

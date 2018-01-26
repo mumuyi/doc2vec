@@ -1,0 +1,11 @@
+private boolean isAppInstalled(String uri) {
+        PackageManager pm = mContext.getPackageManager();
+        boolean installed = false;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            installed = false;
+        }
+        return installed;
+    }

@@ -1,0 +1,16 @@
+/**
+	 * @return a set of all important nodes
+	 */
+	public Collection<Element> getNodes(Document doc) {
+		Set<Element> nodes = new HashSet<>(64);
+		int score = 100;
+		for (Element el : doc.select("body").select("*")) {
+			if (NODES.matcher(el.tagName()).matches()) {
+				nodes.add(el);
+				setScore(el, score);
+				score = score / 2;
+			}
+		}
+		return nodes;
+
+	}

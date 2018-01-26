@@ -1,0 +1,20 @@
+@Override
+		protected Void doInBackground(String... params) {
+
+			HtmlFetcher fetcher = new HtmlFetcher();
+			try {
+				JResult result = fetcher.fetchAndExtract(params[0], 5000, true);
+				mTitleText = result.getTitle();
+				mBodyText = result.getTextList();
+			} catch (Exception e) {
+				mTitleText = "";
+				mBodyText = new ArrayList<>();
+				e.printStackTrace();
+			} catch (OutOfMemoryError e) {
+				System.gc();
+				mTitleText = "";
+				mBodyText = new ArrayList<>();
+				e.printStackTrace();
+			}
+			return null;
+		}

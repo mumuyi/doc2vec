@@ -1,0 +1,67 @@
+public static String doPost(Context context, String serviceEndpoint, Properties props)
+            throws Exception
+    {
+
+        DefaultHttpClient httpClient = new StrongHttpsClient(context);
+
+        HttpPost request = new HttpPost(serviceEndpoint);
+        HttpResponse response = null;
+        HttpEntity entity = null;
+
+        StringBuffer sbResponse = new StringBuffer();
+
+        Enumeration<Object> enumProps = props.keys();
+        String key, value = null;
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+
+        while (enumProps.hasMoreElements())
+        {
+            key = (String) enumProps.nextElement();
+            value = (String) props.get(key);
+            nvps.add(new BasicNameValuePair(key, value));
+
+            Log.i(TAG, "adding nvp:" + key + "=" + value);
+        }
+
+        UrlEncodedFormEntity uf = new UrlEncodedFormEntity(nvps, HTTP.UTF_8);
+
+        Log.i(TAG, uf.toString());
+
+        request.setEntity(uf);
+
+        request.setHeader("Content-Type", POST_MIME_TYPE);
+
+        Log.i(TAG, "http post request: " + request.toString());
+
+        // Post, check and show the result (not really spectacular, but works):
+        response = httpClient.execute(request);
+        entity = response.getEntity();
+
+        int status = response.getStatusLine().getStatusCode();
+
+        // we assume that the response body contains the error message
+        if (status != HttpStatus.SC_OK) {
+            ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+            entity.writeTo(ostream);
+
+            Log.e(TAG, " error status code=" + status);
+            Log.e(TAG, ostream.toString());
+
+            return null;
+        } else {
+            InputStream content = response.getEntity().getContent();
+            // <consume response>
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+            String line;
+
+            while ((line = reader.readLine()) != null)
+                sbResponse.append(line);
+
+            content.close(); // this will also close the connection
+
+            return sbResponse.toString();
+        }
+
+    }

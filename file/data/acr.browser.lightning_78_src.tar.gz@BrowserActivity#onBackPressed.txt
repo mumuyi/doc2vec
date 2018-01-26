@@ -1,0 +1,26 @@
+@Override
+	public void onBackPressed() {
+		if (mDrawerLayout.isDrawerOpen(mDrawerLeft)) {
+			mDrawerLayout.closeDrawer(mDrawerLeft);
+		} else if (mDrawerLayout.isDrawerOpen(mDrawerRight)) {
+			mDrawerLayout.closeDrawer(mDrawerRight);
+		} else {
+			if (mCurrentView != null) {
+				Log.d(Constants.TAG, "onBackPressed");
+				if (mSearch.hasFocus()) {
+					mCurrentView.requestFocus();
+				} else if (mCurrentView.canGoBack()) {
+					if (!mCurrentView.isShown()) {
+						onHideCustomView();
+					} else {
+						mCurrentView.goBack();
+					}
+				} else {
+					deleteTab(mDrawerListLeft.getCheckedItemPosition());
+				}
+			} else {
+				Log.e(Constants.TAG, "This shouldn't happen ever");
+				super.onBackPressed();
+			}
+		}
+	}

@@ -1,0 +1,5 @@
+public synchronized void stopLoading() {
+		if (mWebView != null) {
+			mWebView.stopLoading();
+		}
+	}

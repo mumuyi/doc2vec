@@ -1,0 +1,3 @@
+public boolean canGoBack() {
+		return mWebView != null && mWebView.canGoBack();
+	}

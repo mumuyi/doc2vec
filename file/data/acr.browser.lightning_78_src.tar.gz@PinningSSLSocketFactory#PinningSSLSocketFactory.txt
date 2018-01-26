@@ -1,0 +1,27 @@
+/**
+   * Constructs a PinningSSLSocketFactory with a set of valid pins.
+   *
+   * @param pins An array of encoded pins to match a seen certificate
+   *             chain against. A pin is a hex-encoded hash of a X.509 certificate's
+   *             SubjectPublicKeyInfo. A pin can be generated using the provided pin.py
+   *             script: python ./tools/pin.py certificate_file.pem
+   *
+   * @param enforceUntilTimestampMillis A timestamp (in milliseconds) when pins will stop being
+   *                                    enforced.  Normal non-pinned certificate validation
+   *                                    will continue.  Set this to some period after your build
+   *                                    date, or to 0 to enforce pins forever.
+   */
+
+  public PinningSSLSocketFactory(Context context, String[] pins, long enforceUntilTimestampMillis)
+      throws UnrecoverableKeyException, KeyManagementException,
+             NoSuchAlgorithmException, KeyStoreException
+  {
+    super(null);
+
+    final SystemKeyStore keyStore             = SystemKeyStore.getInstance(context);
+    final SSLContext pinningSslContext        = SSLContext.getInstance(TLS);
+    final TrustManager[] pinningTrustManagers = initializePinningTrustManagers(keyStore, pins, enforceUntilTimestampMillis);
+
+    pinningSslContext.init(null, pinningTrustManagers, null);
+    this.pinningSocketFactory = pinningSslContext.getSocketFactory();
+  }

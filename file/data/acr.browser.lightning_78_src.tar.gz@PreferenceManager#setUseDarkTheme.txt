@@ -1,0 +1,3 @@
+public void setUseDarkTheme(boolean use) {
+		putBoolean(Name.DARK_THEME, use);
+	}

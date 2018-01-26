@@ -1,0 +1,4 @@
+public HtmlFetcher setCache(SCache cache) {
+		this.cache = cache;
+		return this;
+	}

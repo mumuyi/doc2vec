@@ -1,0 +1,43 @@
+private void initialize() {
+
+		RelativeLayout rHideStatusBar, rFullScreen, rWideViewPort, rOverView, rTextReflow, rTextSize, rDarkTheme;
+		LayoutClickListener clickListener = new LayoutClickListener();
+		CheckBoxToggleListener toggleListener = new CheckBoxToggleListener();
+
+		rHideStatusBar = (RelativeLayout) findViewById(R.id.rHideStatusBar);
+		rFullScreen = (RelativeLayout) findViewById(R.id.rFullScreen);
+		rWideViewPort = (RelativeLayout) findViewById(R.id.rWideViewPort);
+		rOverView = (RelativeLayout) findViewById(R.id.rOverView);
+		rTextReflow = (RelativeLayout) findViewById(R.id.rTextReflow);
+		rTextSize = (RelativeLayout) findViewById(R.id.rTextSize);
+		rDarkTheme = (RelativeLayout) findViewById(R.id.rDarkTheme);
+		
+		rHideStatusBar.setOnClickListener(clickListener);
+		rFullScreen.setOnClickListener(clickListener);
+		rWideViewPort.setOnClickListener(clickListener);
+		rOverView.setOnClickListener(clickListener);
+		rTextReflow.setOnClickListener(clickListener);
+		rTextSize.setOnClickListener(clickListener);
+		rDarkTheme.setOnClickListener(clickListener);
+
+		cbHideStatusBar = (CheckBox) findViewById(R.id.cbHideStatusBar);
+		cbFullScreen = (CheckBox) findViewById(R.id.cbFullScreen);
+		cbWideViewPort = (CheckBox) findViewById(R.id.cbWideViewPort);
+		cbOverView = (CheckBox) findViewById(R.id.cbOverView);
+		cbTextReflow = (CheckBox) findViewById(R.id.cbTextReflow);
+		cbDarkTheme = (CheckBox) findViewById(R.id.cbDarkTheme);
+
+		cbHideStatusBar.setChecked(mPreferences.getHideStatusBarEnabled());
+		cbFullScreen.setChecked(mPreferences.getFullScreenEnabled());
+		cbWideViewPort.setChecked(mPreferences.getUseWideViewportEnabled());
+		cbOverView.setChecked(mPreferences.getOverviewModeEnabled());
+		cbTextReflow.setChecked(mPreferences.getTextReflowEnabled());
+		cbDarkTheme.setChecked(mPreferences.getUseDarkTheme());
+
+		cbHideStatusBar.setOnCheckedChangeListener(toggleListener);
+		cbFullScreen.setOnCheckedChangeListener(toggleListener);
+		cbWideViewPort.setOnCheckedChangeListener(toggleListener);
+		cbOverView.setOnCheckedChangeListener(toggleListener);
+		cbTextReflow.setOnCheckedChangeListener(toggleListener);
+		cbDarkTheme.setOnCheckedChangeListener(toggleListener);
+	}

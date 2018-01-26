@@ -1,0 +1,14 @@
+public static String completeDate(String dateStr) {
+		if (dateStr == null)
+			return null;
+
+		int index = dateStr.indexOf('/');
+		if (index > 0) {
+			index = dateStr.indexOf('/', index + 1);
+			if (index > 0)
+				return dateStr;
+			else
+				return dateStr + "/01";
+		}
+		return dateStr + "/01/01";
+	}

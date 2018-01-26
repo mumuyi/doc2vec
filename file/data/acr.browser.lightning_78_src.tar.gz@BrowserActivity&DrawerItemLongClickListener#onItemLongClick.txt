@@ -1,0 +1,5 @@
+@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+			showCloseDialog(position);
+			return true;
+		}

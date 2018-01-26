@@ -1,0 +1,4 @@
+public JResult setDate(String date) {
+		this.dateString = date;
+		return this;
+	}

@@ -1,0 +1,11 @@
+@SuppressWarnings({ "unchecked", "rawtypes" })
+        public DictListAdapter(Map<UUID, List<Volume>> volumes) {
+            this.volumes = new ArrayList();
+            this.volumes.addAll(volumes.values());
+            inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    updateView();
+                }
+            }, TIME_UPDATE_PERIOD, TIME_UPDATE_PERIOD);
+        }

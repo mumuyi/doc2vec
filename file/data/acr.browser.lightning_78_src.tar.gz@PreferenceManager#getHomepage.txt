@@ -1,0 +1,3 @@
+public String getHomepage() {
+		return mPrefs.getString(Name.HOMEPAGE, Constants.HOMEPAGE);
+	}

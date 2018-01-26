@@ -1,0 +1,3 @@
+public static String extractHost(String url) {
+		return extractDomain(url, false);
+	}

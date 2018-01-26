@@ -1,0 +1,9 @@
+public String lessText(String text) {
+		if (text == null)
+			return "";
+
+		if (maxTextLength >= 0 && text.length() > maxTextLength)
+			return text.substring(0, maxTextLength);
+
+		return text;
+	}

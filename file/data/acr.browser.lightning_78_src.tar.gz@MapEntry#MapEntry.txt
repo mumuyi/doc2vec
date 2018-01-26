@@ -1,0 +1,4 @@
+public MapEntry(K key, V value) {
+		this.key = key;
+		this.value = value;
+	}

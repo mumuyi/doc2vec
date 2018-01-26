@@ -1,0 +1,3 @@
+public OutputFormatter appendUnlikelyPattern(String str) {
+		return setUnlikelyPattern(unlikelyPattern.toString() + "|" + str);
+	}

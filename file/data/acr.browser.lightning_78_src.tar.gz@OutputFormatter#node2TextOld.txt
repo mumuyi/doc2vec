@@ -1,0 +1,3 @@
+protected String node2TextOld(Element el) {
+		return el.text();
+	}

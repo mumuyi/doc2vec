@@ -1,0 +1,4 @@
+public JResult setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+		return this;
+	}

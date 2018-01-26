@@ -1,0 +1,3 @@
+public boolean getCookiesEnabled() {
+		return mPrefs.getBoolean(Name.COOKIES, true);
+	}

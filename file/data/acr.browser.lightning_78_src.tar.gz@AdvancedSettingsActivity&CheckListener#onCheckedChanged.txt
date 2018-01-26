@@ -1,0 +1,17 @@
+@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			switch (buttonView.getId()) {
+				case R.id.cbAllowPopups:
+					mPreferences.setPopupsEnabled(isChecked);
+					break;
+				case R.id.cbAllowCookies:
+					mPreferences.setCookiesEnabled(isChecked);
+					break;
+				case R.id.cbAllowIncognitoCookies:
+					mPreferences.setIncognitoCookiesEnabled(isChecked);
+					break;
+				case R.id.cbRestoreTabs:
+					mPreferences.setRestoreLostTabsEnabled(isChecked);
+					break;
+			}
+		}

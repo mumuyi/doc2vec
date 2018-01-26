@@ -1,0 +1,3 @@
+public boolean getIncognitoCookiesEnabled() {
+		return mPrefs.getBoolean(Name.INCOGNITO_COOKIES, false);
+	}

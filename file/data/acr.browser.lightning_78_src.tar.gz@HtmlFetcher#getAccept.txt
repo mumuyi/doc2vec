@@ -1,0 +1,3 @@
+public String getAccept() {
+		return accept;
+	}

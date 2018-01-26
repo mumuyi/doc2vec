@@ -1,0 +1,10 @@
+@Override
+	public void toggleActionBar() {
+		if (mFullScreen) {
+			if (mToolbarLayout.getVisibility() != View.VISIBLE) {
+				showActionBar();
+			} else {
+				hideActionBar();
+			}
+		}
+	}

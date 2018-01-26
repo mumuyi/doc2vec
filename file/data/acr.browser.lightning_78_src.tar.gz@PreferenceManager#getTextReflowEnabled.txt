@@ -1,0 +1,3 @@
+public boolean getTextReflowEnabled() {
+		return mPrefs.getBoolean(Name.TEXT_REFLOW, false);
+	}

@@ -1,0 +1,3 @@
+public void setIncognitoCookiesEnabled(boolean enable) {
+		putBoolean(Name.INCOGNITO_COOKIES, enable);
+	}

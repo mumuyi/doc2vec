@@ -1,0 +1,24 @@
+private void textSizePicker() {
+		AlertDialog.Builder picker = new AlertDialog.Builder(DisplaySettingsActivity.this);
+		picker.setTitle(getResources().getString(R.string.title_text_size));
+
+		int n = mPreferences.getTextSize();
+
+		picker.setSingleChoiceItems(R.array.text_size, n - 1,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mPreferences.setTextSize(which + 1);
+					}
+				});
+		picker.setNeutralButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+		picker.show();
+	}

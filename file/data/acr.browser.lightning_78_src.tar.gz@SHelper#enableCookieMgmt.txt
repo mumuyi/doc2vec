@@ -1,0 +1,9 @@
+/**
+	 * @see http
+	 *      ://blogs.sun.com/CoreJavaTechTips/entry/cookie_handling_in_java_se
+	 */
+	public static void enableCookieMgmt() {
+		CookieManager manager = new CookieManager();
+		manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+		CookieHandler.setDefault(manager);
+	}

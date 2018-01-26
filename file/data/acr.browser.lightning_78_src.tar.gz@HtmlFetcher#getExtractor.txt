@@ -1,0 +1,3 @@
+public ArticleTextExtractor getExtractor() {
+		return extractor;
+	}

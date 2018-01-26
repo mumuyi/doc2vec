@@ -1,0 +1,3 @@
+public void setBlockThirdPartyCookiesEnabled(boolean enable) {
+		putBoolean(Name.BLOCK_THIRD_PARTY, enable);
+	}

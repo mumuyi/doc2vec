@@ -1,0 +1,9 @@
+public static int count(String str, String substring) {
+		int c = 0;
+		int index1 = str.indexOf(substring);
+		if (index1 >= 0) {
+			c++;
+			c += count(str.substring(index1 + substring.length()), substring);
+		}
+		return c;
+	}

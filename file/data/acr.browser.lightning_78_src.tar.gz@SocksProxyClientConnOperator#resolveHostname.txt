@@ -1,0 +1,4 @@
+@Override
+    protected InetAddress[] resolveHostname(final String host) throws UnknownHostException {
+        throw new RuntimeException("operation not supported");
+    }

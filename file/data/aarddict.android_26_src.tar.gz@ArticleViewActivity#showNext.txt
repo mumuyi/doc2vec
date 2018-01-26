@@ -1,0 +1,76 @@
+private void showNext(HistoryItem item_) {
+        final HistoryItem item = new HistoryItem(item_);
+        final Entry entry = item.next();
+        runOnUiThread(new Runnable() {
+            public void run() {
+                setTitle(item);
+                setProgress(1000);
+            }
+        });
+        currentTask = new TimerTask() {
+            public void run() {
+                try {
+                    Article a = dictionaryService.getArticle(entry);
+                    try {
+                        a = dictionaryService.redirect(a);
+                        item.article = new Article(a);
+                    } catch (ArticleNotFound e) {
+                        showMessage(getString(R.string.msgRedirectNotFound,
+                                e.word.toString()));
+                        return;
+                    } catch (RedirectTooManyLevels e) {
+                        showMessage(getString(R.string.msgTooManyRedirects,
+                                a.getRedirect()));
+                        return;
+                    } catch (Exception e) {
+                        Log.e(TAG, "Redirect failed", e);
+                        showError(getString(R.string.msgErrorLoadingArticle,
+                                a.title));
+                        return;
+                    }
+
+                    HistoryItem oldCurrent = null;
+                    if (!backItems.isEmpty())
+                        oldCurrent = backItems.get(backItems.size() - 1);
+
+                    backItems.add(item);
+
+                    if (oldCurrent != null) {
+                        HistoryItem newCurrent = item;
+                        if (newCurrent.article
+                                .equalsIgnoreSection(oldCurrent.article)) {
+
+                            final String section = oldCurrent.article
+                                    .sectionEquals(newCurrent.article) ? null
+                                    : newCurrent.article.section;
+
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    resetTitleToCurrent();
+                                    if (section != null) {
+                                        goToSection(section);
+                                    }
+                                    setProgress(10000);
+                                    currentTask = null;
+                                }
+                            });
+                        } else {
+                            showCurrentArticle();
+                        }
+                    } else {
+                        showCurrentArticle();
+                    }
+                } catch (Exception e) {
+                    String msg = getString(R.string.msgErrorLoadingArticle,
+                            entry.title);
+                    Log.e(TAG, msg, e);
+                    showError(msg);
+                }
+            }
+        };
+        try {
+            timer.schedule(currentTask, 0);
+        } catch (Exception e) {
+            Log.d(TAG, "Failed to schedule task", e);
+        }
+    }

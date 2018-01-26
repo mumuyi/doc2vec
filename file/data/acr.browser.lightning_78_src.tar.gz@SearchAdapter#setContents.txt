@@ -1,0 +1,9 @@
+public void setContents(List<HistoryItem> list) {
+		if (mFilteredList != null) {
+			mFilteredList.clear();
+			mFilteredList.addAll(list);
+		} else {
+			mFilteredList = list;
+		}
+		notifyDataSetChanged();
+	}

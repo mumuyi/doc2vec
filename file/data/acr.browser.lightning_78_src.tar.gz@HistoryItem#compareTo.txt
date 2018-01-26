@@ -1,0 +1,4 @@
+@Override
+	public int compareTo(@NonNull HistoryItem another) {
+		return mTitle.compareTo(another.mTitle);
+	}

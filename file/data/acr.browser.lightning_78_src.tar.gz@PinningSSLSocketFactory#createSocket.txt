@@ -1,0 +1,13 @@
+@Override
+  public Socket createSocket(final Socket socket, final String host,
+                             int port, final boolean autoClose)
+      throws IOException
+  {
+    if (port == -1) {
+      port = 443;
+    }
+
+    final SSLSocket sslSocket = (SSLSocket) pinningSocketFactory.createSocket(socket, host, port, autoClose);
+    SSLSocketFactory.STRICT_HOSTNAME_VERIFIER.verify(host, sslSocket);
+    return sslSocket;
+  }

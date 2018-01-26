@@ -1,0 +1,36 @@
+public void restoreOrNewTab() {
+		mIdGenerator = 0;
+
+		String url = null;
+		if (getIntent() != null) {
+			url = getIntent().getDataString();
+			if (url != null) {
+				if (url.startsWith(Constants.FILE)) {
+					Utils.showToast(this, getResources().getString(R.string.message_blocked_local));
+					url = null;
+				}
+			}
+		}
+		if (mPreferences.getRestoreLostTabsEnabled()) {
+			String mem = mPreferences.getMemoryUrl();
+			mPreferences.setMemoryUrl("");
+			String[] array = Utils.getArray(mem);
+			int count = 0;
+			for (String urlString : array) {
+				if (urlString.length() > 0) {
+					if (url != null && url.compareTo(urlString) == 0) {
+						url = null;
+					}
+					newTab(urlString, true);
+					count++;
+				}
+			}
+			if (url != null) {
+				newTab(url, true);
+			} else if (count == 0) {
+				newTab(null, true);
+			}
+		} else {
+			newTab(url, true);
+		}
+	}

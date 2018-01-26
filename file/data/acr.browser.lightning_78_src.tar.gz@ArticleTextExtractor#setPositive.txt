@@ -1,0 +1,5 @@
+public ArticleTextExtractor setPositive(String positiveStr) {
+		this.positiveStr = positiveStr;
+		POSITIVE = Pattern.compile(positiveStr);
+		return this;
+	}

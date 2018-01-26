@@ -1,0 +1,3 @@
+public boolean getCheckedForTor() {
+		return mPrefs.getBoolean(Name.INITIAL_CHECK_FOR_TOR, false);
+	}

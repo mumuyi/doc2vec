@@ -1,0 +1,5 @@
+public void checkClientTrusted(X509Certificate[] chain, String authType)
+		throws CertificateException
+	{
+		checkCertTrusted(chain, authType, false);
+	}

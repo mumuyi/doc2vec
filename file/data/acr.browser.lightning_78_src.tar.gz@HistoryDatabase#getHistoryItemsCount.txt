@@ -1,0 +1,8 @@
+public int getHistoryItemsCount() {
+		String countQuery = "SELECT * FROM " + TABLE_HISTORY;
+		Cursor cursor = mDatabase.rawQuery(countQuery, null);
+		int n = cursor.getCount();
+		cursor.close();
+
+		return n;
+	}

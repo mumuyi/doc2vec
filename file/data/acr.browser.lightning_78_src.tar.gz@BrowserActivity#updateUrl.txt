@@ -1,0 +1,31 @@
+@Override
+	public void updateUrl(String url, boolean shortUrl) {
+		if (url == null || mSearch == null || mSearch.hasFocus()) {
+			return;
+		}
+		if (shortUrl && !url.startsWith(Constants.FILE)) {
+			switch (mPreferences.getUrlBoxContentChoice()) {
+				case 0: // Default, show only the domain
+					url = url.replaceFirst(Constants.HTTP, "");
+					url = Utils.getDomainName(url);
+					mSearch.setText(url);
+					break;
+				case 1: // URL, show the entire URL
+					mSearch.setText(url);
+					break;
+				case 2: // Title, show the page's title
+					if (mCurrentView != null && !mCurrentView.getTitle().isEmpty()) {
+						mSearch.setText(mCurrentView.getTitle());
+					} else {
+						mSearch.setText(mUntitledTitle);
+					}
+					break;
+			}
+
+		} else {
+			if (url.startsWith(Constants.FILE)) {
+				url = "";
+			}
+			mSearch.setText(url);
+		}
+	}

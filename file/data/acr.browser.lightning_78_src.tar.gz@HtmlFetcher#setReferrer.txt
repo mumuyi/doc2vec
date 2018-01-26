@@ -1,0 +1,4 @@
+public HtmlFetcher setReferrer(String referrer) {
+		this.referrer = referrer;
+		return this;
+	}

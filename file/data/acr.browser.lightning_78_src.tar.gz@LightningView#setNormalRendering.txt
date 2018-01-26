@@ -1,0 +1,3 @@
+public void setNormalRendering() {
+		mWebView.setLayerType(View.LAYER_TYPE_NONE, null);
+	}

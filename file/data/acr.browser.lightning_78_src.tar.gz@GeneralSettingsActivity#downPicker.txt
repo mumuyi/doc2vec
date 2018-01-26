@@ -1,0 +1,43 @@
+@SuppressWarnings("deprecation")
+	public void downPicker() {
+		final AlertDialog.Builder downLocationPicker = new AlertDialog.Builder(mActivity);
+		LinearLayout layout = new LinearLayout(this);
+		downLocationPicker.setTitle(getResources().getString(R.string.title_download_location));
+		final EditText getDownload = new EditText(this);
+		getDownload.setBackgroundResource(0);
+		mDownloadLocation = mPreferences.getDownloadDirectory();
+		int padding = Utils.convertDpToPixels(10);
+
+		LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+		getDownload.setLayoutParams(lparams);
+		getDownload.setTextColor(Color.DKGRAY);
+		getDownload.setText(mDownloadLocation);
+		getDownload.setPadding(0, padding, padding, padding);
+
+		TextView v = new TextView(this);
+		v.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+		v.setTextColor(Color.DKGRAY);
+		v.setText(Constants.EXTERNAL_STORAGE + '/');
+		v.setPadding(padding, padding, 0, padding);
+		layout.addView(v);
+		layout.addView(getDownload);
+		if (API < 16) {
+			layout.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.edit_text));
+		} else {
+			layout.setBackground(getResources().getDrawable(android.R.drawable.edit_text));
+		}
+		downLocationPicker.setView(layout);
+		downLocationPicker.setPositiveButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String text = getDownload.getText().toString();
+						mPreferences.setDownloadDirectory(text);
+						mDownloadTextView.setText(Constants.EXTERNAL_STORAGE + '/' + text);
+					}
+				});
+		downLocationPicker.show();
+	}

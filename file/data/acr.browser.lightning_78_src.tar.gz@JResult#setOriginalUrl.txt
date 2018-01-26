@@ -1,0 +1,4 @@
+public JResult setOriginalUrl(String originalUrl) {
+		this.originalUrl = originalUrl;
+		return this;
+	}

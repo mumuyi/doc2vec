@@ -1,0 +1,10 @@
+private void rSearchSuggestions(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				cbSearchSuggestions.setChecked(!cbSearchSuggestions.isChecked());
+			}
+
+		});
+	}

@@ -1,0 +1,9 @@
+public void setTitleAndFavicon(String title, Bitmap favicon) {
+			mTitle = title;
+
+			if (favicon == null) {
+				mFavicon = mDefaultIcon;
+			} else {
+				mFavicon = Utils.padFavicon(favicon);
+			}
+		}

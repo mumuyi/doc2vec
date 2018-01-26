@@ -1,0 +1,41 @@
+@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.action_back:
+				if (mCurrentView != null) {
+					if (mCurrentView.canGoBack()) {
+						mCurrentView.goBack();
+					} else {
+						deleteTab(mDrawerListLeft.getCheckedItemPosition());
+					}
+				}
+				break;
+			case R.id.action_forward:
+				if (mCurrentView != null) {
+					if (mCurrentView.canGoForward()) {
+						mCurrentView.goForward();
+					}
+				}
+				break;
+			case R.id.arrow_button:
+				if (mSearch != null && mSearch.hasFocus()) {
+					mCurrentView.requestFocus();
+				} else {
+					mDrawerLayout.openDrawer(mDrawerLeft);
+				}
+				break;
+			case R.id.new_tab_button:
+				newTab(null, true);
+				break;
+			case R.id.button_next:
+				mCurrentView.getWebView().findNext(false);
+				break;
+			case R.id.button_back:
+				mCurrentView.getWebView().findNext(true);
+				break;
+			case R.id.button_quit:
+				mCurrentView.getWebView().clearMatches();
+				mSearchBar.setVisibility(View.GONE);
+				break;
+		}
+	}

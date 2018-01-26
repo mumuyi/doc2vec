@@ -1,0 +1,3 @@
+public void setJavaScriptEnabled(boolean enable) {
+		putBoolean(Name.JAVASCRIPT, enable);
+	}

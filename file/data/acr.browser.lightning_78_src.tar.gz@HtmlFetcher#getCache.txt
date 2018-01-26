@@ -1,0 +1,3 @@
+public SCache getCache() {
+		return cache;
+	}

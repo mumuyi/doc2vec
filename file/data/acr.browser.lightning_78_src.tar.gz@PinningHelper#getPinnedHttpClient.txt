@@ -1,0 +1,28 @@
+/**
+   * Constructs an HttpClient that will validate SSL connections with a PinningTrustManager.
+   *
+   * @param pins An array of encoded pins to match a seen certificate
+   *             chain against. A pin is a hex-encoded hash of a X.509 certificate's
+   *             SubjectPublicKeyInfo. A pin can be generated using the provided pin.py
+   *             script: python ./tools/pin.py certificate_file.pem
+   */
+
+  public static HttpClient getPinnedHttpClient(Context context, String[] pins) {
+    try {
+      SchemeRegistry schemeRegistry = new SchemeRegistry();
+      schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+      schemeRegistry.register(new Scheme("https", new PinningSSLSocketFactory(context, pins, 0), 443));
+
+      HttpParams httpParams                     = new BasicHttpParams();
+      ClientConnectionManager connectionManager = new ThreadSafeClientConnManager(httpParams, schemeRegistry);
+      return new DefaultHttpClient(connectionManager, httpParams);
+    } catch (UnrecoverableKeyException e) {
+      throw new AssertionError(e);
+    } catch (KeyManagementException e) {
+      throw new AssertionError(e);
+    } catch (NoSuchAlgorithmException e) {
+      throw new AssertionError(e);
+    } catch (KeyStoreException e) {
+      throw new AssertionError(e);
+    }
+  }

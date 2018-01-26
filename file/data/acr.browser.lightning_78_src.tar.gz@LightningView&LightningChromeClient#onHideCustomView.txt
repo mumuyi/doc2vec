@@ -1,0 +1,5 @@
+@Override
+		public void onHideCustomView() {
+			mBrowserController.onHideCustomView();
+			super.onHideCustomView();
+		}

@@ -1,0 +1,7 @@
+public int getProgress() {
+		if (mWebView != null) {
+			return mWebView.getProgress();
+		} else {
+			return 100;
+		}
+	}

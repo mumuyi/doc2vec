@@ -1,0 +1,4 @@
+protected String extractRssUrl(Document doc) {
+		return SHelper.replaceSpaces(doc.select("link[rel=alternate]")
+				.select("link[type=application/rss+xml]").attr("href"));
+	}

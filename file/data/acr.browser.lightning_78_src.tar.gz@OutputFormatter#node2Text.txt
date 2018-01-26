@@ -1,0 +1,5 @@
+protected String node2Text(Element el) {
+		StringBuilder sb = new StringBuilder(200);
+		appendTextSkipHidden(el, sb);
+		return sb.toString();
+	}

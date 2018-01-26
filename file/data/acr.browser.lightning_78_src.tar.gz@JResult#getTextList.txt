@@ -1,0 +1,5 @@
+public List<String> getTextList() {
+		if (this.textList == null)
+			return new ArrayList<>();
+		return this.textList;
+	}

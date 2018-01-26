@@ -1,0 +1,3 @@
+public boolean getSyncHistoryEnabled() {
+		return mPrefs.getBoolean(Name.SYNC_HISTORY, true);
+	}

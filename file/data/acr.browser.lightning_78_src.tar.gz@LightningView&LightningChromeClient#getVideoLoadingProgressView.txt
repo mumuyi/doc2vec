@@ -1,0 +1,4 @@
+@Override
+		public View getVideoLoadingProgressView() {
+			return mBrowserController.getVideoLoadingProgressView();
+		}

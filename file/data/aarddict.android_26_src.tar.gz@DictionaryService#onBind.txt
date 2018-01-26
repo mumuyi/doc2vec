@@ -1,0 +1,4 @@
+@Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }

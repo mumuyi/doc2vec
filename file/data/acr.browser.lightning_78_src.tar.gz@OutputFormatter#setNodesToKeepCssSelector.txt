@@ -1,0 +1,6 @@
+/**
+	 * set elements to keep in output text
+	 */
+	public void setNodesToKeepCssSelector(String nodesToKeepCssSelector) {
+		this.nodesToKeepCssSelector = nodesToKeepCssSelector;
+	}

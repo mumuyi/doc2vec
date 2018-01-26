@@ -1,0 +1,69 @@
+public void search() {
+		RelativeLayout search = (RelativeLayout) findViewById(R.id.layoutSearch);
+		search.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder picker = new AlertDialog.Builder(mActivity);
+				picker.setTitle(getResources().getString(R.string.title_search_engine));
+				CharSequence[] chars = { getResources().getString(R.string.custom_url), "Google",
+						"Ask", "Bing", "Yahoo", "StartPage", "StartPage (Mobile)",
+						"DuckDuckGo (Privacy)", "DuckDuckGo Lite (Privacy)", "Baidu (Chinese)",
+						"Yandex (Russian)" };
+
+				int n = mPreferences.getSearchChoice();
+
+				picker.setSingleChoiceItems(chars, n, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						mPreferences.setSearchChoice(which);
+						switch (which) {
+							case 0:
+								searchUrlPicker();
+								break;
+							case 1:
+								mSearchText.setText("Google");
+								break;
+							case 2:
+								mSearchText.setText("Ask");
+								break;
+							case 3:
+								mSearchText.setText("Bing");
+								break;
+							case 4:
+								mSearchText.setText("Yahoo");
+								break;
+							case 5:
+								mSearchText.setText("StartPage");
+								break;
+							case 6:
+								mSearchText.setText("StartPage (Mobile)");
+								break;
+							case 7:
+								mSearchText.setText("DuckDuckGo");
+								break;
+							case 8:
+								mSearchText.setText("DuckDuckGo Lite");
+								break;
+							case 9:
+								mSearchText.setText("Baidu");
+								break;
+							case 10:
+								mSearchText.setText("Yandex");
+						}
+					}
+				});
+				picker.setNeutralButton(getResources().getString(R.string.action_ok),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+
+							}
+						});
+				picker.show();
+			}
+
+		});
+	}

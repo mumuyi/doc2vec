@@ -1,0 +1,3 @@
+public MessageHandler(Context context) {
+			this.mHandlerContext = context;
+		}

@@ -1,0 +1,3 @@
+public void setRestoreLostTabsEnabled(boolean enable) {
+		putBoolean(Name.RESTORE_LOST_TABS, enable);
+	}

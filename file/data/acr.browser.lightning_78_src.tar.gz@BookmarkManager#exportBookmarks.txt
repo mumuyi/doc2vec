@@ -1,0 +1,38 @@
+/**
+	 * This method exports the stored bookmarks to a text file in the device's
+	 * external download directory
+	 */
+	public synchronized void exportBookmarks() {
+		List<HistoryItem> bookmarkList = getBookmarks(true);
+		File bookmarksExport = new File(
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+				"BookmarksExport.txt");
+		int counter = 0;
+		while (bookmarksExport.exists()) {
+			counter++;
+			bookmarksExport = new File(
+					Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+					"BookmarksExport-" + counter + ".txt");
+		}
+		try {
+			BufferedWriter bookmarkWriter = new BufferedWriter(new FileWriter(bookmarksExport,
+					false));
+			for (HistoryItem item : bookmarkList) {
+				JSONObject object = new JSONObject();
+				object.put(TITLE, item.getTitle());
+				object.put(URL, item.getUrl());
+				object.put(FOLDER, item.getFolder());
+				object.put(ORDER, item.getOrder());
+				bookmarkWriter.write(object.toString());
+				bookmarkWriter.newLine();
+			}
+			bookmarkWriter.close();
+			Toast.makeText(
+					mContext,
+					mContext.getString(R.string.bookmark_export_path) + " "
+							+ bookmarksExport.getPath(), Toast.LENGTH_SHORT).show();
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+
+	}

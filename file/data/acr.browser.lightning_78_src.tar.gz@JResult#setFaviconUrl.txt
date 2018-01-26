@@ -1,0 +1,4 @@
+public JResult setFaviconUrl(String faviconUrl) {
+		this.faviconUrl = faviconUrl;
+		return this;
+	}

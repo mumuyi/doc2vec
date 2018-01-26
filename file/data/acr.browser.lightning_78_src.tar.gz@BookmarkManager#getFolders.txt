@@ -1,0 +1,30 @@
+/**
+	 * This method returns a list of all folders
+	 * 
+	 * @return
+	 */
+	public synchronized List<HistoryItem> getFolders() {
+		List<HistoryItem> folders = new ArrayList<>();
+		SortedMap<String, Integer> folderMap = new TreeMap<>(
+				String.CASE_INSENSITIVE_ORDER);
+		File bookmarksFile = new File(mContext.getFilesDir(), FILE_BOOKMARKS);
+		try {
+			BufferedReader bookmarksReader = new BufferedReader(new FileReader(bookmarksFile));
+			String line;
+			while ((line = bookmarksReader.readLine()) != null) {
+				JSONObject object = new JSONObject(line);
+				String folderName = object.getString(FOLDER);
+				if (!folderName.isEmpty() && !folderMap.containsKey(folderName)) {
+					HistoryItem item = new HistoryItem();
+					item.setTitle(folderName);
+					item.setUrl(Constants.FOLDER + folderName);
+					folderMap.put(folderName, 1);
+					folders.add(item);
+				}
+			}
+			bookmarksReader.close();
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+		return folders;
+	}

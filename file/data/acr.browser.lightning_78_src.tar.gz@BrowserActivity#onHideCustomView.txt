@@ -1,0 +1,34 @@
+@Override
+	public void onHideCustomView() {
+		if (mCustomView == null || mCustomViewCallback == null || mCurrentView == null) {
+			return;
+		}
+		Log.d(Constants.TAG, "onHideCustomView");
+		mCurrentView.setVisibility(View.VISIBLE);
+		try {
+			mCustomView.setKeepScreenOn(false);
+		} catch (SecurityException e) {
+			Log.e(Constants.TAG, "WebView is not allowed to keep the screen on");
+		}
+		setFullscreen(mPreferences.getHideStatusBarEnabled());
+		FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+		if (decor != null) {
+			decor.removeView(mFullscreenContainer);
+		}
+
+		if (API < 19) {
+			try {
+				mCustomViewCallback.onCustomViewHidden();
+			} catch (Throwable ignored) {
+
+			}
+		}
+		mFullscreenContainer = null;
+		mCustomView = null;
+		if (mVideoView != null) {
+			mVideoView.setOnErrorListener(null);
+			mVideoView.setOnCompletionListener(null);
+			mVideoView = null;
+		}
+		setRequestedOrientation(mOriginalOrientation);
+	}

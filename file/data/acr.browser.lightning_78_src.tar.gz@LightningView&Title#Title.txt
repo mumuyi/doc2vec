@@ -1,0 +1,5 @@
+public Title(Context context, boolean darkTheme) {
+			mDefaultIcon = Utils.getWebpageBitmap(context.getResources(), darkTheme);
+			mFavicon = mDefaultIcon;
+			mTitle = mActivity.getString(R.string.action_new_tab);
+		}

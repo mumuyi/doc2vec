@@ -1,0 +1,8 @@
+@Override
+	protected void onDestroy() {
+		Log.d(Constants.TAG, "onDestroy");
+		if (mHistoryDatabase != null) {
+			mHistoryDatabase.close();
+		}
+		super.onDestroy();
+	}

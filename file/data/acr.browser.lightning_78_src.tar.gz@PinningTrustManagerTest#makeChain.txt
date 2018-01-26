@@ -1,0 +1,3 @@
+private X509Certificate[] makeChain(X509Certificate...certificates) {
+    return certificates;
+  }

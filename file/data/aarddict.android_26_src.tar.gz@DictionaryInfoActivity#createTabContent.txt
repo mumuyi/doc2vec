@@ -1,0 +1,28 @@
+public View createTabContent(String tag) {
+                Intent intent = getIntent();
+                String volumeId = intent.getStringExtra("volumeId");
+                Volume d = dictionaryService.getVolume(volumeId);
+                setTitle(new StringBuilder(d.getDisplayTitle(false)).append(" ").append(d.metadata.version));
+                Metadata m = d.metadata;
+                TextView textView = new TextView(this);
+                textView.setAutoLinkMask(Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
+                CharSequence text = "";
+                if (tag.equals("d")) {
+                        text = m.description;
+                }
+                else
+                if (tag.equals("c")) {
+                        text = m.copyright;
+                }
+                else
+                if (tag.equals("s")) {
+                        text = m.source;
+                }
+                else
+                if (tag.equals("l")) {
+                        text = m.license;
+                        textView.setHorizontallyScrolling(true);
+                }
+                textView.setText(text);
+                return textView;
+        }

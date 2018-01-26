@@ -1,0 +1,33 @@
+@Override
+  public Socket connectSocket(final Socket sock, final String host, final int port,
+                              final InetAddress localAddress, int localPort,
+                              final HttpParams params) throws IOException {
+    final SSLSocket sslSock = (SSLSocket) ((sock != null) ? sock : createSocket());
+
+    if ((localAddress != null) || (localPort > 0)) {
+      if (localPort < 0) {
+        localPort = 0;
+      }
+
+      sslSock.bind(new InetSocketAddress(localAddress, localPort));
+    }
+
+    final int connTimeout = HttpConnectionParams.getConnectionTimeout(params);
+    final int soTimeout = HttpConnectionParams.getSoTimeout(params);
+
+    final InetSocketAddress remoteAddress = new InetSocketAddress(host, port);
+    sslSock.connect(remoteAddress, connTimeout);
+    sslSock.setSoTimeout(soTimeout);
+
+    try {
+      SSLSocketFactory.STRICT_HOSTNAME_VERIFIER.verify(host, sslSock);
+    } catch (IOException iox) {
+      try {
+        sslSock.close();
+      } catch (Exception ignored) {
+      }
+      throw iox;
+    }
+
+    return sslSock;
+  }

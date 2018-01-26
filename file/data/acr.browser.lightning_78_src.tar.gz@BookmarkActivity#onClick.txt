@@ -1,0 +1,15 @@
+@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.importBackup:
+				loadFileList(null);
+				onCreateDialog(DIALOG_LOAD_FILE);
+				break;
+			case R.id.importFromBrowser:
+				mBookmarkManager.importBookmarksFromBrowser(BookmarkActivity.this);
+				break;
+			case R.id.exportBackup:
+				mBookmarkManager.exportBookmarks();
+				break;
+		}
+	}

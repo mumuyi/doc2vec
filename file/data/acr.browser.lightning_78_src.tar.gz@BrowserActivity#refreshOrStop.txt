@@ -1,0 +1,15 @@
+/**
+	 * handle presses on the refresh icon in the search bar, if the page is
+	 * loading, stop the page, if it is done loading refresh the page.
+	 *
+	 * See setIsFinishedLoading and setIsLoading for displaying the correct icon
+	 */
+	public void refreshOrStop() {
+		if (mCurrentView != null) {
+			if (mCurrentView.getProgress() < 100) {
+				mCurrentView.stopLoading();
+			} else {
+				mCurrentView.reload();
+			}
+		}
+	}

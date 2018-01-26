@@ -1,0 +1,3 @@
+public boolean getOverviewModeEnabled() {
+		return mPrefs.getBoolean(Name.OVERVIEW_MODE, true);
+	}

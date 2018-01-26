@@ -1,0 +1,16 @@
+@Override
+		public int compare(File a, File b) {
+			if (a.isDirectory() && b.isDirectory())
+				return a.getName().compareTo(b.getName());
+
+			if (a.isDirectory())
+				return -1;
+
+			if (b.isDirectory())
+				return 1;
+
+			if (a.isFile() && b.isFile())
+				return a.getName().compareTo(b.getName());
+			else
+				return 1;
+		}

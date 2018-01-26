@@ -1,0 +1,3 @@
+public boolean getGoogleSearchSuggestionsEnabled() {
+		return mPrefs.getBoolean(Name.GOOGLE_SEARCH_SUGGESTIONS, true);
+	}

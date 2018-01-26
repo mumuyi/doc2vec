@@ -1,0 +1,9 @@
+@Override
+	protected void onPause() {
+		super.onPause();
+		Log.d(Constants.TAG, "onPause");
+		if (mCurrentView != null) {
+			mCurrentView.pauseTimers();
+			mCurrentView.onPause();
+		}
+	}

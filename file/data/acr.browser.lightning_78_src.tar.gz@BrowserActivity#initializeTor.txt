@@ -1,0 +1,16 @@
+private void initializeTor() {
+
+		OrbotHelper oh = new OrbotHelper(this);
+		if (!oh.isOrbotRunning()) {
+			oh.requestOrbotStart(this);
+		}
+		try {
+			String host = mPreferences.getProxyHost();
+			int port = mPreferences.getProxyPort();
+			WebkitProxy.setProxy(BrowserApp.class.getName(), getApplicationContext(),
+					host, port);
+		} catch (Exception e) {
+			Log.d(Constants.TAG, "error enabling web proxying", e);
+		}
+
+	}

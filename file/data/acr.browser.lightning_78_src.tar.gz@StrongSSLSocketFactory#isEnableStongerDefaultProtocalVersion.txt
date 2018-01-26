@@ -1,0 +1,3 @@
+public boolean isEnableStongerDefaultProtocalVersion() {
+		return mEnableStongerDefaultProtocalVersion;
+	}

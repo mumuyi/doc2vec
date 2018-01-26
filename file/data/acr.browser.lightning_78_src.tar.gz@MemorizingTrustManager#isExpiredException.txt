@@ -1,0 +1,8 @@
+private boolean isExpiredException(Throwable e) {
+		do {
+			if (e instanceof CertificateExpiredException)
+				return true;
+			e = e.getCause();
+		} while (e != null);
+		return false;
+	}

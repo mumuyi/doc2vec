@@ -1,0 +1,10 @@
+private void cbClearHistoryExit(CheckBox view) {
+		view.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mPreferences.setClearHistoryExitEnabled(isChecked);
+			}
+
+		});
+	}

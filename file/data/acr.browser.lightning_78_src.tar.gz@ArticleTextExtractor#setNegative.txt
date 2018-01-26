@@ -1,0 +1,5 @@
+public ArticleTextExtractor setNegative(String negativeStr) {
+		this.negativeStr = negativeStr;
+		NEGATIVE = Pattern.compile(negativeStr);
+		return this;
+	}

@@ -1,0 +1,30 @@
+/**
+	 * This method returns a list of bookmarks located in the specified folder
+	 * 
+	 * @param folder
+	 * @return
+	 */
+	public synchronized List<HistoryItem> getBookmarksFromFolder(String folder) {
+		List<HistoryItem> bookmarks = new ArrayList<>();
+		File bookmarksFile = new File(mContext.getFilesDir(), FILE_BOOKMARKS);
+		try {
+			BufferedReader bookmarksReader = new BufferedReader(new FileReader(bookmarksFile));
+			String line;
+			while ((line = bookmarksReader.readLine()) != null) {
+				JSONObject object = new JSONObject(line);
+				if (object.getString(FOLDER).equals(folder)) {
+					HistoryItem item = new HistoryItem();
+					item.setTitle(object.getString(TITLE));
+					item.setUrl(object.getString(URL));
+					item.setFolder(object.getString(FOLDER));
+					item.setOrder(object.getInt(ORDER));
+					item.setImageId(R.drawable.ic_bookmark);
+					bookmarks.add(item);
+				}
+			}
+			bookmarksReader.close();
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		}
+		return bookmarks;
+	}

@@ -1,0 +1,19 @@
+public void agentPicker() {
+		final AlertDialog.Builder agentStringPicker = new AlertDialog.Builder(mActivity);
+
+		agentStringPicker.setTitle(getResources().getString(R.string.title_user_agent));
+		final EditText getAgent = new EditText(this);
+		getAgent.append(mPreferences.getUserAgentString(""));
+		agentStringPicker.setView(getAgent);
+		agentStringPicker.setPositiveButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String text = getAgent.getText().toString();
+						mPreferences.setUserAgentString(text);
+						getAgent.setText(getResources().getString(R.string.agent_custom));
+					}
+				});
+		agentStringPicker.show();
+	}

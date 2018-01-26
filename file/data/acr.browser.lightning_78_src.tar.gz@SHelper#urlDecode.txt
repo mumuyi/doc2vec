@@ -1,0 +1,7 @@
+public static String urlDecode(String str) {
+		try {
+			return URLDecoder.decode(str, UTF8);
+		} catch (UnsupportedEncodingException ex) {
+			return str;
+		}
+	}

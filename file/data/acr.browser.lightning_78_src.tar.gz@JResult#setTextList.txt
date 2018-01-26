@@ -1,0 +1,4 @@
+public JResult setTextList(List<String> textList) {
+		this.textList = textList;
+		return this;
+	}

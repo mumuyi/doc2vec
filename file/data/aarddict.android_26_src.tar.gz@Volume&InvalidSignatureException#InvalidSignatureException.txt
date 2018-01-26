@@ -1,0 +1,3 @@
+public InvalidSignatureException() {
+            super("Not a dictionary file");
+        }

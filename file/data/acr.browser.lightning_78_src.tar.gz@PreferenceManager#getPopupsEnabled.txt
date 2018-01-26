@@ -1,0 +1,3 @@
+public boolean getPopupsEnabled() {
+		return mPrefs.getBoolean(Name.POPUPS, true);
+	}

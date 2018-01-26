@@ -1,0 +1,3 @@
+EntryStartComparator(int strength) {
+        super(strength);
+    }

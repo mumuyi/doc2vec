@@ -1,0 +1,8 @@
+protected String extractFaviconUrl(Document doc) {
+		String faviconUrl = SHelper.replaceSpaces(doc.select("head link[rel=icon]").attr("href"));
+		if (faviconUrl.isEmpty()) {
+			faviconUrl = SHelper.replaceSpaces(doc.select(
+					"head link[rel^=shortcut],link[rel$=icon]").attr("href"));
+		}
+		return faviconUrl;
+	}

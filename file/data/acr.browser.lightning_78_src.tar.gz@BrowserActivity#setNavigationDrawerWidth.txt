@@ -1,0 +1,32 @@
+private void setNavigationDrawerWidth() {
+		int width = getResources().getDisplayMetrics().widthPixels - Utils.convertDpToPixels(56);
+		int maxWidth;
+		if (isTablet()) {
+			maxWidth = Utils.convertDpToPixels(320);
+		} else {
+			maxWidth = Utils.convertDpToPixels(300);
+		}
+		if (width > maxWidth) {
+			DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) mDrawerLeft
+					.getLayoutParams();
+			params.width = maxWidth;
+			mDrawerLeft.setLayoutParams(params);
+			mDrawerLeft.requestLayout();
+			DrawerLayout.LayoutParams paramsRight = (android.support.v4.widget.DrawerLayout.LayoutParams) mDrawerRight
+					.getLayoutParams();
+			paramsRight.width = maxWidth;
+			mDrawerRight.setLayoutParams(paramsRight);
+			mDrawerRight.requestLayout();
+		} else {
+			DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) mDrawerLeft
+					.getLayoutParams();
+			params.width = width;
+			mDrawerLeft.setLayoutParams(params);
+			mDrawerLeft.requestLayout();
+			DrawerLayout.LayoutParams paramsRight = (android.support.v4.widget.DrawerLayout.LayoutParams) mDrawerRight
+					.getLayoutParams();
+			paramsRight.width = width;
+			mDrawerRight.setLayoutParams(paramsRight);
+			mDrawerRight.requestLayout();
+		}
+	}

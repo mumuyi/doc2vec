@@ -1,0 +1,6 @@
+public static HistoryDatabase getInstance(Context context) {
+		if (mInstance == null || mInstance.isClosed()) {
+			mInstance = new HistoryDatabase(context);
+		}
+		return mInstance;
+	}

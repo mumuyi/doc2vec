@@ -1,0 +1,3 @@
+public void updatePreference() {
+		mBlockAds = PreferenceManager.getInstance().getAdBlockEnabled();
+	}

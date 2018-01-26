@@ -1,0 +1,3 @@
+public void setInvertColors(boolean enable) {
+		putBoolean(Name.INVERT_COLORS, enable);
+	}

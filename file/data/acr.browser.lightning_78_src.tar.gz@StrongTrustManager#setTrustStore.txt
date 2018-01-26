@@ -1,0 +1,3 @@
+public void setTrustStore(KeyStore mTrustStore) {
+        this.mTrustStore = mTrustStore;
+    }

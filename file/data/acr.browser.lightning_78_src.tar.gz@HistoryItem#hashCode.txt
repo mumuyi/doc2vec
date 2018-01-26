@@ -1,0 +1,11 @@
+@Override
+	public int hashCode() {
+
+		int result = mId;
+		result = 31 * result + mUrl.hashCode();
+		result = 31 * result + mTitle.hashCode();
+		result = 31 * result + (mBitmap != null ? mBitmap.hashCode() : 0);
+		result = 31 * result + mImageId;
+
+		return result;
+	}

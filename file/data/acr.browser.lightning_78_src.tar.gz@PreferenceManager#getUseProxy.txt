@@ -1,0 +1,3 @@
+public boolean getUseProxy() {
+		return mPrefs.getBoolean(Name.USE_PROXY, false);
+	}

@@ -1,0 +1,14 @@
+private static String getDomainName(String url) throws URISyntaxException {
+		int index = url.indexOf('/', 8);
+		if (index != -1) {
+			url = url.substring(0, index);
+		}
+
+		URI uri = new URI(url);
+		String domain = uri.getHost();
+		if (domain == null) {
+			return url;
+		}
+
+		return domain.startsWith("www.") ? domain.substring(4) : domain;
+	}

@@ -1,0 +1,38 @@
+/**
+	 * method to generate search suggestions for the AutoCompleteTextView from
+	 * previously searched URLs
+	 */
+	private void initializeSearchSuggestions(final AutoCompleteTextView getUrl) {
+
+		getUrl.setThreshold(1);
+		getUrl.setDropDownWidth(-1);
+		getUrl.setDropDownAnchor(R.id.toolbar_layout);
+		getUrl.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				try {
+					String url;
+					url = ((TextView) arg1.findViewById(R.id.url)).getText().toString();
+					if (url.startsWith(mActivity.getString(R.string.suggestion))) {
+						url = ((TextView) arg1.findViewById(R.id.title)).getText().toString();
+					} else {
+						getUrl.setText(url);
+					}
+					searchTheWeb(url);
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(getUrl.getWindowToken(), 0);
+					if (mCurrentView != null) {
+						mCurrentView.requestFocus();
+					}
+				} catch (NullPointerException e) {
+					Log.e("Browser Error: ", "NullPointerException on item click");
+				}
+			}
+
+		});
+
+		getUrl.setSelectAllOnFocus(true);
+		mSearchAdapter = new SearchAdapter(mActivity, mDarkTheme, isIncognito());
+		getUrl.setAdapter(mSearchAdapter);
+	}

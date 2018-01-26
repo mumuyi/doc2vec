@@ -1,0 +1,5 @@
+public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+				WebChromeClient.FileChooserParams fileChooserParams) {
+			mBrowserController.showFileChooser(filePathCallback);
+			return true;
+		}

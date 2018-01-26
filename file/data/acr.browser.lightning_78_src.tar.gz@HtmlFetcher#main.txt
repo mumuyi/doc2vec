@@ -1,0 +1,24 @@
+public static void main(String[] args) throws Exception {
+		BufferedReader reader = new BufferedReader(new FileReader("urls.txt"));
+		String line;
+		Set<String> existing = new LinkedHashSet<>();
+		while ((line = reader.readLine()) != null) {
+			int index1 = line.indexOf("\"");
+			int index2 = line.indexOf("\"", index1 + 1);
+			String url = line.substring(index1 + 1, index2);
+			String domainStr = SHelper.extractDomain(url, true);
+			String counterStr = "";
+			// TODO more similarities
+			if (existing.contains(domainStr))
+				counterStr = "2";
+			else
+				existing.add(domainStr);
+
+			String html = new HtmlFetcher().fetchAsString(url, 20000);
+			String outFile = domainStr + counterStr + ".html";
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outFile));
+			writer.write(html);
+			writer.close();
+		}
+		reader.close();
+	}

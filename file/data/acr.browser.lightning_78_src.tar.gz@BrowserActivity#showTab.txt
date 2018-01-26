@@ -1,0 +1,45 @@
+/**
+	 * displays the WebView contained in the LightningView Also handles the
+	 * removal of previous views
+	 *
+	 * @param view
+	 *            the LightningView to show
+	 */
+	private synchronized void showTab(LightningView view) {
+		// Set the background color so the color mode color doesn't show through
+		mBrowserFrame.setBackgroundColor(mBackgroundColor);
+		if (view == null) {
+			return;
+		}
+		mBrowserFrame.removeAllViews();
+		if (mCurrentView != null) {
+			mCurrentView.setForegroundTab(false);
+			mCurrentView.onPause();
+		}
+		mCurrentView = view;
+		mCurrentView.setForegroundTab(true);
+		if (mCurrentView.getWebView() != null) {
+			updateUrl(mCurrentView.getUrl(), true);
+			updateProgress(mCurrentView.getProgress());
+		} else {
+			updateUrl("", true);
+			updateProgress(0);
+		}
+
+		mBrowserFrame.addView(mCurrentView.getWebView(), MATCH_PARENT);
+		// Remove browser frame background to reduce overdraw
+		mBrowserFrame.setBackgroundColor(0);
+		mCurrentView.requestFocus();
+		mCurrentView.onResume();
+
+		// Use a delayed handler to make the transition smooth
+		// otherwise it will get caught up with the showTab code
+		// and cause a janky motion
+		final Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mDrawerLayout.closeDrawers();
+			}
+		}, 150);
+	}

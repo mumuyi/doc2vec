@@ -1,0 +1,3 @@
+public PageLoader(Context context) {
+			mContext = context;
+		}

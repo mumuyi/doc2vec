@@ -1,0 +1,12 @@
+@Override
+	/**
+	 * a stupid method that returns the bitmap image to display in place of
+	 * a loading video
+	 */
+	public Bitmap getDefaultVideoPoster() {
+		if (mDefaultVideoPoster == null) {
+			mDefaultVideoPoster = BitmapFactory.decodeResource(getResources(),
+					android.R.drawable.ic_media_play);
+		}
+		return mDefaultVideoPoster;
+	}

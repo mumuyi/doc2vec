@@ -1,0 +1,4 @@
+@Override
+	public void setAlpha(int i) {
+		mPaint.setAlpha(i);
+	}

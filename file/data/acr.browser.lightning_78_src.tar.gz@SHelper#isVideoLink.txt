@@ -1,0 +1,5 @@
+public static boolean isVideoLink(String url) {
+		url = extractDomain(url, true);
+		return url.startsWith("youtube.com") || url.startsWith("video.yahoo.com")
+				|| url.startsWith("vimeo.com") || url.startsWith("blip.tv");
+	}

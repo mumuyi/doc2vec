@@ -1,0 +1,47 @@
+public Iterator<Entry> followLink(final String word, String fromVolumeId)
+            throws ArticleNotFound {
+        Log.d(TAG, String.format("Follow link \"%s\", %s", word, fromVolumeId));
+        Volume fromDict = getVolume(fromVolumeId);
+        Metadata fromMeta = fromDict.metadata;
+
+        LookupWord lookupWord = LookupWord.splitWord(word);
+        Log.d(TAG, lookupWord.toString());
+        String nameSpace = lookupWord.nameSpace;
+
+        Log.d(TAG, String.format("Name space: %s", nameSpace));
+        Map<String, String> interwikiMap = fromMeta.getInterwikiMap();
+        String nsServerUrl = interwikiMap.get(nameSpace);
+        List<UUID> matchingDicts = findMatchingDicts(nsServerUrl);
+        if (matchingDicts.isEmpty())
+            matchingDicts.add(fromDict.getDictionaryId());
+
+        if (nsServerUrl == null) {
+            // namespace did not resolve into server url,
+            // maybe it's not a name space, just article title with ":" in it
+            lookupWord.mergeNameSpace();
+        }
+
+        Comparator<Entry>[] comparators = EntryComparators.ALL_FULL;
+
+        if (lookupWord.word != null) {
+            if (lookupWord.word.length() == 1)
+                comparators = EntryComparators.EXACT;
+            else if (lookupWord.word.length() == 2)
+                comparators = EntryComparators.EXACT_IGNORE_CASE;
+        }
+
+        final List<Volume> dicts = new ArrayList<Volume>(this);
+        for (int i = 0; i < matchingDicts.size(); i++) {
+            UUID target = matchingDicts.get(i);
+            Comparator<Volume> c = new PreferredDictionaryComparator(target);
+            Collections.sort(dicts.subList(i, dicts.size()), c);
+        }
+
+        MatchIterator result = new MatchIterator(comparators, dicts, lookupWord);
+        
+        if (result.hasNext()) {
+            return result;
+        } else {
+            throw new ArticleNotFound(lookupWord);
+        }
+    }

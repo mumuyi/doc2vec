@@ -1,0 +1,5 @@
+public String getImageUrl() {
+		if (imageUrl == null)
+			return "";
+		return imageUrl;
+	}

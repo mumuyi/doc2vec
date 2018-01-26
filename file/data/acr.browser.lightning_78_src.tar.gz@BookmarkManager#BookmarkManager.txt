@@ -1,0 +1,4 @@
+private BookmarkManager(Context context) {
+		mContext = context;
+		mBookmarkMap = getBookmarkUrls();
+	}

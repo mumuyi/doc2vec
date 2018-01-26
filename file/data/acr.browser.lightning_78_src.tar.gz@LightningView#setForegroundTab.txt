@@ -1,0 +1,4 @@
+public void setForegroundTab(boolean isForeground) {
+		isForegroundTab = isForeground;
+		mBrowserController.update();
+	}

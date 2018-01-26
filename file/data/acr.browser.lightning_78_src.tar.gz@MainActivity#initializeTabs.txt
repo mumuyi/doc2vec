@@ -1,0 +1,5 @@
+@Override
+	public synchronized void initializeTabs() {
+		restoreOrNewTab();
+		// if incognito mode use newTab(null, true); instead
+	}

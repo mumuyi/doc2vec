@@ -1,0 +1,3 @@
+public void setFullScreenEnabled(boolean enable) {
+		putBoolean(Name.FULL_SCREEN, enable);
+	}

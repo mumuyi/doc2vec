@@ -1,0 +1,10 @@
+@Override
+	public void updateCookiePreference() {
+		mCookieManager = CookieManager.getInstance();
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+			CookieSyncManager.createInstance(this);
+		}
+		mCookieManager
+				.setAcceptCookie(PreferenceManager.getInstance().getIncognitoCookiesEnabled());
+		super.updateCookiePreference();
+	}

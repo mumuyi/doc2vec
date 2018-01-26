@@ -1,0 +1,3 @@
+public void setPreferred(String volumeId) {
+        library.makeFirst(volumeId);
+    }

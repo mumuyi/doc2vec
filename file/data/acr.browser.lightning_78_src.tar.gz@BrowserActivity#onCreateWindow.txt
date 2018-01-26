@@ -1,0 +1,14 @@
+@Override
+	/**
+	 * handles javascript requests to create a new window in the browser
+	 */
+	public void onCreateWindow(boolean isUserGesture, Message resultMsg) {
+		if (resultMsg == null) {
+			return;
+		}
+		if (newTab("", true)) {
+			WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+			transport.setWebView(mCurrentView.getWebView());
+			resultMsg.sendToTarget();
+		}
+	}

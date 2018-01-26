@@ -1,0 +1,14 @@
+@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (mTitleText.isEmpty() || mBodyText.isEmpty()) {
+				setText(getString(R.string.untitled), getString(R.string.loading_failed));
+			} else {
+				StringBuilder builder = new StringBuilder();
+				for (String text : mBodyText) {
+					builder.append(text).append("\n\n");
+				}
+				setText(mTitleText, builder.toString());
+			}
+			super.onPostExecute(result);
+		}

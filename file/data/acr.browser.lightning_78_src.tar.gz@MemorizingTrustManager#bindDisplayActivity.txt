@@ -1,0 +1,15 @@
+/**
+	 * Binds an Activity to the MTM for displaying the query dialog.
+	 *
+	 * This is useful if your connection is run from a service that is
+	 * triggered by user interaction -- in such cases the activity is
+	 * visible and the user tends to ignore the service notification.
+	 *
+	 * You should never have a hidden activity bound to MTM! Use this
+	 * function in onResume() and @see unbindDisplayActivity in onPause().
+	 *
+	 * @param act Activity to be bound
+	 */
+	public void bindDisplayActivity(Activity act) {
+		foregroundAct = act;
+	}

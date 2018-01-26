@@ -1,0 +1,3 @@
+public boolean getDefaultBookmarks() {
+		return mPrefs.getBoolean(Name.DEFAULT_BOOKMARKS, true);
+	}

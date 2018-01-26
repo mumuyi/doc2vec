@@ -1,0 +1,24 @@
+private void showCloseDialog(final int position) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(mActivity,
+				android.R.layout.simple_dropdown_item_1line);
+		adapter.add(mActivity.getString(R.string.close_tab));
+		adapter.add(mActivity.getString(R.string.close_all_tabs));
+		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+					case 0:
+						deleteTab(position);
+						break;
+					case 1:
+						closeBrowser();
+						break;
+					default:
+						break;
+				}
+			}
+		});
+		builder.show();
+	}

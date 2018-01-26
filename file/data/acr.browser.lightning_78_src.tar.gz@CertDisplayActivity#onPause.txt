@@ -1,0 +1,7 @@
+@Override
+    protected void onPause() {
+        super.onPause();
+
+        if (ad != null)
+            ad.cancel();
+    }

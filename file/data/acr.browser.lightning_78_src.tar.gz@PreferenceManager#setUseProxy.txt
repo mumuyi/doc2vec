@@ -1,0 +1,3 @@
+public void setUseProxy(boolean enable) {
+		putBoolean(Name.USE_PROXY, enable);
+	}

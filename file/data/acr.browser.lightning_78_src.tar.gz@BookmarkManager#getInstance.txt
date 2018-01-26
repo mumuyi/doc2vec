@@ -1,0 +1,6 @@
+public static BookmarkManager getInstance(Context context) {
+		if (mInstance == null) {
+			mInstance = new BookmarkManager(context);
+		}
+		return mInstance;
+	}

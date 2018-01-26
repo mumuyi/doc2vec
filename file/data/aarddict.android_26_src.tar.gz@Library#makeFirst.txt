@@ -1,0 +1,8 @@
+public void makeFirst(String volumeId) {
+        Volume d = getVolume(volumeId);
+        if (d != null) {
+            Comparator<Volume> c = new PreferredDictionaryComparator(
+                    d.getDictionaryId());
+            Collections.sort(this, c);
+        }
+    }

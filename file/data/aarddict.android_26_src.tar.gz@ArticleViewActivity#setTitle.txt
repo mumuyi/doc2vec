@@ -1,0 +1,15 @@
+private void setTitle(HistoryItem item) {
+        StringBuilder title = new StringBuilder();
+        boolean hasNextArticle = false;
+        if (item.entries.size() > 1) {
+            title.append(item.entryIndex + 1).append("/")
+                    .append(item.entries.size()).append(" ");
+            hasNextArticle = item.hasNext();
+        }
+        if (miNextArticle != null) {
+            miNextArticle.setVisible(hasNextArticle);
+        }
+        Entry entry = item.current();
+        title.append(entry.title);
+        setTitle(title, dictionaryService.getDisplayTitle(entry.volumeId));
+    }

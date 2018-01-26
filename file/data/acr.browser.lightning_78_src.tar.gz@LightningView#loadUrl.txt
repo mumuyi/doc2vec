@@ -1,0 +1,5 @@
+public synchronized void loadUrl(String url) {
+		if (mWebView != null) {
+			mWebView.loadUrl(url);
+		}
+	}

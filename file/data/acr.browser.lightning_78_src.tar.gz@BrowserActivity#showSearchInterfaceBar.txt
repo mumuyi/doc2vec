@@ -1,0 +1,19 @@
+private void showSearchInterfaceBar(String text) {
+		if (mCurrentView != null) {
+			mCurrentView.find(text);
+		}
+		mSearchBar = (RelativeLayout) findViewById(R.id.search_bar);
+		mSearchBar.setVisibility(View.VISIBLE);
+
+		TextView tw = (TextView) findViewById(R.id.search_query);
+		tw.setText("'" + text + "'");
+
+		ImageButton up = (ImageButton) findViewById(R.id.button_next);
+		up.setOnClickListener(this);
+
+		ImageButton down = (ImageButton) findViewById(R.id.button_back);
+		down.setOnClickListener(this);
+
+		ImageButton quit = (ImageButton) findViewById(R.id.button_quit);
+		quit.setOnClickListener(this);
+	}

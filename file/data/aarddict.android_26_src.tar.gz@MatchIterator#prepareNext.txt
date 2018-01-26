@@ -1,0 +1,21 @@
+private void prepareNext() {
+        if (!iterators.isEmpty()) {
+            Iterator<Entry> i = iterators.get(0);
+            if (i.hasNext() && currentVolCount <= MAX_FROM_VOL) {
+                next = i.next();
+                if (!seen.contains(next)) {
+                    seen.add(next);
+                    currentVolCount++;
+                } else {
+                    next = null;
+                    prepareNext();
+                }
+            } else {
+                currentVolCount = 0;
+                iterators.remove(0);
+                prepareNext();
+            }
+        } else {
+            next = null;
+        }
+    }

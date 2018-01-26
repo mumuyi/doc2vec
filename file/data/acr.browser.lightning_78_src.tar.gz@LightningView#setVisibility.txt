@@ -1,0 +1,5 @@
+public void setVisibility(int visible) {
+		if (mWebView != null) {
+			mWebView.setVisibility(visible);
+		}
+	}

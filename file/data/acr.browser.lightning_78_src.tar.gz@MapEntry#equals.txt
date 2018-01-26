@@ -1,0 +1,12 @@
+@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final MapEntry<K, V> other = (MapEntry<K, V>) obj;
+		if (this.key != other.key && (this.key == null || !this.key.equals(other.key)))
+			return false;
+		return !(this.value != other.value && (this.value == null || !this.value
+				.equals(other.value)));
+	}

@@ -1,0 +1,3 @@
+public boolean canGoForward() {
+		return mWebView != null && mWebView.canGoForward();
+	}

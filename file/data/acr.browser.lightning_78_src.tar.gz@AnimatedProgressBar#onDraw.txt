@@ -1,0 +1,7 @@
+@Override
+    protected void onDraw(Canvas canvas) {
+        mPaint.setColor(mProgressColor);
+        mPaint.setStrokeWidth(10);
+        mRect.right = mRect.left + mDrawWidth;
+        canvas.drawRect(mRect, mPaint);
+    }

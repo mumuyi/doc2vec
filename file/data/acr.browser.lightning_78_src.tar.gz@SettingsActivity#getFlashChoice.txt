@@ -1,0 +1,30 @@
+private void getFlashChoice() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+		builder.setTitle(mContext.getResources().getString(R.string.title_flash));
+		builder.setMessage(getResources().getString(R.string.flash))
+				.setCancelable(true)
+				.setPositiveButton(getResources().getString(R.string.action_manual),
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int id) {
+								mPreferences.setFlashSupport(1);
+							}
+						})
+				.setNegativeButton(getResources().getString(R.string.action_auto),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								mPreferences.setFlashSupport(2);
+							}
+						}).setOnCancelListener(new OnCancelListener() {
+
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						mPreferences.setFlashSupport(0);
+					}
+
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}

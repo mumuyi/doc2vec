@@ -1,0 +1,3 @@
+public boolean getSystemBrowserPresent() {
+		return mPrefs.getBoolean(Name.SYSTEM_BROWSER_PRESENT, false);
+	}

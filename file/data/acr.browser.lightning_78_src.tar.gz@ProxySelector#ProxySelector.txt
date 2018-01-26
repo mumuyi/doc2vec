@@ -1,0 +1,8 @@
+public ProxySelector ()
+	{
+		super ();
+		
+		listProxies = new ArrayList<Proxy>();
+		
+		
+	}

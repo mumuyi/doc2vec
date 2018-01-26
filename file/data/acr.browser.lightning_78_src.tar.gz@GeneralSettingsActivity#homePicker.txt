@@ -1,0 +1,23 @@
+public void homePicker() {
+		final AlertDialog.Builder homePicker = new AlertDialog.Builder(mActivity);
+		homePicker.setTitle(getResources().getString(R.string.title_custom_homepage));
+		final EditText getHome = new EditText(this);
+		mHomepage = mPreferences.getHomepage();
+		if (!mHomepage.startsWith("about:")) {
+			getHome.setText(mHomepage);
+		} else {
+			getHome.setText("http://www.google.com");
+		}
+		homePicker.setView(getHome);
+		homePicker.setPositiveButton(getResources().getString(R.string.action_ok),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String text = getHome.getText().toString();
+						mPreferences.setHomepage(text);
+						mHomepageText.setText(text);
+					}
+				});
+		homePicker.show();
+	}

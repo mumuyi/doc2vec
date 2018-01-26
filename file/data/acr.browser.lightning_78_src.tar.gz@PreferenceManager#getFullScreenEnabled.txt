@@ -1,0 +1,3 @@
+public boolean getFullScreenEnabled() {
+		return mPrefs.getBoolean(Name.FULL_SCREEN, false);
+	}

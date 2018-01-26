@@ -1,0 +1,3 @@
+public String getUserAgentString(String def) {
+		return mPrefs.getString(Name.USER_AGENT_STRING, def);
+	}

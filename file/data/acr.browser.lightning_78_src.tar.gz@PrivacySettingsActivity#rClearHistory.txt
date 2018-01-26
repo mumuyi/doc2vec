@@ -1,0 +1,39 @@
+private void rClearHistory(RelativeLayout view) {
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(PrivacySettingsActivity.this); // dialog
+				builder.setTitle(getResources().getString(R.string.title_clear_history));
+				builder.setMessage(getResources().getString(R.string.dialog_history))
+						.setPositiveButton(getResources().getString(R.string.action_yes),
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface arg0, int arg1) {
+										Thread clear = new Thread(new Runnable() {
+
+											@Override
+											public void run() {
+												clearHistory();
+											}
+
+										});
+										clear.start();
+									}
+
+								})
+						.setNegativeButton(getResources().getString(R.string.action_no),
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface arg0, int arg1) {
+										// TODO Auto-generated method stub
+
+									}
+
+								}).show();
+			}
+
+		});
+	}

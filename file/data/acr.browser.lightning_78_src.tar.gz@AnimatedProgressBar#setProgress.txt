@@ -1,0 +1,42 @@
+/**
+     * sets the progress as an integer value between 0 and 100.
+     * Values above or below that interval will be adjusted to their
+     * nearest value within the interval, i.e. setting a value of 150 will have
+     * the effect of setting the progress to 100. You cannot trick us.
+     *
+     * @param progress an integer between 0 and 100
+     */
+    public void setProgress(int progress) {
+
+        if (progress > 100) {       // progress cannot be greater than 100
+            progress = 100;
+        } else if (progress < 0) {  // progress cannot be less than 0
+            progress = 0;
+        }
+
+        if (this.getAlpha() < 1.0f) {
+            fadeIn();
+        }
+
+        int mWidth = this.getMeasuredWidth();
+        // Set the drawing bounds for the ProgressBar
+        mRect.left = 0;
+        mRect.top = 0;
+        mRect.bottom = this.getBottom() - this.getTop();
+        if (progress < mProgress && !mBidirectionalAnimate) {   // if the we only animate the view in one direction
+            // then reset the view width if it is less than the
+            // previous progress
+            mDrawWidth = 0;
+        } else if (progress == mProgress) {     // we don't need to go any farther if the progress is unchanged
+        	if (progress == 100) {
+        		fadeOut();
+        	}
+            return;
+        }
+
+        mProgress = progress;       // save the progress
+
+        final int deltaWidth = (mWidth * mProgress / 100) - mDrawWidth;     // calculate amount the width has to change
+
+        animateView(mDrawWidth, mWidth, deltaWidth);    // animate the width change
+    }

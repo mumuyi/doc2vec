@@ -1,0 +1,23 @@
+private void setText(String title, String body) {
+		if (mTitle.getVisibility() == View.INVISIBLE) {
+			mTitle.setAlpha(0.0f);
+			mTitle.setVisibility(View.VISIBLE);
+			mTitle.setText(title);
+			ObjectAnimator animator = ObjectAnimator.ofFloat(mTitle, "alpha", 1.0f);
+			animator.setDuration(300);
+			animator.start();
+		} else {
+			mTitle.setText(title);
+		}
+
+		if (mBody.getVisibility() == View.INVISIBLE) {
+			mBody.setAlpha(0.0f);
+			mBody.setVisibility(View.VISIBLE);
+			mBody.setText(body);
+			ObjectAnimator animator = ObjectAnimator.ofFloat(mBody, "alpha", 1.0f);
+			animator.setDuration(300);
+			animator.start();
+		} else {
+			mBody.setText(body);
+		}
+	}

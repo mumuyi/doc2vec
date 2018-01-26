@@ -1,0 +1,3 @@
+private void putString(String name, String value) {
+		mPrefs.edit().putString(name, value).apply();
+	}

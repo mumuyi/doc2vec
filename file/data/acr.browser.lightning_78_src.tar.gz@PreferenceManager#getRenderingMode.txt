@@ -1,0 +1,3 @@
+public int getRenderingMode() {
+		return mPrefs.getInt(Name.RENDERING_MODE, 0);
+	}

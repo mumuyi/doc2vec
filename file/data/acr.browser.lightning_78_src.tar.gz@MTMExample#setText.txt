@@ -1,0 +1,10 @@
+/** Updates the screen content from a background thread. */
+	void setText(final String s, final boolean progress) {
+		text = s;
+		hdlr.post(new Runnable() {
+			public void run() {
+				content.setText(s);
+				setProgressBarIndeterminateVisibility(progress);
+			}
+		});
+	}

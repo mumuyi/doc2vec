@@ -1,0 +1,6 @@
+public SocksProxyClientConnOperator(SchemeRegistry registry, String proxyHost, int proxyPort) {
+        super(registry);
+        
+        mProxyHost = proxyHost;
+        mProxyPort = proxyPort;
+    }

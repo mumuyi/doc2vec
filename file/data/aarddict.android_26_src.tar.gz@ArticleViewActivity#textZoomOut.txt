@@ -1,0 +1,11 @@
+@TargetApi(android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    private boolean textZoomOut() {
+        int newZoom = articleView.getSettings().getTextZoom() - 20;
+        if (newZoom >= 40) {
+            articleView.getSettings().setTextZoom(newZoom);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }

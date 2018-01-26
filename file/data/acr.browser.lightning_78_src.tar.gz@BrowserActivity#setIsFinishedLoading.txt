@@ -1,0 +1,10 @@
+/**
+	 * This tells the search bar that the page is finished loading and it should
+	 * display the refresh icon
+	 */
+	public void setIsFinishedLoading() {
+		if (!mSearch.hasFocus()) {
+			mIcon = mRefreshIcon;
+			mSearch.setCompoundDrawables(null, null, mRefreshIcon, null);
+		}
+	}

@@ -1,0 +1,6 @@
+public boolean isOrbotRunning()
+    {
+        int procId = TorServiceUtils.findProcessId(TOR_BIN_PATH);
+
+        return (procId != -1);
+    }

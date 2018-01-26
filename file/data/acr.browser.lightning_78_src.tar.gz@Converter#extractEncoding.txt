@@ -1,0 +1,22 @@
+public static String extractEncoding(String contentType) {
+		String[] values;
+		if (contentType != null)
+			values = contentType.split(";");
+		else
+			values = new String[0];
+
+		String charset = "";
+
+		for (String value : values) {
+			value = value.trim().toLowerCase(Locale.getDefault());
+
+			if (value.startsWith("charset="))
+				charset = value.substring("charset=".length());
+		}
+
+		// http1.1 says ISO-8859-1 is the default charset
+		if (charset.length() == 0)
+			charset = ISO;
+
+		return charset;
+	}

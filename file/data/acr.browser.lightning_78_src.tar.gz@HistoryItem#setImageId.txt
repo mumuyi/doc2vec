@@ -1,0 +1,3 @@
+public void setImageId(int id) {
+		this.mImageId = id;
+	}

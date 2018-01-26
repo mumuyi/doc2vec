@@ -1,0 +1,3 @@
+public void setSystemBrowserPresent(boolean available) {
+		putBoolean(Name.SYSTEM_BROWSER_PRESENT, available);
+	}

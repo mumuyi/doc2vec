@@ -1,0 +1,3 @@
+public void setProxy(Proxy proxy) {
+		mProxy = proxy;
+	}

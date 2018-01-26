@@ -1,0 +1,25 @@
+public boolean getSystemBrowser() {
+		Cursor c = null;
+		String[] columns = new String[] { "url", "title" };
+		boolean browserFlag;
+		try {
+
+			Uri bookmarks = Browser.BOOKMARKS_URI;
+			c = getContentResolver().query(bookmarks, columns, null, null, null);
+		} catch (SQLiteException | IllegalStateException | NullPointerException e) {
+			e.printStackTrace();
+		}
+
+		if (c != null) {
+			Log.d("Browser", "System Browser Available");
+			browserFlag = true;
+		} else {
+			Log.e("Browser", "System Browser Unavailable");
+			browserFlag = false;
+		}
+		if (c != null) {
+			c.close();
+		}
+		mPreferences.setSystemBrowserPresent(browserFlag);
+		return browserFlag;
+	}

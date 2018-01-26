@@ -1,0 +1,3 @@
+public void setSelfSignedAllowed(boolean mSelfSignedAllowed) {
+        this.mSelfSignedAllowed = mSelfSignedAllowed;
+    }

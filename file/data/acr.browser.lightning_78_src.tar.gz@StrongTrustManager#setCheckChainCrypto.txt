@@ -1,0 +1,3 @@
+public void setCheckChainCrypto(boolean mCheckChainCrypto) {
+        this.mCheckChainCrypto = mCheckChainCrypto;
+    }

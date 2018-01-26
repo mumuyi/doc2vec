@@ -1,0 +1,18 @@
+@Override
+        public void onDestroy() {
+                super.onDestroy();
+                unregisterReceiver(broadcastReceiver);
+        for (Volume d : library) {
+            try {
+                d.close();
+            }
+            catch (IOException e) {
+                Log.e(TAG, "Failed to close " + d, e);
+            }
+        }
+        library.clear();
+        for (DeleteObserver observer : deleteObservers.values()) {
+            observer.stopWatching();
+        }
+        Log.i(TAG, "destroyed");
+        }

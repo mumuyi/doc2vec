@@ -1,0 +1,7 @@
+@Override
+	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			showCloseDialog(mDrawerListLeft.getCheckedItemPosition());
+		}
+		return true;
+	}

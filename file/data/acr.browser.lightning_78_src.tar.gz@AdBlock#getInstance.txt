@@ -1,0 +1,6 @@
+public static AdBlock getInstance(Context context) {
+		if (mInstance == null) {
+			mInstance = new AdBlock(context);
+		}
+		return mInstance;
+	}

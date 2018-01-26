@@ -1,0 +1,3 @@
+public Proxy getProxy() {
+		return mProxy;
+	}

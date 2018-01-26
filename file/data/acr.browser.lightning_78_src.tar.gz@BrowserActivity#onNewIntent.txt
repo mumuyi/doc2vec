@@ -1,0 +1,7 @@
+/**
+	 * creates a new tab with the passed in URL if it isn't null
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+	}

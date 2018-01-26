@@ -1,0 +1,3 @@
+public void setSearchChoice(int choice) {
+		putInt(Name.SEARCH, choice);
+	}

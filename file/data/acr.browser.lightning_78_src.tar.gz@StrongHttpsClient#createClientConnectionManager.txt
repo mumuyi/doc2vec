@@ -1,0 +1,34 @@
+@Override
+    protected ThreadSafeClientConnManager createClientConnectionManager() {
+
+        if (proxyHost == null && proxyType == null)
+        {
+            Log.d("StrongHTTPS", "not proxying");
+
+            return new MyThreadSafeClientConnManager(getParams(), mRegistry);
+
+        }
+        else if (proxyHost != null && proxyType.equalsIgnoreCase("socks"))
+        {
+            Log.d("StrongHTTPS", "proxying using: " + proxyType);
+
+            return new MyThreadSafeClientConnManager(getParams(), mRegistry)
+            {
+
+                @Override
+                protected ClientConnectionOperator createConnectionOperator(
+                        SchemeRegistry schreg) {
+
+                    return new SocksProxyClientConnOperator(schreg, proxyHost.getHostName(),
+                            proxyHost.getPort());
+                }
+
+            };
+        }
+        else
+        {
+            Log.d("StrongHTTPS", "proxying with: " + proxyType);
+
+            return new MyThreadSafeClientConnManager(getParams(), mRegistry);
+        }
+    }

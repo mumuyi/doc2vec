@@ -1,0 +1,5 @@
+public synchronized void goBack() {
+		if (mWebView != null) {
+			mWebView.goBack();
+		}
+	}

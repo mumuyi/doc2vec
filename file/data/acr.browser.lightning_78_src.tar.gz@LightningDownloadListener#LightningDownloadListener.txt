@@ -1,0 +1,3 @@
+public LightningDownloadListener(Activity activity) {
+		mActivity = activity;
+	}

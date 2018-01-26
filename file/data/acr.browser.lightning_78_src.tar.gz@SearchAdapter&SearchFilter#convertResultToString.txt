@@ -1,0 +1,4 @@
+@Override
+		public CharSequence convertResultToString(Object resultValue) {
+			return ((HistoryItem) resultValue).getUrl();
+		}

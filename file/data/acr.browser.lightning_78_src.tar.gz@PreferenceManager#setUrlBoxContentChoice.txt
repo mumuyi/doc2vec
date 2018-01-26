@@ -1,0 +1,3 @@
+public void setUrlBoxContentChoice(int choice) {
+		putInt(Name.URL_BOX_CONTENTS, choice);
+	}

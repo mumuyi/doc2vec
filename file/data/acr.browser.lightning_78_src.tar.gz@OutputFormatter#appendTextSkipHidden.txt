@@ -1,0 +1,18 @@
+void appendTextSkipHidden(Element e, StringBuilder accum) {
+		for (Node child : e.childNodes()) {
+			if (unlikely(child))
+				continue;
+			if (child instanceof TextNode) {
+				TextNode textNode = (TextNode) child;
+				String txt = textNode.text();
+				accum.append(txt);
+			} else if (child instanceof Element) {
+				Element element = (Element) child;
+				if (accum.length() > 0 && element.isBlock() && !lastCharIsWhitespace(accum))
+					accum.append(" ");
+				else if (element.tagName().equals("br"))
+					accum.append(" ");
+				appendTextSkipHidden(element, accum);
+			}
+		}
+	}

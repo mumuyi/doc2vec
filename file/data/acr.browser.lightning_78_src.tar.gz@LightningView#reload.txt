@@ -1,0 +1,5 @@
+public synchronized void reload() {
+		if (mWebView != null) {
+			mWebView.reload();
+		}
+	}
