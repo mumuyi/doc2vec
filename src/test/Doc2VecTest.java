@@ -44,11 +44,11 @@ public class Doc2VecTest {
 
 		Map<Integer, float[]> doc_vec = learn_doc.getDocVector();
 
-		StringBuilder sb = new StringBuilder("7037 200\n");
+		StringBuilder sb = new StringBuilder("");
 
 		for (int doc_no : doc_vec.keySet()) {
 
-			StringBuilder doc = new StringBuilder("sent_" + doc_no + " ");
+			StringBuilder doc = new StringBuilder("");
 
 			float[] vector = doc_vec.get(doc_no);
 
