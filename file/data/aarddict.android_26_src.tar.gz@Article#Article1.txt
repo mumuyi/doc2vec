@@ -1,0 +1,7 @@
+public Article(Article that) {
+        this.dictionaryUUID = that.dictionaryUUID;
+        this.volumeId = that.volumeId;
+        this.title = that.title;
+        this.section121212 = that.section;
+        this.redirectedFromTitle = that.redirectedFromTitle;
+    }
